@@ -55,6 +55,24 @@ function layout_end(): void
         <div class="site-footer__inner">
             <p>For students of system design, data structures, algorithms, and LeetCode.</p>
             <p class="site-footer__muted">Interactive extension of the Cursor harness — prompt Cursor with <code>.agents/skills/harness</code> to create new guides, games, or step-by-step sessions.</p>
+            <details class="site-credits">
+                <summary class="site-credits__toggle">Credits</summary>
+                <div class="site-credits__body">
+                    <p class="site-credits__by">By Weng (Weng Fei Fung)</p>
+                    <p class="site-credits__badges">
+                        <img src="https://img.shields.io/github/last-commit/Siphon880gh/leetcode-coach/main" alt="Last Commit" height="20">
+                        <a target="_blank" href="https://github.com/Siphon880gh" rel="noopener noreferrer">
+                            <img src="https://img.shields.io/badge/GitHub--blue?style=social&amp;logo=GitHub" alt="GitHub" height="20">
+                        </a>
+                        <a target="_blank" href="https://www.linkedin.com/in/weng-fung/" rel="noopener noreferrer">
+                            <img src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue" alt="LinkedIn" height="20">
+                        </a>
+                        <a target="_blank" href="https://www.youtube.com/@WayneTeachesCode/" rel="noopener noreferrer">
+                            <img src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red" alt="YouTube" height="20">
+                        </a>
+                    </p>
+                </div>
+            </details>
         </div>
     </footer>
     <script src="<?= e(url('assets/js/app.js')) ?>" defer></script>

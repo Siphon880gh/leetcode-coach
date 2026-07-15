@@ -169,6 +169,54 @@ code {
   font-size: 0.95rem;
 }
 
+.site-credits {
+  margin-top: var(--space-3);
+}
+
+.site-credits__toggle {
+  cursor: pointer;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  list-style: none;
+}
+
+.site-credits__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.site-credits__toggle::before {
+  content: '▸ ';
+}
+
+.site-credits[open] > .site-credits__toggle::before {
+  content: '▾ ';
+}
+
+.site-credits__body {
+  margin-top: var(--space-2);
+}
+
+.site-credits__by {
+  margin: 0 0 var(--space-2);
+  font-size: 0.95rem;
+}
+
+.site-credits__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.site-credits__badges a {
+  line-height: 0;
+}
+
+.site-credits__badges img {
+  vertical-align: middle;
+}
+
 /* Hub */
 .hero {
   min-height: calc(100vh - 5.5rem);
