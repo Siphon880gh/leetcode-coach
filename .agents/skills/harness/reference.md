@@ -4,12 +4,13 @@
 
 ```
 content/
-  guides/{slug}/meta.php + body.php
+  guides/{slug}/meta.php + body.md   # prefer body.md; legacy body.php still works
   games/{slug}/meta.php + index.html
   coaching/{slug}/meta.php + tree.php
 ```
 
 Lists are built by scanning those directories for `meta.php` (`includes/content.php`).
+Guide Markdown is rendered by `includes/guide_md.php` (including `[!ui-builder]` widgets).
 
 ## meta.php (all types)
 
@@ -20,12 +21,40 @@ declare(strict_types=1);
 return [
     'title' => 'Human title',
     'summary' => 'One sentence for the list card.',
-    'topic' => 'LeetCode · Arrays', // or System Design / Algo · Complexity
+    'topic' => 'LeetCode · Arrays', // or System Design / Algo · Complexity / Harness · Cursor
     'tags' => ['arrays', 'O(n)'],
     // games only:
     // 'entry' => 'index.html',
 ];
 ```
+
+## Guide body.md + `[!ui-builder]`
+
+```markdown
+Intro paragraph in Markdown.
+
+## Section
+
+- Bullet
+- Another
+
+> [!ui-builder] Build
+> INPUT_TOPIC: Theory or problem
+> INPUT_SLUG: Folder slug (kebab-case)
+> PROMPT:
+> Use the harness skill at .agents/skills/harness to create a mini-game
+> that teaches [INPUT_TOPIC] under content/games/[INPUT_SLUG]/.
+```
+
+| Piece | Meaning |
+|-------|---------|
+| `[!ui-builder]` | Renders the AI prompt builder widget |
+| Optional title after the tag | Shown as a small widget title (e.g. `Build`) |
+| `INPUT_NAME: Label` | Text field; key must be `INPUT_[A-Z0-9_]+` |
+| `PROMPT:` | Template lines that follow |
+| `[INPUT_NAME]` in prompt | Replaced by field value, or `___` if empty |
+
+Viewer: fill fields → live **Prompt preview** → **Copy prompt** → paste into Cursor / Claude Code / etc.
 
 ## tree.php node fields
 
@@ -40,12 +69,12 @@ History: each choice POSTs `from_node` onto a stack; **Step back** pops or jumps
 
 ## Student prompt templates
 
-Copy into guide bodies or the hub. Always mention `.agents/skills/harness`.
+Copy into guide `[!ui-builder]` PROMPT bodies or the hub. Always mention `.agents/skills/harness`.
 
 ### Create a guide
 
 ```
-Use the harness skill at .agents/skills/harness to create a Cursor AI Guide in this Algo Learning IDE app for [TOPIC / PROBLEM]. Put it under content/guides/[slug]/ include complexity notes and copyable prompts to create a related mini-game and coaching session.
+Use the harness skill at .agents/skills/harness to create a Cursor AI Guide in this Algo Learning IDE app for [TOPIC / PROBLEM]. Put it under content/guides/[slug]/ use meta.php + body.md; include complexity notes and an [!ui-builder] prompt to create a related mini-game and/or coaching session.
 ```
 
 ### Create a mini-game
@@ -64,7 +93,8 @@ Use the harness skill at .agents/skills/harness to create a coaching session for
 
 | Type | Slug |
 |------|------|
-| Guide | `two-sum` |
+| Guide (PHP body, legacy) | `two-sum` |
+| Guide (Markdown + ui-builder) | `add-mini-game` |
 | Mini game | `two-sum-pointers` |
 | Coaching | `two-sum` |
 

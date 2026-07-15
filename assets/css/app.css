@@ -432,6 +432,90 @@ code {
   text-decoration: none;
 }
 
+/* AI prompt builder ([!ui-builder] in guide body.md) */
+.ui-builder {
+  margin: var(--space-4) 0;
+  padding: var(--space-3);
+  background: #fff;
+  border: 1px solid #d8dde3;
+  border-radius: 6px;
+  max-width: 100%;
+}
+
+.ui-builder__title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 var(--space-3);
+}
+
+.ui-builder__field {
+  margin-bottom: var(--space-3);
+}
+
+.ui-builder__label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  margin: 0 0 var(--space-1);
+}
+
+.ui-builder__input {
+  display: block;
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #cfd6de;
+  border-radius: 4px;
+  padding: 0.65rem 0.75rem;
+}
+
+.ui-builder__input:focus {
+  outline: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.ui-builder__preview-wrap {
+  margin-bottom: var(--space-3);
+}
+
+.ui-builder__preview {
+  margin: 0;
+  min-height: 8rem;
+  padding: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: #fafbfc;
+  border: 1px solid #cfd6de;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ui-builder__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.ui-builder__hint {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+
+.guide-body .ui-builder {
+  max-width: 36rem;
+}
+
 /* Game embed */
 .game-frame-wrap {
   border: 1px solid var(--panel-edge);

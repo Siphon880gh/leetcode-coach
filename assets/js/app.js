@@ -17,6 +17,14 @@
     return Promise.resolve();
   }
 
+  function flashCopied(btn) {
+    var prev = btn.textContent;
+    btn.textContent = 'Copied';
+    setTimeout(function () {
+      btn.textContent = prev;
+    }, 1600);
+  }
+
   document.querySelectorAll('[data-copy-target]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var sel = btn.getAttribute('data-copy-target');
@@ -24,13 +32,67 @@
       if (!el) return;
       var text = el.textContent || '';
       copyText(text.trim()).then(function () {
-        var prev = btn.textContent;
-        btn.textContent = 'Copied';
-        setTimeout(function () {
-          btn.textContent = prev;
-        }, 1600);
+        flashCopied(btn);
       });
     });
+  });
+
+  function fillPromptTemplate(template, values) {
+    var out = template;
+    Object.keys(values).forEach(function (key) {
+      var raw = values[key];
+      var filled = raw && String(raw).trim() !== '' ? String(raw).trim() : '___';
+      out = out.split('[' + key + ']').join(filled);
+    });
+    return out;
+  }
+
+  document.querySelectorAll('[data-ui-builder]').forEach(function (root) {
+    var template = '';
+    var keys = [];
+    try {
+      template = JSON.parse(root.getAttribute('data-prompt') || '""');
+    } catch (e) {
+      template = '';
+    }
+    try {
+      keys = JSON.parse(root.getAttribute('data-keys') || '[]');
+    } catch (e2) {
+      keys = [];
+    }
+    var preview = root.querySelector('[data-ui-builder-preview]');
+    var inputs = root.querySelectorAll('[data-ui-builder-key]');
+
+    function refresh() {
+      var values = {};
+      keys.forEach(function (key) {
+        values[key] = '';
+      });
+      inputs.forEach(function (input) {
+        var key = input.getAttribute('data-ui-builder-key');
+        if (key) values[key] = input.value || '';
+      });
+      if (preview) {
+        preview.textContent = fillPromptTemplate(template, values);
+      }
+    }
+
+    inputs.forEach(function (input) {
+      input.addEventListener('input', refresh);
+    });
+    refresh();
+
+    var copyBtn = root.querySelector('[data-ui-builder-copy]');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        var fromSel = copyBtn.getAttribute('data-copy-from');
+        var el = fromSel ? root.querySelector(fromSel) || document.querySelector(fromSel) : preview;
+        if (!el) return;
+        copyText((el.textContent || '').trim()).then(function () {
+          flashCopied(copyBtn);
+        });
+      });
+    }
   });
 
   // Coaching: client history for step-back when using choice links with data attributes

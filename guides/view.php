@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/layout.php';
+require_once dirname(__DIR__) . '/includes/guide_md.php';
 
 $slug = isset($_GET['id']) ? (string) $_GET['id'] : '';
 $item = load_content('guides', $slug);
@@ -16,7 +17,8 @@ if ($item === null) {
 }
 
 $meta = $item['meta'];
-$bodyPath = $item['path'] . '/body.php';
+$mdPath = $item['path'] . '/body.md';
+$phpPath = $item['path'] . '/body.php';
 
 layout_start([
     'title' => (string) ($meta['title'] ?? $slug),
@@ -35,10 +37,17 @@ layout_start([
 
 <article class="guide-body">
 <?php
-if (is_file($bodyPath)) {
-    require $bodyPath;
+if (is_file($mdPath)) {
+    $markdown = file_get_contents($mdPath);
+    if ($markdown === false) {
+        echo '<p class="empty-state">Could not read body.md.</p>';
+    } else {
+        echo render_guide_markdown($markdown);
+    }
+} elseif (is_file($phpPath)) {
+    require $phpPath;
 } else {
-    echo '<p class="empty-state">This guide has no body.php yet.</p>';
+    echo '<p class="empty-state">This guide has no body.md (or body.php) yet.</p>';
 }
 ?>
 </article>

@@ -15,8 +15,8 @@ layout_start([
 <div class="page-head">
     <h1>Cursor AI Guides</h1>
     <p>
-        Lessons meant to be used with the codebase of this app. Each guide ends with a copyable Cursor prompt
-        so you can generate a related mini-game or coaching session via the harness skill.
+        Lessons meant to be used with the codebase of this app. Guides may include an AI prompt builder
+        so you can fill in a topic/slug, copy a Cursor prompt, and generate a related mini-game or coaching session via the harness skill.
     </p>
 </div>
 
