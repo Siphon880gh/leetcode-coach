@@ -7,7 +7,25 @@ By Weng (Weng Fei Fung)
 <a target="_blank" href="https://www.linkedin.com/in/weng-fung/" rel="nofollow"><img src="https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&labelColor=blue" alt="Linked-In" data-canonical-src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue" style="max-width:10ch;"></a>
 <a target="_blank" href="https://www.youtube.com/@WayneTeachesCode/" rel="nofollow"><img src="https://img.shields.io/badge/Youtube-red?style=flat&logo=youtube&labelColor=red" alt="Youtube" data-canonical-src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red" style="max-width:10ch;"></a>
 
-Coaches you on LeetCode problems, system design, algorithms, and data structures using a novel approach that combines your IDE Harness with the app running at localhost as an interactive artifact container.
+Using AI, coaches you on LeetCode problems, system design, algorithms, and data structures using a novel approach that combines your IDE Harness with the app running at localhost as an interactive artifact container.
+
+## Screenshots
+
+Home hub — jump into Algo Guides, Cursor AI Guides, mini games, or step-by-step sessions:
+
+![Home — Algo Learning IDE with UI](docs/screenshots/home.png)
+
+Cursor AI Guides include fillable prompt builders so you can copy a harness prompt into Cursor:
+
+![Cursor AI Guide with prompt builder filled in](docs/screenshots/guide-prompt-builder.png)
+
+Mini games teach one idea interactively (Two Sum complement drill):
+
+![Mini game — Two Sum find the complement](docs/screenshots/mini-game.png)
+
+Step-by-step sessions are choice trees with path history and step-back:
+
+![Step-by-step — Two Sum coaching choices](docs/screenshots/step-by-step.png)
 
 ## How it works
 
