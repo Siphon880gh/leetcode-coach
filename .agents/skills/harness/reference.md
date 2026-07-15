@@ -69,6 +69,8 @@ Viewer: fill fields → live **Prompt preview** → **Copy prompt** → paste in
 
 History: each choice POSTs `from_node` onto a stack; **Step back** pops or jumps to `rewind_to` and truncates history before that node.
 
+**Path visualizer (automatic):** `session.php` renders a collapsible trail from `history` + the current node. For each prior node it shows a short message preview and the **You chose** label resolved by matching `choices[].next` to the next id on the path. Current step is marked **Now**. Do not invent a separate breadcrumbs artifact in `content/coaching/` — keep `choices[].label` human-readable so the visualizer stays useful.
+
 ## Student prompt templates
 
 Copy into guide `[!ui-builder]` PROMPT bodies or the hub. Always mention `.agents/skills/harness`.
@@ -94,7 +96,7 @@ Use the harness skill at .agents/skills/harness to create a mini-game in this Al
 ### Create a step-by-step session
 
 ```
-Use the harness skill at .agents/skills/harness to create a step-by-step session for [TOPIC / PROBLEM] under content/coaching/[slug]/. Include branching choices, at least one wrong-path leaf with rewind_to, and a success leaf. Follow the tree.php contract so Step back works.
+Use the harness skill at .agents/skills/harness to create a step-by-step session for [TOPIC / PROBLEM] under content/coaching/[slug]/. Include branching choices with clear labels (they appear in the Path visualizer), at least one wrong-path leaf with rewind_to, and a success leaf. Follow the tree.php contract so Step back and the automatic Path visualizer work — do not add a separate breadcrumbs file.
 ```
 
 ## Sample artifacts (shipped)

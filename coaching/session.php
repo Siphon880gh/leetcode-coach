@@ -93,6 +93,56 @@ if ($outcome === 'wrong') {
     $messageClass .= ' is-success';
 }
 
+/**
+ * Label of the choice on $fromId that leads to $toId.
+ */
+$coachingChoiceLabel = static function (array $nodes, string $fromId, string $toId): ?string {
+    $from = $nodes[$fromId] ?? null;
+    if (!is_array($from)) {
+        return null;
+    }
+    foreach ($from['choices'] ?? [] as $choice) {
+        if (!is_array($choice)) {
+            continue;
+        }
+        if ((string) ($choice['next'] ?? '') === $toId) {
+            $label = trim((string) ($choice['label'] ?? ''));
+            return $label !== '' ? $label : null;
+        }
+    }
+    return null;
+};
+
+/**
+ * First line of a node message, trimmed for the path visualizer.
+ */
+$coachingMessagePreview = static function (string $text, int $max = 140): string {
+    $line = trim(explode("\n", $text, 2)[0]);
+    if (mb_strlen($line) > $max) {
+        return rtrim(mb_substr($line, 0, $max - 1)) . '…';
+    }
+    return $line;
+};
+
+$pathIds = array_values(array_merge($history, [$nodeId]));
+$pathTrail = [];
+foreach ($pathIds as $i => $id) {
+    $pathNode = isset($nodes[$id]) && is_array($nodes[$id]) ? $nodes[$id] : [];
+    $isCurrent = $i === count($pathIds) - 1;
+    $chosen = null;
+    if (!$isCurrent && isset($pathIds[$i + 1])) {
+        $chosen = $coachingChoiceLabel($nodes, $id, (string) $pathIds[$i + 1]);
+    }
+    $pathTrail[] = [
+        'id' => (string) $id,
+        'preview' => $coachingMessagePreview((string) ($pathNode['message'] ?? '')),
+        'outcome' => (string) ($pathNode['outcome'] ?? 'continue'),
+        'choice' => $chosen,
+        'current' => $isCurrent,
+    ];
+}
+$pathDepth = count($history);
+
 layout_start([
     'title' => (string) ($meta['title'] ?? $slug),
     'description' => (string) ($meta['summary'] ?? ''),
@@ -113,7 +163,55 @@ layout_start([
     data-node="<?= e($nodeId) ?>"
     data-history-key="coaching-<?= e($slug) ?>"
 >
-    <p class="coaching-path">Step: <code><?= e($nodeId) ?></code><?php if ($history !== []): ?> · path depth <?= count($history) ?><?php endif; ?></p>
+    <p class="coaching-path">Step: <code><?= e($nodeId) ?></code><?php if ($pathDepth > 0): ?> · path depth <?= $pathDepth ?><?php endif; ?></p>
+
+    <details class="coaching-visualizer">
+        <summary class="coaching-visualizer__summary">
+            Path visualizer
+            <span class="coaching-visualizer__meta">
+                <?php if ($pathDepth === 0): ?>
+                    start — no choices yet
+                <?php else: ?>
+                    <?= $pathDepth ?> prior step<?= $pathDepth === 1 ? '' : 's' ?> · open to review choices
+                <?php endif; ?>
+            </span>
+        </summary>
+        <ol class="coaching-trail">
+            <?php foreach ($pathTrail as $stepNum => $step): ?>
+                <?php
+                $liClass = 'coaching-trail__step';
+                if ($step['current']) {
+                    $liClass .= ' is-current';
+                }
+                if ($step['outcome'] === 'wrong') {
+                    $liClass .= ' is-wrong';
+                } elseif ($step['outcome'] === 'success') {
+                    $liClass .= ' is-success';
+                }
+                ?>
+                <li class="<?= e($liClass) ?>">
+                    <div class="coaching-trail__head">
+                        <span class="coaching-trail__index"><?= $stepNum + 1 ?></span>
+                        <code class="coaching-trail__id"><?= e($step['id']) ?></code>
+                        <?php if ($step['current']): ?>
+                            <span class="coaching-trail__badge">Now</span>
+                        <?php endif; ?>
+                    </div>
+                    <?php if ($step['preview'] !== ''): ?>
+                        <p class="coaching-trail__preview"><?= e($step['preview']) ?></p>
+                    <?php endif; ?>
+                    <?php if ($step['choice'] !== null): ?>
+                        <p class="coaching-trail__choice">
+                            <span class="coaching-trail__choice-label">You chose</span>
+                            <?= e($step['choice']) ?>
+                        </p>
+                    <?php elseif (!$step['current']): ?>
+                        <p class="coaching-trail__choice coaching-trail__choice--muted">Continued</p>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </details>
 
     <div class="<?= e($messageClass) ?>">
         <?= nl2br(e($message)) ?>

@@ -185,12 +185,14 @@ return [
 **Rules**
 
 - Every `choices[].next` must reference an existing node id
+- Choice `label` strings are what learners see on buttons **and** in the Path visualizer trail — keep them specific and readable
 - At least one `outcome => 'wrong'` leaf with `rewind_to` set to an earlier decision node
 - Prefer a `success` leaf for a correct finish
 - Wrong leaf message must tell the learner they are wrong and when to step back
 - No randomness, no live AI — fixed graph only
+- Path visualizer is app UI only; do not add breadcrumbs files under `content/coaching/`
 
-**UI:** `coaching/session.php?id={slug}` — history stack + Step back (pop or jump to `rewind_to`)
+**UI:** `coaching/session.php?id={slug}` — history stack + Step back (pop or jump to `rewind_to`) + **Path visualizer** (collapsible trail of prior steps and the choice taken at each). Authors do **not** add a separate breadcrumbs file: the visualizer is built from the history stack and each node’s `choices[].label` → `next`. Write clear choice labels so the trail reads well.
 
 ---
 
