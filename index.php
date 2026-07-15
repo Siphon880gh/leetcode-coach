@@ -4,7 +4,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/layout.php';
 
 $examplePrompt = <<<'PROMPT'
-Use the harness skill at .agents/skills/harness to create a coaching session in this Algo Learning IDE app for the Two Sum problem (LeetCode arrays). Follow the content/coaching contract, include at least one wrong-path leaf with rewind, and wire meta.php + tree.php so it appears in Coaching.
+Use the harness skill at .agents/skills/harness to create a step-by-step session in this Algo Learning IDE app for the Two Sum problem (LeetCode arrays). Follow the content/coaching contract, include at least one wrong-path leaf with rewind, and wire meta.php + tree.php so it appears under Step-by-step.
 PROMPT;
 
 layout_start([
@@ -19,13 +19,13 @@ layout_start([
     <h1 class="hero__brand">Algo Learning IDE with UI</h1>
     <p class="hero__lead">
         For students of system design, data structures, algorithms, and LeetCode.
-        An interactive extension of the Cursor harness — learn here, then prompt Cursor to build the next guide, mini-game, or coaching path inside this app.
+        An interactive extension of the Cursor harness — learn here, then prompt Cursor to build the next guide, mini-game, or step-by-step path inside this app.
     </p>
     <div class="cta-row">
         <a class="btn btn--primary" href="<?= e(guide_list_url('algo')) ?>">Algo Guides</a>
         <a class="btn btn--ghost" href="<?= e(guide_list_url('cursor')) ?>">Cursor AI Guides</a>
         <a class="btn btn--ghost" href="<?= e(url('games/index.php')) ?>">Mini games</a>
-        <a class="btn btn--ghost" href="<?= e(url('coaching/index.php')) ?>">Coaching sessions</a>
+        <a class="btn btn--ghost" href="<?= e(url('coaching/index.php')) ?>">Step-by-step</a>
     </div>
 </section>
 
@@ -33,7 +33,7 @@ layout_start([
     <h2 id="prompt-help-title">Theory unclear? Prompt Cursor for another session</h2>
     <p>
         When a concept does not click, open this repo in Cursor and ask it to use
-        <code>.agents/skills/harness</code>. That skill creates Algo Guides, Cursor AI Guides, mini games, and deterministic coaching wizards that show up in this IDE.
+        <code>.agents/skills/harness</code>. That skill creates Algo Guides, Cursor AI Guides, mini games, and deterministic step-by-step wizards that show up in this IDE.
     </p>
     <div class="prompt-block">
         <div class="prompt-block__actions">

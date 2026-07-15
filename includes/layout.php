@@ -39,7 +39,7 @@ function layout_start(array $opts = []): void
                 <a class="nav__link<?= $active === 'guides-cursor' ? ' is-active' : '' ?>" href="<?= e(guide_list_url('cursor')) ?>">Cursor AI Guides</a>
                 <a class="nav__link<?= $active === 'guides-algo' ? ' is-active' : '' ?>" href="<?= e(guide_list_url('algo')) ?>">Algo Guides</a>
                 <a class="nav__link<?= $active === 'games' ? ' is-active' : '' ?>" href="<?= e(url('games/index.php')) ?>">Mini games</a>
-                <a class="nav__link<?= $active === 'coaching' ? ' is-active' : '' ?>" href="<?= e(url('coaching/index.php')) ?>">Coaching</a>
+                <a class="nav__link<?= $active === 'coaching' ? ' is-active' : '' ?>" href="<?= e(url('coaching/index.php')) ?>">Step-by-step</a>
             </nav>
         </div>
     </header>
@@ -54,7 +54,7 @@ function layout_end(): void
     <footer class="site-footer">
         <div class="site-footer__inner">
             <p>For students of system design, data structures, algorithms, and LeetCode.</p>
-            <p class="site-footer__muted">Interactive extension of the Cursor harness — prompt Cursor with <code>.agents/skills/harness</code> to create new guides, games, or coaching sessions.</p>
+            <p class="site-footer__muted">Interactive extension of the Cursor harness — prompt Cursor with <code>.agents/skills/harness</code> to create new guides, games, or step-by-step sessions.</p>
         </div>
     </footer>
     <script src="<?= e(url('assets/js/app.js')) ?>" defer></script>

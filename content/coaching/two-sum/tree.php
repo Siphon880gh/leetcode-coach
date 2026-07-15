@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Coaching tree contract:
+ * Step-by-step tree contract:
  * - start: node id
  * - nodes[id]: message, outcome (continue|wrong|success), choices[{label, next}], optional rewind_to on wrong
  */
@@ -60,7 +60,7 @@ return [
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct. One pass, hash map lookups: O(n) time, O(n) space.\nYou finished this coaching path. Restart anytime, or step back to revisit a decision.",
+            'message' => "Correct. One pass, hash map lookups: O(n) time, O(n) space.\nYou finished this step-by-step path. Restart anytime, or step back to revisit a decision.",
             'outcome' => 'success',
             'choices' => [],
         ],

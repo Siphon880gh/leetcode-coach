@@ -62,7 +62,7 @@ Viewer: fill fields → live **Prompt preview** → **Copy prompt** → paste in
 
 | Field | Type | Notes |
 |-------|------|-------|
-| `message` | string | Shown in the coaching panel; use `\n` for line breaks |
+| `message` | string | Shown in the step-by-step panel; use `\n` for line breaks |
 | `outcome` | `continue` \| `wrong` \| `success` | Controls choices vs end state styling |
 | `choices` | list of `{label, next}` | Required when `continue` with more steps |
 | `rewind_to` | string node id | Required on `wrong` leaves |
@@ -76,7 +76,7 @@ Copy into guide `[!ui-builder]` PROMPT bodies or the hub. Always mention `.agent
 ### Create an Algo Guide
 
 ```
-Use the harness skill at .agents/skills/harness to create an Algo Guide in this Algo Learning IDE app for [TOPIC / PROBLEM]. Put it under content/guides/[slug]/ set kind => 'algo' in meta.php; use body.md; include complexity notes and an [!ui-builder] or copyable prompt to create a related mini-game and/or coaching session.
+Use the harness skill at .agents/skills/harness to create an Algo Guide in this Algo Learning IDE app for [TOPIC / PROBLEM]. Put it under content/guides/[slug]/ set kind => 'algo' in meta.php; use body.md; include complexity notes and an [!ui-builder] or copyable prompt to create a related mini-game and/or step-by-step session.
 ```
 
 ### Create a Cursor AI Guide
@@ -91,10 +91,10 @@ Use the harness skill at .agents/skills/harness to create a Cursor AI Guide in t
 Use the harness skill at .agents/skills/harness to create a mini-game in this Algo Learning IDE app that teaches [THEORY OR PROBLEM]. Place it under content/games/[slug]/ follow meta.php + index.html. Use .agents/skills/game-development-sickn33 for web/2d craft if needed.
 ```
 
-### Create a coaching session
+### Create a step-by-step session
 
 ```
-Use the harness skill at .agents/skills/harness to create a coaching session for [TOPIC / PROBLEM] under content/coaching/[slug]/. Include branching choices, at least one wrong-path leaf with rewind_to, and a success leaf. Follow the tree.php contract so Step back works.
+Use the harness skill at .agents/skills/harness to create a step-by-step session for [TOPIC / PROBLEM] under content/coaching/[slug]/. Include branching choices, at least one wrong-path leaf with rewind_to, and a success leaf. Follow the tree.php contract so Step back works.
 ```
 
 ## Sample artifacts (shipped)
@@ -104,6 +104,6 @@ Use the harness skill at .agents/skills/harness to create a coaching session for
 | Algo Guide (`kind: algo`, PHP body) | `two-sum` |
 | Cursor AI Guide (`kind: cursor`, Markdown + ui-builder) | `add-mini-game` |
 | Mini game | `two-sum-pointers` |
-| Coaching | `two-sum` |
+| Step-by-step | `two-sum` |
 
 Use these as templates when authoring new content.

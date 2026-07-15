@@ -10,8 +10,8 @@ $tree = $item !== null ? load_coaching_tree($slug) : null;
 if ($item === null || $tree === null) {
     http_response_code(404);
     layout_start(['title' => 'Session not found', 'active' => 'coaching']);
-    echo '<p class="empty-state">Coaching session not found.</p>';
-    echo '<a class="back-link" href="' . e(url('coaching/index.php')) . '">← All coaching</a>';
+    echo '<p class="empty-state">Step-by-step session not found.</p>';
+    echo '<a class="back-link" href="' . e(url('coaching/index.php')) . '">← Step-by-step</a>';
     layout_end();
     exit;
 }
@@ -100,10 +100,10 @@ layout_start([
 ]);
 ?>
 
-<a class="back-link" href="<?= e(url('coaching/index.php')) ?>">← All coaching</a>
+<a class="back-link" href="<?= e(url('coaching/index.php')) ?>">← Step-by-step</a>
 
 <div class="page-head">
-    <p class="content-card__meta"><?= e((string) ($meta['topic'] ?? 'Coaching')) ?></p>
+    <p class="content-card__meta"><?= e((string) ($meta['topic'] ?? 'Step-by-step')) ?></p>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
 </div>
 

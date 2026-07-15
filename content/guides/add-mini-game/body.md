@@ -18,12 +18,12 @@ Fill the fields, preview the prompt, then copy it into Cursor (or Claude Code).
 > PROMPT:
 > Use the harness skill at .agents/skills/harness to create a mini-game in this Algo Learning IDE app that teaches [INPUT_TOPIC]. Place it under content/games/[INPUT_SLUG]. Follow the meta.php + index.html contract, and use .agents/skills/game-development-sickn33 for web/2d craft if needed.
 
-## Prefer a coaching walkthrough instead?
+## Prefer a step-by-step walkthrough instead?
 
-Same idea — deterministic branching under `content/coaching/{slug}/` with `meta.php` + `tree.php` (wrong path + `rewind_to`, plus a success leaf).
+Same idea — deterministic branching under `content/coaching/{slug}/` with `meta.php` + `tree.php` (wrong path + `rewind_to`, plus a success leaf). It shows up under Step-by-step in the nav.
 
 > [!ui-builder] Build
 > INPUT_TOPIC: Theory or problem
 > INPUT_SLUG: Folder slug (kebab-case)
 > PROMPT:
-> Use the harness skill at .agents/skills/harness to create a coaching session for [INPUT_TOPIC] under content/coaching/[INPUT_SLUG]/. Include branching choices, at least one wrong-path leaf with rewind_to, and a success leaf. Follow the tree.php contract so Step back works in the UI.
+> Use the harness skill at .agents/skills/harness to create a step-by-step session for [INPUT_TOPIC] under content/coaching/[INPUT_SLUG]/. Include branching choices, at least one wrong-path leaf with rewind_to, and a success leaf. Follow the tree.php contract so Step back works in the UI.

@@ -15,7 +15,7 @@ $label = guide_kind_label($kind);
 $active = $kind === 'cursor' ? 'guides-cursor' : 'guides-algo';
 
 $blurb = $kind === 'cursor'
-    ? 'How to use Cursor with this app\'s harness — fill prompt builders, copy into your IDE, and scaffold new games or coaching sessions.'
+    ? 'How to use Cursor with this app\'s harness — fill prompt builders, copy into your IDE, and scaffold new games or step-by-step sessions.'
     : 'Lessons on algorithms, system design, and LeetCode patterns. Complexity notes, walkthroughs, and prompts to deepen practice in this IDE.';
 
 layout_start([

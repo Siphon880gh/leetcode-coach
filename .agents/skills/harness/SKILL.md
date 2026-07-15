@@ -1,9 +1,9 @@
 ---
 name: harness
 description: >-
-  Create Algo Guides, Cursor AI Guides, mini games, and deterministic coaching
+  Create Algo Guides, Cursor AI Guides, mini games, and deterministic step-by-step
   sessions for Algo Learning IDE with UI. Use when the user wants a new guide,
-  game, or coaching wizard under content/, or when prompting how to author
+  game, or step-by-step wizard under content/, or when prompting how to author
   study artifacts in this app. Guides use Markdown body.md, meta.kind
   (algo|cursor), and may include [!ui-builder] AI prompt builder widgets.
 ---
@@ -14,7 +14,7 @@ This skill is **strictly** for Cursor creating these artifacts inside this app:
 
 1. **Guides** — Algo Guides (`kind: algo`) and Cursor AI Guides (`kind: cursor`)
 2. **Mini games**
-3. **Coaching sessions** (deterministic)
+3. **Step-by-step** sessions (deterministic; content lives under `content/coaching/`)
 
 Do not use this skill for unrelated refactors, general coding, or game theory outside wiring into this IDE. For deep game craft (loop, art, web/2d), read and follow `.agents/skills/game-development-sickn33` (and its sub-skills); this harness owns **app wiring and content contracts** only.
 
@@ -22,7 +22,7 @@ Do not use this skill for unrelated refactors, general coding, or game theory ou
 
 This ui is an interactive extension of the cursor harness to guide you or teach you
 
-The app is for a student or person studying system design, data structures, algorithms, and leetcode. When a theory or problem doesnt make sense, this visual ui guides user on how to prompt AI to create another game or coaching session inside this app.
+The app is for a student or person studying system design, data structures, algorithms, and leetcode. When a theory or problem doesnt make sense, this visual ui guides user on how to prompt AI to create another game or step-by-step session inside this app.
 
 ## When to use
 
@@ -31,12 +31,12 @@ The app is for a student or person studying system design, data structures, algo
 | How to use Cursor / harness / prompt builders in this app | Cursor AI Guide under `content/guides/{slug}/` with `kind => 'cursor'` |
 | Explain a theory/problem (algo, system design, LeetCode) | Algo Guide under `content/guides/{slug}/` with `kind => 'algo'` |
 | Small interactive game to understand a theory or problem | Mini game under `content/games/{slug}/` |
-| Wizard that branches on choices, wrong path + step back | Coaching session under `content/coaching/{slug}/` |
+| Wizard that branches on choices, wrong path + step back | Step-by-step session under `content/coaching/{slug}/` |
 
 ## When not to use
 
 - Changing PHP layout/CSS unless required for a new artifact type
-- Calling an LLM at coaching runtime (coaching is deterministic trees only)
+- Calling an LLM at step-by-step runtime (trees are deterministic only)
 - Inventing a parallel content format outside the contracts below
 
 ## Shared rules
@@ -45,7 +45,7 @@ The app is for a student or person studying system design, data structures, algo
 - `meta.php` must `return [...]` an array
 - After creating files, the item must appear via directory scan in the matching section list (no manual registry file)
 - Include tags/topic that match System Design, Algo (O(N) space/time), or LeetCode (Arrays, etc.)
-- In guides (and when helpful in game/coach intros), include a **copyable Cursor prompt** telling the student to use `.agents/skills/harness` to create another game or coaching session — prefer an `[!ui-builder]` widget when the student should fill in variables (topic, slug, etc.)
+- In guides (and when helpful in game/step-by-step intros), include a **copyable Cursor prompt** telling the student to use `.agents/skills/harness` to create another game or step-by-step session — prefer an `[!ui-builder]` widget when the student should fill in variables (topic, slug, etc.)
 
 ---
 
@@ -149,7 +149,9 @@ content/games/{slug}/
 
 ---
 
-## 3. Coaching sessions (deterministic)
+## 3. Step-by-step sessions (deterministic)
+
+Product section: **Step-by-step**. Content folder stays `content/coaching/` (legacy path).
 
 **Output**
 
@@ -194,7 +196,7 @@ return [
 
 ## Workflow checklist
 
-1. Confirm which artifact (guide / game / coaching)
+1. Confirm which artifact (guide / game / step-by-step)
 2. Pick slug and topic tags
 3. Write files under the correct `content/.../{slug}/` tree
 4. For guides: write `body.md`; add `[!ui-builder]` when the student should fill variables before copying a Cursor prompt

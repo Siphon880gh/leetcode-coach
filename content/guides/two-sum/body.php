@@ -6,7 +6,7 @@ Use the harness skill at .agents/skills/harness to create a mini-game in this Al
 PROMPT;
 
 $promptCoach = <<<'PROMPT'
-Use the harness skill at .agents/skills/harness to create a coaching session for Two Sum under content/coaching/. Include branching choices, at least one wrong-path leaf with rewind_to, and a success leaf. Follow the tree.php node contract so Step back works in the UI.
+Use the harness skill at .agents/skills/harness to create a step-by-step session for Two Sum under content/coaching/. Include branching choices, at least one wrong-path leaf with rewind_to, and a success leaf. Follow the tree.php node contract so Step back works in the UI.
 PROMPT;
 ?>
 
@@ -48,7 +48,7 @@ PROMPT;
 <h2>Prompt Cursor for another session</h2>
 <p>
     If this still feels abstract, stay in this repo and ask Cursor to use <code>.agents/skills/harness</code>
-    to build a related mini-game or coaching path that appears in this IDE.
+    to build a related mini-game or step-by-step path that appears in this IDE.
 </p>
 
 <div class="prompt-block" style="margin-bottom: 1rem;">

@@ -1,6 +1,6 @@
 <?php
 /**
- * Content loaders for guides, games, and coaching sessions.
+ * Content loaders for guides, games, and step-by-step sessions (content/coaching/).
  * Each artifact lives under content/{type}/{slug}/ with meta.php (and type-specific files).
  */
 
