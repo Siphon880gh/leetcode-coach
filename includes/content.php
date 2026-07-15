@@ -12,6 +12,42 @@ function content_root(): string
 }
 
 /**
+ * Guide list section: cursor (Cursor AI usage) or algo (DSA / system design / LeetCode).
+ * Missing or unknown meta.kind defaults to algo.
+ */
+/** @param mixed $kind */
+function normalize_guide_kind($kind): string
+{
+    return $kind === 'cursor' ? 'cursor' : 'algo';
+}
+
+function guide_kind_label(string $kind): string
+{
+    return normalize_guide_kind($kind) === 'cursor' ? 'Cursor AI Guides' : 'Algo Guides';
+}
+
+function guide_list_url(string $kind): string
+{
+    $kind = normalize_guide_kind($kind);
+    return url('guides/index.php?kind=' . rawurlencode($kind));
+}
+
+/**
+ * @return list<array{slug: string, meta: array<string, mixed>}>
+ */
+function list_guides(string $kind): array
+{
+    $kind = normalize_guide_kind($kind);
+    $items = [];
+    foreach (list_content('guides') as $item) {
+        if (normalize_guide_kind($item['meta']['kind'] ?? null) === $kind) {
+            $items[] = $item;
+        }
+    }
+    return $items;
+}
+
+/**
  * @return list<array{slug: string, meta: array<string, mixed>}>
  */
 function list_content(string $type): array

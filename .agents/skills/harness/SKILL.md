@@ -1,18 +1,18 @@
 ---
 name: harness
 description: >-
-  Create Cursor AI Guides, mini games, and deterministic coaching sessions for
-  Algo Learning IDE with UI. Use when the user wants a new guide, game, or
-  coaching wizard under content/, or when prompting how to author study
-  artifacts in this app. Guides use Markdown body.md and may include
-  [!ui-builder] AI prompt builder widgets.
+  Create Algo Guides, Cursor AI Guides, mini games, and deterministic coaching
+  sessions for Algo Learning IDE with UI. Use when the user wants a new guide,
+  game, or coaching wizard under content/, or when prompting how to author
+  study artifacts in this app. Guides use Markdown body.md, meta.kind
+  (algo|cursor), and may include [!ui-builder] AI prompt builder widgets.
 ---
 
 # Algo Learning IDE — Harness
 
-This skill is **strictly** for Cursor creating these three artifacts inside this app:
+This skill is **strictly** for Cursor creating these artifacts inside this app:
 
-1. **Cursor AI Guides**
+1. **Guides** — Algo Guides (`kind: algo`) and Cursor AI Guides (`kind: cursor`)
 2. **Mini games**
 3. **Coaching sessions** (deterministic)
 
@@ -28,7 +28,8 @@ The app is for a student or person studying system design, data structures, algo
 
 | User intent | Create |
 |-------------|--------|
-| Explain a theory/problem as a lesson with Cursor prompts | Cursor AI Guide under `content/guides/{slug}/` |
+| How to use Cursor / harness / prompt builders in this app | Cursor AI Guide under `content/guides/{slug}/` with `kind => 'cursor'` |
+| Explain a theory/problem (algo, system design, LeetCode) | Algo Guide under `content/guides/{slug}/` with `kind => 'algo'` |
 | Small interactive game to understand a theory or problem | Mini game under `content/games/{slug}/` |
 | Wizard that branches on choices, wrong path + step back | Coaching session under `content/coaching/{slug}/` |
 
@@ -48,7 +49,16 @@ The app is for a student or person studying system design, data structures, algo
 
 ---
 
-## 1. Cursor AI Guides
+## 1. Guides (Cursor AI Guides + Algo Guides)
+
+Both live under `content/guides/{slug}/`. The nav splits them by `meta.kind`:
+
+| `kind` | Nav section | Use for |
+|--------|-------------|---------|
+| `cursor` | Cursor AI Guides | Harness usage, prompt builders, how to scaffold games/coaches with Cursor |
+| `algo` | Algo Guides | Algorithms, system design, LeetCode, complexity lessons |
+
+Missing `kind` defaults to `algo`.
 
 **Output**
 
@@ -67,6 +77,7 @@ Prefer `body.md` for all new guides. Legacy `body.php` still renders if `body.md
 | `title` | yes | Display title |
 | `summary` | yes | One-line list description |
 | `topic` | yes | e.g. `LeetCode · Arrays`, `System Design`, `Algo · Complexity`, `Harness · Cursor` |
+| `kind` | yes | `cursor` or `algo` |
 | `tags` | yes | string[] |
 
 **body.md**
@@ -97,9 +108,14 @@ Use a Markdown blockquote callout. Each `INPUT_*` line becomes a labeled text fi
 - Multiple builders are allowed in one guide
 - Keep every line of the block as a blockquote (`>`)
 
-**Sample guide:** `content/guides/add-mini-game/` (two builders: mini-game + coaching)
+**Sample guides**
 
-**UI:** appears in `guides/index.php`, viewed via `guides/view.php?id={slug}` (`body.md` via `includes/guide_md.php`)
+| kind | Slug |
+|------|------|
+| `cursor` | `add-mini-game` (ui-builder ×2) |
+| `algo` | `two-sum` |
+
+**UI:** `guides/index.php?kind=cursor` or `?kind=algo`; view via `guides/view.php?id={slug}` (`body.md` via `includes/guide_md.php`)
 
 ---
 

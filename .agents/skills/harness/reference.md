@@ -22,6 +22,8 @@ return [
     'title' => 'Human title',
     'summary' => 'One sentence for the list card.',
     'topic' => 'LeetCode · Arrays', // or System Design / Algo · Complexity / Harness · Cursor
+    // guides only:
+    'kind' => 'algo', // 'algo' → Algo Guides nav | 'cursor' → Cursor AI Guides nav
     'tags' => ['arrays', 'O(n)'],
     // games only:
     // 'entry' => 'index.html',
@@ -71,10 +73,16 @@ History: each choice POSTs `from_node` onto a stack; **Step back** pops or jumps
 
 Copy into guide `[!ui-builder]` PROMPT bodies or the hub. Always mention `.agents/skills/harness`.
 
-### Create a guide
+### Create an Algo Guide
 
 ```
-Use the harness skill at .agents/skills/harness to create a Cursor AI Guide in this Algo Learning IDE app for [TOPIC / PROBLEM]. Put it under content/guides/[slug]/ use meta.php + body.md; include complexity notes and an [!ui-builder] prompt to create a related mini-game and/or coaching session.
+Use the harness skill at .agents/skills/harness to create an Algo Guide in this Algo Learning IDE app for [TOPIC / PROBLEM]. Put it under content/guides/[slug]/ set kind => 'algo' in meta.php; use body.md; include complexity notes and an [!ui-builder] or copyable prompt to create a related mini-game and/or coaching session.
+```
+
+### Create a Cursor AI Guide
+
+```
+Use the harness skill at .agents/skills/harness to create a Cursor AI Guide in this Algo Learning IDE app about [HARNESS / CURSOR USAGE]. Put it under content/guides/[slug]/ set kind => 'cursor' in meta.php; use body.md with [!ui-builder] so the student can fill variables and copy a prompt into Cursor.
 ```
 
 ### Create a mini-game
@@ -93,8 +101,8 @@ Use the harness skill at .agents/skills/harness to create a coaching session for
 
 | Type | Slug |
 |------|------|
-| Guide (PHP body, legacy) | `two-sum` |
-| Guide (Markdown + ui-builder) | `add-mini-game` |
+| Algo Guide (`kind: algo`, PHP body) | `two-sum` |
+| Cursor AI Guide (`kind: cursor`, Markdown + ui-builder) | `add-mini-game` |
 | Mini game | `two-sum-pointers` |
 | Coaching | `two-sum` |
 

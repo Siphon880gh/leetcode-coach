@@ -22,7 +22,8 @@ layout_start([
         An interactive extension of the Cursor harness — learn here, then prompt Cursor to build the next guide, mini-game, or coaching path inside this app.
     </p>
     <div class="cta-row">
-        <a class="btn btn--primary" href="<?= e(url('guides/index.php')) ?>">Cursor AI Guides</a>
+        <a class="btn btn--primary" href="<?= e(guide_list_url('algo')) ?>">Algo Guides</a>
+        <a class="btn btn--ghost" href="<?= e(guide_list_url('cursor')) ?>">Cursor AI Guides</a>
         <a class="btn btn--ghost" href="<?= e(url('games/index.php')) ?>">Mini games</a>
         <a class="btn btn--ghost" href="<?= e(url('coaching/index.php')) ?>">Coaching sessions</a>
     </div>
@@ -32,7 +33,7 @@ layout_start([
     <h2 id="prompt-help-title">Theory unclear? Prompt Cursor for another session</h2>
     <p>
         When a concept does not click, open this repo in Cursor and ask it to use
-        <code>.agents/skills/harness</code>. That skill creates Cursor AI Guides, mini games, and deterministic coaching wizards that show up in this IDE.
+        <code>.agents/skills/harness</code>. That skill creates Algo Guides, Cursor AI Guides, mini games, and deterministic coaching wizards that show up in this IDE.
     </p>
     <div class="prompt-block">
         <div class="prompt-block__actions">

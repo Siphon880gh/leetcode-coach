@@ -36,7 +36,8 @@ function layout_start(array $opts = []): void
                 <span class="brand__text">Algo Learning IDE with UI</span>
             </a>
             <nav class="nav" aria-label="Primary">
-                <a class="nav__link<?= $active === 'guides' ? ' is-active' : '' ?>" href="<?= e(url('guides/index.php')) ?>">Cursor AI Guides</a>
+                <a class="nav__link<?= $active === 'guides-cursor' ? ' is-active' : '' ?>" href="<?= e(guide_list_url('cursor')) ?>">Cursor AI Guides</a>
+                <a class="nav__link<?= $active === 'guides-algo' ? ' is-active' : '' ?>" href="<?= e(guide_list_url('algo')) ?>">Algo Guides</a>
                 <a class="nav__link<?= $active === 'games' ? ' is-active' : '' ?>" href="<?= e(url('games/index.php')) ?>">Mini games</a>
                 <a class="nav__link<?= $active === 'coaching' ? ' is-active' : '' ?>" href="<?= e(url('coaching/index.php')) ?>">Coaching</a>
             </nav>

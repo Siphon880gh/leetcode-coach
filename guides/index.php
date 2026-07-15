@@ -3,25 +3,38 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/layout.php';
 
-$guides = list_content('guides');
+$kindParam = isset($_GET['kind']) ? (string) $_GET['kind'] : '';
+if ($kindParam !== 'cursor' && $kindParam !== 'algo') {
+    header('Location: ' . guide_list_url('algo'), true, 302);
+    exit;
+}
+
+$kind = normalize_guide_kind($kindParam);
+$guides = list_guides($kind);
+$label = guide_kind_label($kind);
+$active = $kind === 'cursor' ? 'guides-cursor' : 'guides-algo';
+
+$blurb = $kind === 'cursor'
+    ? 'How to use Cursor with this app\'s harness — fill prompt builders, copy into your IDE, and scaffold new games or coaching sessions.'
+    : 'Lessons on algorithms, system design, and LeetCode patterns. Complexity notes, walkthroughs, and prompts to deepen practice in this IDE.';
 
 layout_start([
-    'title' => 'Cursor AI Guides',
-    'description' => 'Guides for system design, algorithms, and LeetCode — built to use with this app\'s codebase.',
-    'active' => 'guides',
+    'title' => $label,
+    'description' => $blurb,
+    'active' => $active,
 ]);
 ?>
 
 <div class="page-head">
-    <h1>Cursor AI Guides</h1>
-    <p>
-        Lessons meant to be used with the codebase of this app. Guides may include an AI prompt builder
-        so you can fill in a topic/slug, copy a Cursor prompt, and generate a related mini-game or coaching session via the harness skill.
-    </p>
+    <h1><?= e($label) ?></h1>
+    <p><?= e($blurb) ?></p>
 </div>
 
 <?php if ($guides === []): ?>
-    <p class="empty-state">No guides yet. Prompt Cursor with <code>.agents/skills/harness</code> to create one under <code>content/guides/</code>.</p>
+    <p class="empty-state">
+        No guides in this section yet. Prompt Cursor with <code>.agents/skills/harness</code>
+        to create one under <code>content/guides/</code> with <code>kind => '<?= e($kind) ?>'</code>.
+    </p>
 <?php else: ?>
     <ul class="content-list">
         <?php foreach ($guides as $item): ?>
