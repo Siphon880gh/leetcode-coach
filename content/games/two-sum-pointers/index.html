@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Two Sum complement drill</title>
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --ink: #1a1f24;
+      --muted: #5a6570;
+      --accent: #0d6e6e;
+      --ok: #166534;
+      --panel: #fff;
+      --edge: #cfc7b8;
+      --mono: "IBM Plex Mono", Consolas, monospace;
+      --sans: "IBM Plex Sans", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      padding: 1.25rem;
+      min-height: 100%;
+    }
+    h1 {
+      font-size: 1.15rem;
+      margin: 0 0 0.35rem;
+      letter-spacing: -0.02em;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0 0 1rem;
+      max-width: 36rem;
+    }
+    .stats {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .stats strong { color: var(--accent); }
+    .board {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .cell {
+      font-family: var(--mono);
+      font-size: 1rem;
+      min-width: 3rem;
+      padding: 0.75rem 0.85rem;
+      border: 1px solid var(--edge);
+      background: var(--panel);
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .cell:hover:not(:disabled) { border-color: var(--accent); }
+    .cell.is-seen {
+      background: color-mix(in srgb, var(--accent) 12%, white);
+      border-color: var(--accent);
+    }
+    .cell.is-pair {
+      background: color-mix(in srgb, var(--ok) 18%, white);
+      border-color: var(--ok);
+    }
+    .cell:disabled { cursor: default; opacity: 0.85; }
+    .seen {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      background: #1e252b;
+      color: #d4e0e0;
+      padding: 0.75rem 1rem;
+      border-radius: 2px;
+      min-height: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .msg {
+      font-size: 0.95rem;
+      margin: 0 0 1rem;
+      min-height: 1.4em;
+    }
+    .msg.ok { color: var(--ok); font-weight: 600; }
+    .msg.bad { color: #9a3412; }
+    button.again {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      padding: 0.55rem 0.9rem;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--bg);
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    button.again:hover { background: var(--accent); border-color: var(--accent); }
+  </style>
+</head>
+<body>
+  <h1>Two Sum: find the complement</h1>
+  <p class="lead">
+    Target is fixed. Click values in order as if you are scanning the array.
+    When you click a number whose complement is already <em>seen</em>, you found the pair — same idea as the hash map.
+  </p>
+  <div class="stats">
+    <span>target = <strong id="target">?</strong></span>
+    <span>pairs found: <strong id="score">0</strong> / 3</span>
+  </div>
+  <div class="seen" id="seen" aria-live="polite">seen map: { }</div>
+  <p class="msg" id="msg">Click the next value in the scan.</p>
+  <div class="board" id="board" role="group" aria-label="Array values"></div>
+  <button type="button" class="again" id="again" hidden>Next round</button>
+
+  <script>
+    (function () {
+      var rounds = [
+        { target: 9, nums: [2, 7, 11, 15] },
+        { target: 6, nums: [3, 2, 4] },
+        { target: 0, nums: [-1, 0, 1, -1] }
+      ];
+      var roundIndex = 0;
+      var seen = {};
+      var used = {};
+      var score = 0;
+      var locked = false;
+
+      var elTarget = document.getElementById('target');
+      var elScore = document.getElementById('score');
+      var elSeen = document.getElementById('seen');
+      var elMsg = document.getElementById('msg');
+      var elBoard = document.getElementById('board');
+      var elAgain = document.getElementById('again');
+
+      function formatSeen() {
+        var keys = Object.keys(seen);
+        if (!keys.length) return 'seen map: { }';
+        return 'seen map: { ' + keys.map(function (k) {
+          return k + ' → i' + seen[k];
+        }).join(', ') + ' }';
+      }
+
+      function setMsg(text, cls) {
+        elMsg.textContent = text;
+        elMsg.className = 'msg' + (cls ? ' ' + cls : '');
+      }
+
+      function render() {
+        var round = rounds[roundIndex];
+        elTarget.textContent = String(round.target);
+        elScore.textContent = String(score);
+        elSeen.textContent = formatSeen();
+        elBoard.innerHTML = '';
+        round.nums.forEach(function (n, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'cell';
+          btn.textContent = String(n);
+          btn.dataset.index = String(i);
+          btn.dataset.value = String(n);
+          if (used[i]) {
+            btn.disabled = true;
+            btn.classList.add(used[i] === 'pair' ? 'is-pair' : 'is-seen');
+          }
+          btn.addEventListener('click', onClick);
+          elBoard.appendChild(btn);
+        });
+      }
+
+      function onClick(e) {
+        if (locked) return;
+        var btn = e.currentTarget;
+        var i = parseInt(btn.dataset.index, 10);
+        var n = parseInt(btn.dataset.value, 10);
+        if (used[i]) return;
+
+        var round = rounds[roundIndex];
+        var need = round.target - n;
+        if (Object.prototype.hasOwnProperty.call(seen, String(need))) {
+          used[i] = 'pair';
+          used[seen[String(need)]] = 'pair';
+          score += 1;
+          locked = true;
+          setMsg('Pair found: ' + need + ' + ' + n + ' = ' + round.target + '. That is the hash-map hit.', 'ok');
+          elAgain.hidden = false;
+          elAgain.textContent = score >= 3 ? 'Finished — replay' : 'Next round';
+        } else {
+          seen[String(n)] = i;
+          used[i] = 'seen';
+          setMsg('Stored ' + n + ' at index ' + i + '. Looking for complement ' + need + ' later.');
+        }
+        elScore.textContent = String(score);
+        elSeen.textContent = formatSeen();
+        render();
+      }
+
+      function nextRound() {
+        if (score >= 3) {
+          score = 0;
+          roundIndex = 0;
+        } else {
+          roundIndex = (roundIndex + 1) % rounds.length;
+        }
+        seen = {};
+        used = {};
+        locked = false;
+        elAgain.hidden = true;
+        setMsg('Click the next value in the scan.');
+        render();
+      }
+
+      elAgain.addEventListener('click', nextRound);
+      render();
+    })();
+  </script>
+</body>
+</html>
