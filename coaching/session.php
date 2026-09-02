@@ -133,15 +133,69 @@ foreach ($pathIds as $i => $id) {
     if (!$isCurrent && isset($pathIds[$i + 1])) {
         $chosen = $coachingChoiceLabel($nodes, $id, (string) $pathIds[$i + 1]);
     }
+    $rewindOnStep = isset($pathNode['rewind_to']) ? (string) $pathNode['rewind_to'] : null;
     $pathTrail[] = [
         'id' => (string) $id,
         'preview' => $coachingMessagePreview((string) ($pathNode['message'] ?? '')),
+        'message' => (string) ($pathNode['message'] ?? ''),
         'outcome' => (string) ($pathNode['outcome'] ?? 'continue'),
         'choice' => $chosen,
         'current' => $isCurrent,
+        'rewind_to' => $rewindOnStep !== '' ? $rewindOnStep : null,
     ];
 }
 $pathDepth = count($history);
+
+$openChoices = [];
+if ($outcome === 'continue' && is_array($choices)) {
+    foreach ($choices as $choice) {
+        if (!is_array($choice)) {
+            continue;
+        }
+        $choiceLabel = trim((string) ($choice['label'] ?? ''));
+        $choiceNext = (string) ($choice['next'] ?? '');
+        if ($choiceLabel === '' || $choiceNext === '' || !isset($nodes[$choiceNext])) {
+            continue;
+        }
+        $openChoices[] = $choiceLabel;
+    }
+}
+
+$pathAiTags = [];
+if (isset($meta['tags']) && is_array($meta['tags'])) {
+    foreach ($meta['tags'] as $tag) {
+        if (is_string($tag) && trim($tag) !== '') {
+            $pathAiTags[] = trim($tag);
+        }
+    }
+}
+
+$pathAi = [
+    'title' => (string) ($meta['title'] ?? $slug),
+    'summary' => (string) ($meta['summary'] ?? ''),
+    'topic' => (string) ($meta['topic'] ?? ''),
+    'category' => (string) ($meta['category'] ?? ''),
+    'subcategory' => (string) ($meta['subcategory'] ?? ''),
+    'tags' => $pathAiTags,
+    'current_id' => $nodeId,
+    'outcome' => $outcome,
+    'rewind_to' => $rewindTo,
+    'open_choices' => $openChoices,
+    'steps' => array_map(static function (array $step): array {
+        return [
+            'id' => (string) $step['id'],
+            'message' => (string) ($step['message'] ?? ''),
+            'outcome' => (string) ($step['outcome'] ?? 'continue'),
+            'choice' => $step['choice'],
+            'current' => (bool) $step['current'],
+            'rewind_to' => $step['rewind_to'] ?? null,
+        ];
+    }, $pathTrail),
+];
+$pathAiJson = json_encode($pathAi, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+if (!is_string($pathAiJson)) {
+    $pathAiJson = '{}';
+}
 
 layout_start([
     'title' => (string) ($meta['title'] ?? $slug),
@@ -165,17 +219,19 @@ layout_start([
 >
     <p class="coaching-path">Step: <code><?= e($nodeId) ?></code><?php if ($pathDepth > 0): ?> · path depth <?= $pathDepth ?><?php endif; ?></p>
 
-    <details class="coaching-visualizer">
-        <summary class="coaching-visualizer__summary">
-            Path visualizer
-            <span class="coaching-visualizer__meta">
-                <?php if ($pathDepth === 0): ?>
-                    start — no choices yet
-                <?php else: ?>
-                    <?= $pathDepth ?> prior step<?= $pathDepth === 1 ? '' : 's' ?> · open to review choices
-                <?php endif; ?>
-            </span>
-        </summary>
+    <div class="coaching-visualizer-wrap" data-path-ai="<?= e($pathAiJson) ?>">
+        <div class="coaching-visualizer__bar">
+            <details class="coaching-visualizer">
+                <summary class="coaching-visualizer__summary">
+                    Path visualizer
+                    <span class="coaching-visualizer__meta">
+                        <?php if ($pathDepth === 0): ?>
+                            start — no choices yet
+                        <?php else: ?>
+                            <?= $pathDepth ?> prior step<?= $pathDepth === 1 ? '' : 's' ?> · open to review choices
+                        <?php endif; ?>
+                    </span>
+                </summary>
         <ol class="coaching-trail">
             <?php foreach ($pathTrail as $stepNum => $step): ?>
                 <?php
@@ -211,7 +267,20 @@ layout_start([
                 </li>
             <?php endforeach; ?>
         </ol>
-    </details>
+            </details>
+            <button
+                type="button"
+                id="coaching-path-ai-open"
+                class="coaching-ai-open"
+                aria-haspopup="dialog"
+                aria-controls="coaching-path-ai-modal"
+                aria-label="Ask AI to explain the path so far"
+            >
+                <span class="coaching-ai-open__icon" aria-hidden="true">✨</span>
+                <span>Ask AI</span>
+            </button>
+        </div>
+    </div>
 
     <div class="<?= e($messageClass) ?>">
         <?= nl2br(e($message)) ?>
@@ -258,6 +327,41 @@ layout_start([
     </div>
 
     <input type="hidden" id="coaching-history" value="<?= e((string) $historyJson) ?>">
+</div>
+
+<svg class="app-icon-symbols" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="icon-chatgpt" viewBox="0 0 512 512">
+        <path d="M196.4 185.8l0-48.6c0-4.1 1.5-7.2 5.1-9.2l97.8-56.3c13.3-7.7 29.2-11.3 45.6-11.3 61.4 0 100.4 47.6 100.4 98.3 0 3.6 0 7.7-.5 11.8L343.3 111.1c-6.1-3.6-12.3-3.6-18.4 0L196.4 185.8zM424.7 375.2l0-116.2c0-7.2-3.1-12.3-9.2-15.9L287 168.4 329 144.3c3.6-2 6.7-2 10.2 0L437 200.7c28.2 16.4 47.1 51.2 47.1 85 0 38.9-23 74.8-59.4 89.6l0 0zM166.2 272.8l-42-24.6c-3.6-2-5.1-5.1-5.1-9.2l0-112.6c0-54.8 42-96.3 98.8-96.3 21.5 0 41.5 7.2 58.4 20L175.4 108.5c-6.1 3.6-9.2 8.7-9.2 15.9l0 148.5 0 0zm90.4 52.2l-60.2-33.8 0-71.7 60.2-33.8 60.2 33.8 0 71.7-60.2 33.8zm38.7 155.7c-21.5 0-41.5-7.2-58.4-20l100.9-58.4c6.1-3.6 9.2-8.7 9.2-15.9l0-148.5 42.5 24.6c3.6 2 5.1 5.1 5.1 9.2l0 112.6c0 54.8-42.5 96.3-99.3 96.3l0 0zM173.8 366.5L76.1 310.2c-28.2-16.4-47.1-51.2-47.1-85 0-39.4 23.6-74.8 59.9-89.6l0 116.7c0 7.2 3.1 12.3 9.2 15.9l128 74.2-42 24.1c-3.6 2-6.7 2-10.2 0zm-5.6 84c-57.9 0-100.4-43.5-100.4-97.3 0-4.1 .5-8.2 1-12.3l100.9 58.4c6.1 3.6 12.3 3.6 18.4 0l128.5-74.2 0 48.6c0 4.1-1.5 7.2-5.1 9.2l-97.8 56.3c-13.3 7.7-29.2 11.3-45.6 11.3l0 0zm127 60.9c62 0 113.7-44 125.4-102.4 57.3-14.9 94.2-68.6 94.2-123.4 0-35.8-15.4-70.7-43-95.7 2.6-10.8 4.1-21.5 4.1-32.3 0-73.2-59.4-128-128-128-13.8 0-27.1 2-40.4 6.7-23-22.5-54.8-36.9-89.6-36.9-62 0-113.7 44-125.4 102.4-57.3 14.8-94.2 68.6-94.2 123.4 0 35.8 15.4 70.7 43 95.7-2.6 10.8-4.1 21.5-4.1 32.3 0 73.2 59.4 128 128 128 13.8 0 27.1-2 40.4 6.7 23 22.5 54.8 36.9 89.6 36.9z"></path>
+    </symbol>
+    <symbol id="icon-claude" viewBox="0 0 512 512">
+        <path d="M100.4 340.5l100.7-56.5 1.7-4.9-1.7-2.7-4.9 0-16.8-1-57.5-1.6-49.9-2.1-48.3-2.6-12.2-2.6-11.4-15 1.2-7.5 10.2-6.9 14.7 1.3c18.9 1.3 45.9 3.1 81 5.6l35.2 2.1 52.2 5.4 8.3 0 1.2-3.4-2.8-2.1-2.2-2.1-50.3-34.1-54.4-36-28.5-20.7-15.4-10.5-7.8-9.8-3.4-21.5 14-15.4 18.8 1.3 4.8 1.3 19 14.7 40.7 31.5 53.1 39.1 7.8 6.5 3.1-2.2 .4-1.6-3.5-5.8-28.9-52.2-30.8-53.1-13.7-22-3.6-13.2c-1.3-5.4-2.2-10-2.2-15.5l15.9-21.6 8.8-2.8 21.2 2.8 8.9 7.8 13.2 30.2 21.4 47.5 33.2 64.6 9.7 19.2 5.2 17.8 1.9 5.4 3.4 0 0-3.1 2.7-36.4 5-44.7 4.9-57.5 1.7-16.2 8-19.4 15.9-10.5 12.4 5.9 10.2 14.7-1.4 9.5-6.1 39.5-11.9 61.9-7.8 41.5 4.5 0 5.2-5.2 21-27.8 35.2-44.1 15.5-17.5 18.1-19.3 11.6-9.2 22 0 16.2 24.1-7.3 24.9-22.7 28.7-18.8 24.4-27 36.3-16.8 29 1.6 2.3 4-.4 60.9-13 32.9-5.9 39.3-6.7 17.8 8.3 1.9 8.4-7 17.2-42 10.4-49.2 9.8-73.3 17.3-.9 .7 1 1.3 33 3.1 14.1 .8 34.6 0 64.4 4.8 16.8 11.1 10.1 13.6-1.7 10.4-25.9 13.2c-15.5-3.7-54.4-12.9-116.6-27.7l-28-7-3.9 0 0 2.3 23.3 22.8 42.7 38.6 53.5 49.8 2.7 12.3-6.9 9.7-7.3-1-47-35.4-18.1-15.9-41.1-34.6-2.7 0 0 3.6 9.5 13.9 50 75.2 2.6 23-3.6 7.5-13 4.5-14.2-2.6-29.3-41.1-30.2-46.3-24.4-41.5-3 1.7-14.4 154.8-6.7 7.9-15.5 5.9-13-9.8-6.9-15.9 6.9-31.5 8.3-41.1 6.7-32.7 6.1-40.6 3.6-13.5-.2-.9-3 .4-30.6 42-46.5 62.9-36.8 39.4-8.8 3.5-15.3-7.9 1.4-14.1 8.5-12.6 50.9-64.8 30.7-40.2 19.8-23.2-.1-3.4-1.2 0-135.3 87.8-24.1 3.1-10.4-9.7 1.3-15.9 4.9-5.2 40.7-28-.1 .1 0 .1z"></path>
+    </symbol>
+</svg>
+
+<div id="coaching-path-ai-modal" class="modal" hidden>
+    <div class="modal__backdrop" data-action="close-coaching-path-ai-modal"></div>
+    <div class="modal__panel modal__panel--wide" role="dialog" aria-modal="true" aria-labelledby="coaching-path-ai-modal-title">
+        <header class="modal__header">
+            <h3 id="coaching-path-ai-modal-title" class="modal__title">Explain this path</h3>
+            <p class="modal__subtitle">Plain English walkthrough of the steps you have taken so far</p>
+        </header>
+        <div class="import-modal__body">
+            <p class="import-modal__hint">Builds a prompt from your path so far. Copy it, then use ChatGPT or Claude for a walkthrough with side notes on keywords, concepts, and Big-O such as <code>O(n·k)</code>.</p>
+            <div class="import-ai-panel">
+                <p class="import-ai-panel__preview-label">Prompt preview</p>
+                <pre id="coaching-path-ai-preview" class="import-ai-panel__preview import-ai-panel__preview--tall"></pre>
+                <div class="import-ai-panel__actions">
+                    <button type="button" id="coaching-path-ai-copy" class="import-ai-panel__copy">Copy prompt</button>
+                    <span class="import-ai-panel__open-label">Open in</span>
+                    <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="coaching-path-open-chatgpt" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--chatgpt" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-chatgpt"></use></svg><span>ChatGPT</span></a>
+                    <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" id="coaching-path-open-claude" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--claude" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-claude"></use></svg><span>Claude</span></a>
+                </div>
+            </div>
+        </div>
+        <footer class="modal__footer">
+            <button type="button" id="coaching-path-ai-modal-done" class="modal__done">Done</button>
+        </footer>
+    </div>
 </div>
 
 <?php
