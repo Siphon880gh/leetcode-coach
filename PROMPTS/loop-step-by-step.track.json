@@ -13,11 +13,11 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/0000-0099/0035.Search Insert Position"
+    "last_id": "solution/0000-0099/0062.Unique Paths"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0000-0099/0036.Valid Sudoku"
+    "id": "solution/0000-0099/0063.Unique Paths II"
   },
   "completed": [
     {
@@ -223,6 +223,168 @@
       "id": "solution/0000-0099/0035.Search Insert Position",
       "slug": "search-insert-position",
       "title": "Search Insert Position"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0036.Valid Sudoku",
+      "slug": "valid-sudoku",
+      "title": "Valid Sudoku"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0037.Sudoku Solver",
+      "slug": "sudoku-solver",
+      "title": "Sudoku Solver"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0038.Count and Say",
+      "slug": "count-and-say",
+      "title": "Count and Say"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0039.Combination Sum",
+      "slug": "combination-sum",
+      "title": "Combination Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0040.Combination Sum II",
+      "slug": "combination-sum-ii",
+      "title": "Combination Sum II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0041.First Missing Positive",
+      "slug": "first-missing-positive",
+      "title": "First Missing Positive"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0042.Trapping Rain Water",
+      "slug": "trapping-rain-water",
+      "title": "Trapping Rain Water"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0043.Multiply Strings",
+      "slug": "multiply-strings",
+      "title": "Multiply Strings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0044.Wildcard Matching",
+      "slug": "wildcard-matching",
+      "title": "Wildcard Matching"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0045.Jump Game II",
+      "slug": "jump-game-ii",
+      "title": "Jump Game II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0046.Permutations",
+      "slug": "permutations",
+      "title": "Permutations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0047.Permutations II",
+      "slug": "permutations-ii",
+      "title": "Permutations II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0048.Rotate Image",
+      "slug": "rotate-image",
+      "title": "Rotate Image"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0049.Group Anagrams",
+      "slug": "group-anagrams",
+      "title": "Group Anagrams"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0050.Pow(x, n)",
+      "slug": "pow-x-n",
+      "title": "Pow(x, n)"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0051.N-Queens",
+      "slug": "n-queens",
+      "title": "N-Queens"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0052.N-Queens II",
+      "slug": "n-queens-ii",
+      "title": "N-Queens II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0053.Maximum Subarray",
+      "slug": "maximum-subarray",
+      "title": "Maximum Subarray"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0054.Spiral Matrix",
+      "slug": "spiral-matrix",
+      "title": "Spiral Matrix"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0055.Jump Game",
+      "slug": "jump-game",
+      "title": "Jump Game"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0056.Merge Intervals",
+      "slug": "merge-intervals",
+      "title": "Merge Intervals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0057.Insert Interval",
+      "slug": "insert-interval",
+      "title": "Insert Interval"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0058.Length of Last Word",
+      "slug": "length-of-last-word",
+      "title": "Length of Last Word"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0059.Spiral Matrix II",
+      "slug": "spiral-matrix-ii",
+      "title": "Spiral Matrix II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0060.Permutation Sequence",
+      "slug": "permutation-sequence",
+      "title": "Permutation Sequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0061.Rotate List",
+      "slug": "rotate-list",
+      "title": "Rotate List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0062.Unique Paths",
+      "slug": "unique-paths",
+      "title": "Unique Paths"
     }
   ],
   "skipped": [
