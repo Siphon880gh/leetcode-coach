@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "kind": "algo-guides",
+  "prompt": "PROMPTS/loop-algo-guides.md",
+  "output_dir": "content/guides",
+  "repos": [
+    "doocs-leetcode",
+    "hello-algo",
+    "labuladong-algorithm",
+    "leetcode-master",
+    "neetcode-leetcode",
+    "walkccc-leetcode"
+  ],
+  "cursor": {
+    "repo": null,
+    "last_id": null
+  },
+  "next": {
+    "repo": "doocs-leetcode",
+    "id": "solution/0000-0099/0001.Two Sum"
+  },
+  "completed": [],
+  "skipped": [],
+  "exhausted": false
+}

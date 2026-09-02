@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "kind": "mini-games",
+  "prompt": "PROMPTS/loop-mini-games.md",
+  "output_dir": "content/games",
+  "repos": [
+    "doocs-leetcode",
+    "hello-algo",
+    "labuladong-algorithm",
+    "leetcode-master",
+    "neetcode-leetcode",
+    "walkccc-leetcode"
+  ],
+  "cursor": {
+    "repo": null,
+    "last_id": null
+  },
+  "next": {
+    "repo": "doocs-leetcode",
+    "id": "solution/0000-0099/0001.Two Sum"
+  },
+  "completed": [],
+  "skipped": [],
+  "exhausted": false
+}
