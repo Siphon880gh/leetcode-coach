@@ -46,6 +46,8 @@ The app is for a student or person studying system design, data structures, algo
 - After creating files, the item must appear via directory scan in the matching section list (no manual registry file)
 - Include tags/topic that match System Design, Algo (O(N) space/time), or LeetCode (Arrays, etc.)
 - In guides (and when helpful in game/step-by-step intros), include a **copyable Cursor prompt** telling the student to use `.agents/skills/harness` to create another game or step-by-step session — prefer an `[!ui-builder]` widget when the student should fill in variables (topic, slug, etc.)
+- When authoring LeetCode or DSA artifacts, consult matching solutions and writeups under `context/` (run `bash context/clone.sh` first if those folders are missing). See `context/README.md`.
+
 
 ---
 

@@ -1,3 +1,8 @@
 .DS_Store
 vendor/
 *.log
+
+# Third-party clones from context/clone.sh — keep the catalog and script
+/context/*
+!/context/clone.sh
+!/context/README.md

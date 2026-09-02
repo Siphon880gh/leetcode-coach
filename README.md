@@ -61,3 +61,13 @@ In Cursor, ask the agent to use `.agents/skills/harness` to create:
 - Step-by-step → `content/coaching/{slug}/` (`meta.php` + `tree.php`)
 
 See `.agents/skills/harness/SKILL.md` and `reference.md` for contracts, `[!ui-builder]` prompt widgets, and schemas.
+
+## Context libraries
+
+Shallow-clone public LeetCode / DSA solution and explanation repos for local reference (gitignored; not part of the PHP app):
+
+```bash
+bash context/clone.sh
+```
+
+See [`context/README.md`](context/README.md) for the catalog.
