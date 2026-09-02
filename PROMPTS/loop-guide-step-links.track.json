@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "kind": "guide-step-links",
+  "prompt": "PROMPTS/loop-guide-step-links.md",
+  "cursor": {
+    "last_slug": null
+  },
+  "next": {
+    "slug": "3sum"
+  },
+  "completed": [],
+  "skipped": [],
+  "exhausted": false
+}
