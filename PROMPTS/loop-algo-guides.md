@@ -12,7 +12,7 @@ One tick = one problem. Read this file and [`loop-algo-guides.track.json`](loop-
 
 Write a harness **Algo Guide** (`content/guides/{slug}/`, `kind => 'algo'`) from the problem named in `next` in the tracking JSON.
 
-Use `.agents/skills/harness` (section 1, kind `algo`) and `.agents/skills/harness/reference.md`. Prefer `body.md` (do not create new `body.php`). Include complexity and an `[!ui-builder]` so the student can prompt a related mini game or step-by-step session.
+Use `.agents/skills/harness` (section 1, kind `algo`) and `.agents/skills/harness/reference.md`. Prefer `body.md` (do not create new `body.php`). Include complexity and an `[!ui-builder]` so the student can prompt a related mini game or step-by-step session. File the guide into `category` + `subcategory` (see **File into** below) so it shows up in the Algo Guides browse accordion and tile breadcrumbs.
 
 ## Each tick
 
@@ -22,7 +22,7 @@ Use `.agents/skills/harness` (section 1, kind `algo`) and `.agents/skills/harnes
 4. Derive a kebab-case `slug` from the problem title (`0001.Two Sum` → `two-sum`).
 5. If `content/guides/{slug}/` already exists, do **not** overwrite. Append to `skipped` with `"reason": "slug_exists"` and advance `next`.
 6. Otherwise create:
-   - `content/guides/{slug}/meta.php` — `title`, `summary`, `topic`, `kind` => `'algo'`, `tags`
+   - `content/guides/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `kind` => `'algo'`, `tags`
    - `content/guides/{slug}/body.md` — idea, approach from `context/`, time/space, steps, then `[!ui-builder]` for a follow-on game and/or step-by-step (mention `.agents/skills/harness`)
 7. English guide body even if the source is Chinese. Do not paste copyrighted writeups verbatim; teach the same idea in original wording.
 8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
@@ -76,6 +76,27 @@ Keep `cursor.repo` / `cursor.last_id` equal to the problem you just processed.
 ```
 
 (`reason` only on `skipped`.)
+
+## File into category / subcategory
+
+Every guide `meta.php` must set:
+
+| Key | Value |
+|-----|--------|
+| `category` | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
+| `subcategory` | One primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Binary Search`, `Stack`, …) |
+| `topic` | `{category} · {subcategory}` |
+
+How to pick `category`:
+
+| Source | `category` |
+|--------|------------|
+| Numbered LeetCode problem / LC writeup | `LeetCode` |
+| Structure as a data type (stack, queue, heap, linked list, hash map as the structure) | `Data Structures` |
+| Technique, complexity, or algorithm family | `Algorithms` |
+| Distributed / SD prompt | `System Design` |
+
+`subcategory` is the main pattern the guide teaches (from tags, folder names, or the writeup). Example: `0001.Two Sum` → `LeetCode` / `Arrays`. A hello-algo binary-search chapter → `Algorithms` / `Binary Search`.
 
 ## Do not
 

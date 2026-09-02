@@ -45,9 +45,33 @@ The app is for a student or person studying system design, data structures, algo
 - `meta.php` must `return [...]` an array
 - After creating files, the item must appear via directory scan in the matching section list (no manual registry file)
 - Include tags/topic that match System Design, Algo (O(N) space/time), or LeetCode (Arrays, etc.)
+- File every artifact into `category` + `subcategory` (see **Filing** below). Keep `topic` as `{category} · {subcategory}`
 - In guides (and when helpful in game/step-by-step intros), include a **copyable Cursor prompt** telling the student to use `.agents/skills/harness` to create another game or step-by-step session — prefer an `[!ui-builder]` widget when the student should fill in variables (topic, slug, etc.)
 - When authoring LeetCode or DSA artifacts, consult matching solutions and writeups under `context/` (run `bash context/clone.sh` first if those folders are missing). See `context/README.md`.
 
+### Filing (category / subcategory)
+
+Algo Guides and Mini games lists are not a flat dump: each tile shows a `Category / Subcategory` breadcrumb, and a browse panel accordion opens category → subcategory → topics.
+
+Every `meta.php` must include:
+
+| Key | Required | Meaning |
+|-----|----------|---------|
+| `category` | yes | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
+| `subcategory` | yes | Primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Cursor`, …) |
+| `topic` | yes | `{category} · {subcategory}` — display fallback |
+
+**How to file**
+
+| What you’re authoring | `category` | `subcategory` example |
+|-----------------------|------------|------------------------|
+| LeetCode problem | `LeetCode` | Arrays, Strings, Trees, Graphs, Dynamic Programming |
+| Structure as a data type | `Data Structures` | Stack, Queue, Linked List, Heap, Hash Map |
+| Technique / complexity | `Algorithms` | Binary Search, Two Pointers, Sliding Window, Recursion, Complexity |
+| Distributed / SD prompt | `System Design` | Caching, Load Balancing, Rate Limiting |
+| Cursor / this app’s harness | `Harness` | Cursor |
+
+Pick one subcategory — the main pattern the artifact teaches.
 
 ---
 
@@ -78,7 +102,9 @@ Prefer `body.md` for all new guides. Legacy `body.php` still renders if `body.md
 |-----|----------|---------|
 | `title` | yes | Display title |
 | `summary` | yes | One-line list description |
-| `topic` | yes | e.g. `LeetCode · Arrays`, `System Design`, `Algo · Complexity`, `Harness · Cursor` |
+| `category` | yes | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
+| `subcategory` | yes | Primary pattern (`Arrays`, `Trees`, `Cursor`, …) |
+| `topic` | yes | `{category} · {subcategory}` |
 | `kind` | yes | `cursor` or `algo` |
 | `tags` | yes | string[] |
 
@@ -117,7 +143,7 @@ Use a Markdown blockquote callout. Each `INPUT_*` line becomes a labeled text fi
 | `cursor` | `add-mini-game` (ui-builder ×2) |
 | `algo` | `two-sum` |
 
-**UI:** `guides/index.php?kind=cursor` or `?kind=algo`; view via `guides/view.php?id={slug}` (`body.md` via `includes/guide_md.php`)
+**UI:** `guides/index.php?kind=cursor` or `?kind=algo` (tiles with breadcrumbs; Browse and Filter are secondary popovers); optional `?cat=` / `&sub=` to filter tiles. View via `guides/view.php?id={slug}` (`body.md` via `includes/guide_md.php`)
 
 ---
 
@@ -137,7 +163,9 @@ content/games/{slug}/
 |-----|----------|---------|
 | `title` | yes | Display title |
 | `summary` | yes | One-line list description |
-| `topic` | yes | Topic label |
+| `category` | yes | Same filing vocabulary as guides |
+| `subcategory` | yes | Primary pattern or structure |
+| `topic` | yes | `{category} · {subcategory}` |
 | `tags` | yes | string[] |
 | `entry` | no | Default `index.html` |
 
@@ -147,7 +175,7 @@ content/games/{slug}/
 - Teach one idea (pointer motion, hash map “seen”, recursion stack, etc.)
 - Keep MVP games small; for richer web/2d work, apply `game-development-sickn33` then still wire `meta.php` + entry here
 
-**UI:** `games/index.php`, play via `games/play.php?id={slug}` (iframe to the entry file)
+**UI:** `games/index.php` (tiles with breadcrumbs; Browse and Filter are secondary popovers; `?cat=` / `&sub=` filters tiles); play via `games/play.php?id={slug}` (iframe to the entry file)
 
 ---
 
@@ -163,7 +191,7 @@ content/coaching/{slug}/
   tree.php
 ```
 
-**meta.php keys** — same shape as guides (`title`, `summary`, `topic`, `tags`)
+**meta.php keys** — same shape as guides (`title`, `summary`, `category`, `subcategory`, `topic`, `tags`)
 
 **tree.php**
 
@@ -194,14 +222,14 @@ return [
 - No randomness, no live AI — fixed graph only
 - Path visualizer is app UI only; do not add breadcrumbs files under `content/coaching/`
 
-**UI:** `coaching/session.php?id={slug}` — history stack + Step back (pop or jump to `rewind_to`) + **Path visualizer** (collapsible trail of prior steps and the choice taken at each). Authors do **not** add a separate breadcrumbs file: the visualizer is built from the history stack and each node’s `choices[].label` → `next`. Write clear choice labels so the trail reads well.
+**UI:** `coaching/index.php` (tiles with breadcrumbs; Browse and Filter are secondary popovers; `?cat=` / `&sub=` filters tiles). Session: `coaching/session.php?id={slug}` — history stack + Step back (pop or jump to `rewind_to`) + **Path visualizer** (collapsible trail of prior steps and the choice taken at each). Authors do **not** add a separate breadcrumbs file: the visualizer is built from the history stack and each node’s `choices[].label` → `next`. Write clear choice labels so the trail reads well.
 
 ---
 
 ## Workflow checklist
 
 1. Confirm which artifact (guide / game / step-by-step)
-2. Pick slug and topic tags
+2. Pick slug, category, subcategory, and tags
 3. Write files under the correct `content/.../{slug}/` tree
 4. For guides: write `body.md`; add `[!ui-builder]` when the student should fill variables before copying a Cursor prompt
 5. Match contracts exactly so list/view/play/session pick them up

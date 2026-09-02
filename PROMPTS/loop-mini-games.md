@@ -12,7 +12,7 @@ One tick = one candidate. Read this file and [`loop-mini-games.track.json`](loop
 
 Find problems in `context/` that can become a small playable **mini game**, then create `content/games/{slug}/` with the harness.
 
-Use `.agents/skills/harness` (section 2). For web/2d craft, also use `.agents/skills/game-development-sickn33`. Match [`content/games/two-sum-pointers/`](../content/games/two-sum-pointers/) for shape: `meta.php` + self-contained `index.html`.
+Use `.agents/skills/harness` (section 2). For web/2d craft, also use `.agents/skills/game-development-sickn33`. Match [`content/games/two-sum-pointers/`](../content/games/two-sum-pointers/) for shape: `meta.php` + self-contained `index.html`. File the game into `category` + `subcategory` (see **File into** below) so it shows up in the Mini games browse accordion and tile breadcrumbs.
 
 ## When to create vs skip
 
@@ -36,7 +36,7 @@ Skip (still advance `next`) when the source is theory-only, a huge DP recap with
 4. Decide create vs skip using **When to create vs skip**.
 5. If creating: derive kebab-case `slug` from the title plus the mechanic (`two-sum` + hash map → `two-sum-pointers`). If `content/games/{slug}/` exists, skip with `"reason": "slug_exists"` (do not overwrite).
 6. Otherwise write:
-   - `content/games/{slug}/meta.php` — `title`, `summary`, `topic`, `tags`, optional `entry`
+   - `content/games/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, optional `entry`
    - `content/games/{slug}/index.html` — one idea, inline CSS/JS, playable without a build step
 7. English UI copy even if the source is Chinese. The game should make the `context/` approach visible (pointers, set, stack), not only quiz for the answer.
 8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
@@ -90,6 +90,27 @@ Keep `cursor.repo` / `cursor.last_id` equal to the problem you just processed.
 ```
 
 (`reason` only on `skipped`.)
+
+## File into category / subcategory
+
+Every game `meta.php` must set:
+
+| Key | Value |
+|-----|--------|
+| `category` | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
+| `subcategory` | One primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Binary Search`, `Stack`, …) |
+| `topic` | `{category} · {subcategory}` |
+
+How to pick `category`:
+
+| Source | `category` |
+|--------|------------|
+| Numbered LeetCode problem / LC writeup | `LeetCode` |
+| Structure as a data type (stack, queue, heap, linked list, hash map as the structure) | `Data Structures` |
+| Technique, complexity, or algorithm family | `Algorithms` |
+| Distributed / SD prompt | `System Design` |
+
+`subcategory` is the mechanic the game teaches. Example: Two Sum complement drill → `LeetCode` / `Arrays`. A binary-search lo/hi board → `Algorithms` / `Binary Search`.
 
 ## Do not
 

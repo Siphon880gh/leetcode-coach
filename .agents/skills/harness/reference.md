@@ -10,6 +10,7 @@ content/
 ```
 
 Lists are built by scanning those directories for `meta.php` (`includes/content.php`).
+Algo Guides, Mini games, and Step-by-step render tiles with `category / subcategory` breadcrumbs. Browse and Filter are secondary popovers (`?cat=` / `&sub=` filters the tiles).
 Guide Markdown is rendered by `includes/guide_md.php` (including `[!ui-builder]` widgets).
 
 ## meta.php (all types)
@@ -21,7 +22,9 @@ declare(strict_types=1);
 return [
     'title' => 'Human title',
     'summary' => 'One sentence for the list card.',
-    'topic' => 'LeetCode · Arrays', // or System Design / Algo · Complexity / Harness · Cursor
+    'category' => 'LeetCode', // Algorithms | Data Structures | System Design | Harness
+    'subcategory' => 'Arrays',
+    'topic' => 'LeetCode · Arrays', // {category} · {subcategory}
     // guides only:
     'kind' => 'algo', // 'algo' → Algo Guides nav | 'cursor' → Cursor AI Guides nav
     'tags' => ['arrays', 'O(n)'],

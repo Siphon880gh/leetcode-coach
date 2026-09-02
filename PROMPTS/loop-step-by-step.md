@@ -12,7 +12,7 @@ One tick = one problem. Read this file and [`loop-step-by-step.track.json`](loop
 
 Build a harness **step-by-step** session (`content/coaching/{slug}/`) from the problem named in `next` in the tracking JSON.
 
-Use `.agents/skills/harness` (section 3) and `.agents/skills/harness/reference.md`. Match [`content/coaching/two-sum/`](../content/coaching/two-sum/) for shape.
+Use `.agents/skills/harness` (section 3) and `.agents/skills/harness/reference.md`. Match [`content/coaching/two-sum/`](../content/coaching/two-sum/) for shape. File the session into `category` + `subcategory` (see **File into** below).
 
 ## Each tick
 
@@ -22,7 +22,7 @@ Use `.agents/skills/harness` (section 3) and `.agents/skills/harness/reference.m
 4. Derive a kebab-case `slug` from the problem title (`0001.Two Sum` → `two-sum`).
 5. If `content/coaching/{slug}/` already exists, do **not** overwrite. Append to `skipped` with `"reason": "slug_exists"` and advance `next`.
 6. Otherwise create:
-   - `content/coaching/{slug}/meta.php` — `title`, `summary`, `topic`, `tags`
+   - `content/coaching/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`
    - `content/coaching/{slug}/tree.php` — deterministic graph: `start`, readable `choices[].label`, at least one `wrong` leaf with `rewind_to`, a `success` leaf. No randomness, no live AI, no breadcrumbs file.
 7. Teach the actual approach from `context/` (complexity, key invariant, common trap). English UI copy even if the source is Chinese.
 8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
@@ -76,6 +76,27 @@ Keep `cursor.repo` / `cursor.last_id` equal to the problem you just processed.
 ```
 
 (`reason` only on `skipped`.)
+
+## File into category / subcategory
+
+Every session `meta.php` must set:
+
+| Key | Value |
+|-----|--------|
+| `category` | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
+| `subcategory` | One primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Binary Search`, `Stack`, …) |
+| `topic` | `{category} · {subcategory}` |
+
+How to pick `category`:
+
+| Source | `category` |
+|--------|------------|
+| Numbered LeetCode problem / LC writeup | `LeetCode` |
+| Structure as a data type (stack, queue, heap, linked list, hash map as the structure) | `Data Structures` |
+| Technique, complexity, or algorithm family | `Algorithms` |
+| Distributed / SD prompt | `System Design` |
+
+`subcategory` is the main pattern the session teaches. Example: Two Sum approach tree → `LeetCode` / `Arrays`.
 
 ## Do not
 
