@@ -4,6 +4,8 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/layout.php';
 
 $games = list_content('games');
+$cat = isset($_GET['cat']) ? trim((string) $_GET['cat']) : '';
+$sub = isset($_GET['sub']) ? trim((string) $_GET['sub']) : '';
 
 layout_start([
     'title' => 'Mini games',
@@ -20,33 +22,16 @@ layout_start([
     </p>
 </div>
 
-<?php if ($games === []): ?>
-    <p class="empty-state">No games yet. Prompt Cursor with <code>.agents/skills/harness</code> to create one under <code>content/games/</code>.</p>
-<?php else: ?>
-    <ul class="content-list">
-        <?php foreach ($games as $item): ?>
-            <?php
-            $meta = $item['meta'];
-            $href = url('games/play.php?id=' . rawurlencode($item['slug']));
-            $tags = $meta['tags'] ?? [];
-            ?>
-            <li>
-                <a class="content-card" href="<?= e($href) ?>">
-                    <p class="content-card__meta"><?= e((string) ($meta['topic'] ?? 'Mini game')) ?></p>
-                    <h2 class="content-card__title"><?= e((string) ($meta['title'] ?? $item['slug'])) ?></h2>
-                    <p class="content-card__desc"><?= e((string) ($meta['summary'] ?? '')) ?></p>
-                    <?php if (is_array($tags) && $tags !== []): ?>
-                        <div class="tags">
-                            <?php foreach ($tags as $tag): ?>
-                                <span class="tag"><?= e((string) $tag) ?></span>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
-                </a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-<?php endif; ?>
-
 <?php
+render_content_browse($games, [
+    'script' => 'games/index.php',
+    'query' => [],
+    'cat' => $cat,
+    'sub' => $sub,
+    'empty' => 'No games yet. Prompt Cursor with <code>.agents/skills/harness</code> to create one under <code>content/games/</code>.',
+    'item_href' => static function (array $item): string {
+        return url('games/play.php?id=' . rawurlencode($item['slug']));
+    },
+]);
+
 layout_end();

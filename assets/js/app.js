@@ -164,4 +164,46 @@
       });
     }
   }
+
+  document.querySelectorAll('[data-pop]').forEach(function (root) {
+    var btn = root.querySelector('[data-pop-btn]');
+    var panel = root.querySelector('[data-pop-panel]');
+    if (!btn || !panel) return;
+
+    function setOpen(open) {
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    function closeAll() {
+      document.querySelectorAll('[data-pop]').forEach(function (other) {
+        var otherBtn = other.querySelector('[data-pop-btn]');
+        var otherPanel = other.querySelector('[data-pop-panel]');
+        if (otherBtn && otherPanel) {
+          otherPanel.hidden = true;
+          otherBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var willOpen = panel.hidden;
+      closeAll();
+      if (willOpen) setOpen(true);
+    });
+
+    panel.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', function () {
+      setOpen(false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeAll();
+    });
+  });
 })();

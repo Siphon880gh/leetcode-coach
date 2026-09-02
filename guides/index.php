@@ -13,6 +13,8 @@ $kind = normalize_guide_kind($kindParam);
 $guides = list_guides($kind);
 $label = guide_kind_label($kind);
 $active = $kind === 'cursor' ? 'guides-cursor' : 'guides-algo';
+$cat = isset($_GET['cat']) ? trim((string) $_GET['cat']) : '';
+$sub = isset($_GET['sub']) ? trim((string) $_GET['sub']) : '';
 
 $blurb = $kind === 'cursor'
     ? 'How to use Cursor with this app\'s harness — fill prompt builders, copy into your IDE, and scaffold new games or step-by-step sessions.'
@@ -30,36 +32,16 @@ layout_start([
     <p><?= e($blurb) ?></p>
 </div>
 
-<?php if ($guides === []): ?>
-    <p class="empty-state">
-        No guides in this section yet. Prompt Cursor with <code>.agents/skills/harness</code>
-        to create one under <code>content/guides/</code> with <code>kind => '<?= e($kind) ?>'</code>.
-    </p>
-<?php else: ?>
-    <ul class="content-list">
-        <?php foreach ($guides as $item): ?>
-            <?php
-            $meta = $item['meta'];
-            $href = url('guides/view.php?id=' . rawurlencode($item['slug']));
-            $tags = $meta['tags'] ?? [];
-            ?>
-            <li>
-                <a class="content-card" href="<?= e($href) ?>">
-                    <p class="content-card__meta"><?= e((string) ($meta['topic'] ?? 'Guide')) ?></p>
-                    <h2 class="content-card__title"><?= e((string) ($meta['title'] ?? $item['slug'])) ?></h2>
-                    <p class="content-card__desc"><?= e((string) ($meta['summary'] ?? '')) ?></p>
-                    <?php if (is_array($tags) && $tags !== []): ?>
-                        <div class="tags">
-                            <?php foreach ($tags as $tag): ?>
-                                <span class="tag"><?= e((string) $tag) ?></span>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
-                </a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-<?php endif; ?>
-
 <?php
+render_content_browse($guides, [
+    'script' => 'guides/index.php',
+    'query' => ['kind' => $kind],
+    'cat' => $cat,
+    'sub' => $sub,
+    'empty' => 'No guides in this section yet. Prompt Cursor with <code>.agents/skills/harness</code> to create one under <code>content/guides/</code> with <code>kind => \'' . e($kind) . '\'</code>.',
+    'item_href' => static function (array $item): string {
+        return url('guides/view.php?id=' . rawurlencode($item['slug']));
+    },
+]);
+
 layout_end();

@@ -153,7 +153,7 @@ layout_start([
 <a class="back-link" href="<?= e(url('coaching/index.php')) ?>">← Step-by-step</a>
 
 <div class="page-head">
-    <p class="content-card__meta"><?= e((string) ($meta['topic'] ?? 'Step-by-step')) ?></p>
+    <?php render_content_crumb($meta, 'coaching/index.php', []); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
 </div>
 

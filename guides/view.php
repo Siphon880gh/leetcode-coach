@@ -33,7 +33,7 @@ layout_start([
 <a class="back-link" href="<?= e(guide_list_url($kind)) ?>">← <?= e($sectionLabel) ?></a>
 
 <div class="page-head">
-    <p class="content-card__meta"><?= e((string) ($meta['topic'] ?? 'Guide')) ?></p>
+    <?php render_content_crumb($meta, 'guides/index.php', ['kind' => $kind]); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
     <p><?= e((string) ($meta['summary'] ?? '')) ?></p>
 </div>

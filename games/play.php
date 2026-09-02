@@ -29,7 +29,7 @@ layout_start([
 <a class="back-link" href="<?= e(url('games/index.php')) ?>">← All mini games</a>
 
 <div class="page-head">
-    <p class="content-card__meta"><?= e((string) ($meta['topic'] ?? 'Mini game')) ?></p>
+    <?php render_content_crumb($meta, 'games/index.php', []); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
     <p><?= e((string) ($meta['summary'] ?? '')) ?></p>
 </div>
