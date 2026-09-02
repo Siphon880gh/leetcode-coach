@@ -145,6 +145,7 @@ foreach ($pathIds as $i => $id) {
     ];
 }
 $pathDepth = count($history);
+$pathAnswered = $pathDepth > 0;
 
 $openChoices = [];
 if ($outcome === 'continue' && is_array($choices)) {
@@ -181,6 +182,7 @@ $pathAi = [
     'outcome' => $outcome,
     'rewind_to' => $rewindTo,
     'open_choices' => $openChoices,
+    'answered' => $pathAnswered,
     'steps' => array_map(static function (array $step): array {
         return [
             'id' => (string) $step['id'],
@@ -196,6 +198,29 @@ $pathAiJson = json_encode($pathAi, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASH
 if (!is_string($pathAiJson)) {
     $pathAiJson = '{}';
 }
+
+$pathAiTabs = [
+    'explain' => [
+        'label' => 'Explain what I have done so far',
+        'subtitle' => 'Plain English walkthrough of the steps you have taken so far',
+        'hint' => 'Builds a prompt from your path so far. Copy it, then use ChatGPT or Claude for a walkthrough with side notes on keywords, concepts, and Big-O such as O(n·k).',
+        'needs_answer' => true,
+    ],
+    'optimize' => [
+        'label' => 'How to optimize what I have so far',
+        'subtitle' => 'Tighten the approach you have already taken',
+        'hint' => 'Builds a prompt from your path so far. Copy it, then use ChatGPT or Claude for ways to improve the work you already did.',
+        'needs_answer' => true,
+    ],
+    'proceed' => [
+        'label' => 'Answer the entire problem from this point',
+        'subtitle' => 'The complete solution from where you are now',
+        'hint' => 'Builds a prompt from this session. Copy it, then use ChatGPT or Claude for a full answer from this point on.',
+        'needs_answer' => false,
+    ],
+];
+$pathAiDefaultTab = $pathAnswered ? 'explain' : 'proceed';
+$pathAiActiveTab = $pathAiTabs[$pathAiDefaultTab];
 
 layout_start([
     'title' => (string) ($meta['title'] ?? $slug),
@@ -274,7 +299,7 @@ layout_start([
                 class="coaching-ai-open"
                 aria-haspopup="dialog"
                 aria-controls="coaching-path-ai-modal"
-                aria-label="Ask AI to explain the path so far"
+                aria-label="Ask AI about this path"
             >
                 <span class="coaching-ai-open__icon" aria-hidden="true">✨</span>
                 <span>Ask AI</span>
@@ -342,12 +367,33 @@ layout_start([
     <div class="modal__backdrop" data-action="close-coaching-path-ai-modal"></div>
     <div class="modal__panel modal__panel--wide" role="dialog" aria-modal="true" aria-labelledby="coaching-path-ai-modal-title">
         <header class="modal__header">
-            <h3 id="coaching-path-ai-modal-title" class="modal__title">Explain this path</h3>
-            <p class="modal__subtitle">Plain English walkthrough of the steps you have taken so far</p>
+            <h3 id="coaching-path-ai-modal-title" class="modal__title">Ask AI</h3>
+            <p id="coaching-path-ai-modal-subtitle" class="modal__subtitle"><?= e((string) $pathAiActiveTab['subtitle']) ?></p>
+            <div class="coaching-path-ai-tabs" role="tablist" aria-label="Ask AI prompt">
+                <?php foreach ($pathAiTabs as $tabId => $tab): ?>
+                    <?php
+                    $tabDisabled = (bool) $tab['needs_answer'] && !$pathAnswered;
+                    $tabSelected = $tabId === $pathAiDefaultTab;
+                    ?>
+                    <button
+                        type="button"
+                        role="tab"
+                        class="coaching-path-ai-tab"
+                        id="coaching-path-ai-tab-<?= e((string) $tabId) ?>"
+                        data-path-ai-tab="<?= e((string) $tabId) ?>"
+                        data-subtitle="<?= e((string) $tab['subtitle']) ?>"
+                        data-hint="<?= e((string) $tab['hint']) ?>"
+                        aria-controls="coaching-path-ai-panel"
+                        aria-selected="<?= $tabSelected ? 'true' : 'false' ?>"
+                        tabindex="<?= $tabSelected ? '0' : '-1' ?>"
+                        <?php if ($tabDisabled): ?>disabled title="Answer a step first"<?php endif; ?>
+                    ><?= e((string) $tab['label']) ?></button>
+                <?php endforeach; ?>
+            </div>
         </header>
         <div class="import-modal__body">
-            <p class="import-modal__hint">Builds a prompt from your path so far. Copy it, then use ChatGPT or Claude for a walkthrough with side notes on keywords, concepts, and Big-O such as <code>O(n·k)</code>.</p>
-            <div class="import-ai-panel">
+            <p id="coaching-path-ai-hint" class="import-modal__hint"><?= e((string) $pathAiActiveTab['hint']) ?></p>
+            <div id="coaching-path-ai-panel" class="import-ai-panel" role="tabpanel" aria-labelledby="coaching-path-ai-tab-<?= e((string) $pathAiDefaultTab) ?>">
                 <p class="import-ai-panel__preview-label">Prompt preview</p>
                 <pre id="coaching-path-ai-preview" class="import-ai-panel__preview import-ai-panel__preview--tall"></pre>
                 <div class="import-ai-panel__actions">

@@ -173,6 +173,11 @@
   var pathAiChatgpt = document.getElementById('coaching-path-open-chatgpt');
   var pathAiClaude = document.getElementById('coaching-path-open-claude');
   var pathAiWrap = document.querySelector('[data-path-ai]');
+  var pathAiSubtitle = document.getElementById('coaching-path-ai-modal-subtitle');
+  var pathAiHint = document.getElementById('coaching-path-ai-hint');
+  var pathAiPanel = document.getElementById('coaching-path-ai-panel');
+  var pathAiTabs = pathAiModal ? pathAiModal.querySelectorAll('[data-path-ai-tab]') : [];
+  var pathAiMode = 'proceed';
   var lastPathAiFocus = null;
 
   function parsePathAiData() {
@@ -184,7 +189,48 @@
     }
   }
 
-  function buildCoachingPathAiPrompt(data) {
+  function pathAiHasAnswered() {
+    var data = parsePathAiData();
+    if (data && typeof data.answered === 'boolean') return data.answered;
+    var steps = data && Array.isArray(data.steps) ? data.steps : [];
+    return steps.some(function (step) {
+      return step && step.choice;
+    });
+  }
+
+  function coachingPathAiSideNotes(verb) {
+    return 'While you ' + verb + ', add a lot of side notes. Whenever a keyword, concept, data structure, algorithm pattern, or complexity expression shows up — including hash map, two pointers, sliding window, complement, recursion, nested loops, and Big-O such as O(n), O(n²), O(n log n), O(n·k), O(n*m) — pause and explain it in a clearly labeled side note (for example: "Side note — O(n·k): …"). Assume I may not know the term yet. Do not skip jargon. Put each side note right after the sentence that used the term.';
+  }
+
+  function coachingPathAiTaskLines(mode) {
+    if (mode === 'optimize') {
+      return [
+        'Task: Tell me how to optimize what I have so far. Stay with the decisions I already made. Point out extra work, weaker complexity, missed pruning, and concrete ways to tighten this same path. Do not throw the work away unless a change is clearly better.',
+        '',
+        coachingPathAiSideNotes('answer'),
+        '',
+        'Keep the main story linear (my path only). Reply in plain language, not JSON. Use short sections.'
+      ];
+    }
+    if (mode === 'proceed') {
+      return [
+        'Task: Answer the entire problem from this point. Start from where I am now and give the complete remaining solution and reasoning — the full answer from here, not a hint or a partial nudge. Cover the approach, why it is correct, and the time and space complexity. Use my path so far as the starting point; do not restart from the beginning unless I have not taken any steps yet.',
+        '',
+        coachingPathAiSideNotes('answer'),
+        '',
+        'Reply in plain language, not JSON. Use short sections. Finish the rest of the problem from this point.'
+      ];
+    }
+    return [
+      'Task: Explain this path so far in plain English. Walk through what I decided, what each step was doing, and why those decisions matter for the problem.',
+      '',
+      coachingPathAiSideNotes('explain'),
+      '',
+      'Keep the main story linear (my path only). Reply in plain language, not JSON. Use short sections.'
+    ];
+  }
+
+  function buildCoachingPathAiPrompt(data, mode) {
     if (!data || typeof data !== 'object') {
       return '';
     }
@@ -242,16 +288,57 @@
       lines.push('');
     }
 
-    lines.push('Task: Explain this path so far in plain English. Walk through what I decided, what each step was doing, and why those decisions matter for the problem.');
-    lines.push('');
-    lines.push('While you explain, add a lot of side notes. Whenever a keyword, concept, data structure, algorithm pattern, or complexity expression shows up — including hash map, two pointers, sliding window, complement, recursion, nested loops, and Big-O such as O(n), O(n²), O(n log n), O(n·k), O(n*m) — pause and explain it in a clearly labeled side note (for example: "Side note — O(n·k): …"). Assume I may not know the term yet. Do not skip jargon. Put each side note right after the sentence that used the term.');
-    lines.push('');
-    lines.push('Keep the main story linear (my path only). Reply in plain language, not JSON. Use short sections.');
-    return lines.join('\n');
+    return lines.concat(coachingPathAiTaskLines(mode)).join('\n');
   }
 
   function currentCoachingPathAiPrompt() {
-    return buildCoachingPathAiPrompt(parsePathAiData());
+    return buildCoachingPathAiPrompt(parsePathAiData(), pathAiMode);
+  }
+
+  function syncCoachingPathAiTabAvailability() {
+    var answered = pathAiHasAnswered();
+    pathAiTabs.forEach(function (tab) {
+      var mode = tab.getAttribute('data-path-ai-tab');
+      var needsAnswer = mode === 'explain' || mode === 'optimize';
+      tab.disabled = needsAnswer && !answered;
+      if (tab.disabled) {
+        tab.setAttribute('title', 'Answer a step first');
+      } else {
+        tab.removeAttribute('title');
+      }
+    });
+    return answered;
+  }
+
+  function selectCoachingPathAiTab(mode) {
+    var answered = syncCoachingPathAiTabAvailability();
+    if ((mode === 'explain' || mode === 'optimize') && !answered) {
+      mode = 'proceed';
+    }
+    if (mode !== 'explain' && mode !== 'optimize' && mode !== 'proceed') {
+      mode = answered ? 'explain' : 'proceed';
+    }
+    pathAiMode = mode;
+    pathAiTabs.forEach(function (tab) {
+      var id = tab.getAttribute('data-path-ai-tab');
+      var selected = id === mode;
+      tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+      tab.tabIndex = selected ? 0 : -1;
+      if (selected) {
+        if (pathAiSubtitle && tab.getAttribute('data-subtitle')) {
+          pathAiSubtitle.textContent = tab.getAttribute('data-subtitle');
+        }
+        if (pathAiHint && tab.getAttribute('data-hint')) {
+          pathAiHint.textContent = tab.getAttribute('data-hint');
+        }
+        if (pathAiPanel) {
+          pathAiPanel.setAttribute('aria-labelledby', tab.id);
+        }
+      }
+    });
+    if (pathAiPreview) {
+      pathAiPreview.textContent = currentCoachingPathAiPrompt();
+    }
   }
 
   function setCoachingPathAiModalOpen(open) {
@@ -262,9 +349,7 @@
       pathAiOpen.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
     if (open) {
-      if (pathAiPreview) {
-        pathAiPreview.textContent = currentCoachingPathAiPrompt();
-      }
+      selectCoachingPathAiTab(pathAiHasAnswered() ? 'explain' : 'proceed');
       var panel = pathAiModal.querySelector('.modal__panel');
       if (panel && typeof panel.focus === 'function') {
         if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '-1');
@@ -302,6 +387,35 @@
     if (pathAiBackdrop) {
       pathAiBackdrop.addEventListener('click', function () {
         setCoachingPathAiModalOpen(false);
+      });
+    }
+    pathAiModal.addEventListener('click', function (e) {
+      var tab = e.target.closest('[data-path-ai-tab]');
+      if (!tab || tab.disabled || !pathAiModal.contains(tab)) return;
+      selectCoachingPathAiTab(tab.getAttribute('data-path-ai-tab'));
+    });
+    var pathAiTablist = pathAiModal.querySelector('.coaching-path-ai-tabs');
+    if (pathAiTablist) {
+      pathAiTablist.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Home' && e.key !== 'End') {
+          return;
+        }
+        var tab = e.target.closest('[data-path-ai-tab]');
+        if (!tab) return;
+        var enabled = [];
+        pathAiTabs.forEach(function (item) {
+          if (!item.disabled) enabled.push(item);
+        });
+        if (!enabled.length) return;
+        var i = enabled.indexOf(tab);
+        var next = null;
+        if (e.key === 'Home') next = enabled[0];
+        else if (e.key === 'End') next = enabled[enabled.length - 1];
+        else if (e.key === 'ArrowRight') next = enabled[i < 0 ? 0 : (i + 1) % enabled.length];
+        else next = enabled[i < 0 ? enabled.length - 1 : (i - 1 + enabled.length) % enabled.length];
+        e.preventDefault();
+        selectCoachingPathAiTab(next.getAttribute('data-path-ai-tab'));
+        next.focus();
       });
     }
     document.addEventListener('keydown', function (e) {
