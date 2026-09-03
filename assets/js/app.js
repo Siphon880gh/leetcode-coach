@@ -803,6 +803,10 @@
     return null;
   }
 
+  function confirmRemoveTag(name) {
+    return window.confirm('Remove tag "' + name + '"?');
+  }
+
   function toggleResourceTag(db, state, key, tagId) {
     var existing = findResourceTagRow(state, key, tagId);
     var tx = db.transaction(['resource_tags'], 'readwrite');
@@ -1021,6 +1025,7 @@
           chip.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
+            if (!confirmRemoveTag(row.name)) return;
             toggleResourceTag(db, state, key, id).then(renderAll);
           });
           wrap.appendChild(chip);
@@ -1051,6 +1056,7 @@
         btn.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
+          if (on && !confirmRemoveTag(def.label)) return;
           toggleResourceTag(db, state, tileKey, def.id).then(renderAll);
         });
         picker.appendChild(btn);
