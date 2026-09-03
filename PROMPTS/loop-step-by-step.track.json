@@ -13,11 +13,11 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/0000-0099/0099.Recover Binary Search Tree"
+    "last_id": "solution/0100-0199/0158.Read N Characters Given read4 II - Call Multiple Times"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0100-0199/0100.Same Tree"
+    "id": "solution/0100-0199/0159.Longest Substring with At Most Two Distinct Characters"
   },
   "completed": [
     {
@@ -607,6 +607,360 @@
       "id": "solution/0000-0099/0099.Recover Binary Search Tree",
       "slug": "recover-binary-search-tree",
       "title": "Recover Binary Search Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0100.Same Tree",
+      "slug": "same-tree",
+      "title": "Same Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0101.Symmetric Tree",
+      "slug": "symmetric-tree",
+      "title": "Symmetric Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0102.Binary Tree Level Order Traversal",
+      "slug": "binary-tree-level-order-traversal",
+      "title": "Binary Tree Level Order Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0103.Binary Tree Zigzag Level Order Traversal",
+      "slug": "binary-tree-zigzag-level-order-traversal",
+      "title": "Binary Tree Zigzag Level Order Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0104.Maximum Depth of Binary Tree",
+      "slug": "maximum-depth-of-binary-tree",
+      "title": "Maximum Depth of Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0105.Construct Binary Tree from Preorder and Inorder Traversal",
+      "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0106.Construct Binary Tree from Inorder and Postorder Traversal",
+      "slug": "construct-binary-tree-from-inorder-and-postorder-traversal",
+      "title": "Construct Binary Tree from Inorder and Postorder Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0107.Binary Tree Level Order Traversal II",
+      "slug": "binary-tree-level-order-traversal-ii",
+      "title": "Binary Tree Level Order Traversal II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0108.Convert Sorted Array to Binary Search Tree",
+      "slug": "convert-sorted-array-to-binary-search-tree",
+      "title": "Convert Sorted Array to Binary Search Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0109.Convert Sorted List to Binary Search Tree",
+      "slug": "convert-sorted-list-to-binary-search-tree",
+      "title": "Convert Sorted List to Binary Search Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0110.Balanced Binary Tree",
+      "slug": "balanced-binary-tree",
+      "title": "Balanced Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0111.Minimum Depth of Binary Tree",
+      "slug": "minimum-depth-of-binary-tree",
+      "title": "Minimum Depth of Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0112.Path Sum",
+      "slug": "path-sum",
+      "title": "Path Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0113.Path Sum II",
+      "slug": "path-sum-ii",
+      "title": "Path Sum II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0114.Flatten Binary Tree to Linked List",
+      "slug": "flatten-binary-tree-to-linked-list",
+      "title": "Flatten Binary Tree to Linked List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0115.Distinct Subsequences",
+      "slug": "distinct-subsequences",
+      "title": "Distinct Subsequences"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0116.Populating Next Right Pointers in Each Node",
+      "slug": "populating-next-right-pointers-in-each-node",
+      "title": "Populating Next Right Pointers in Each Node"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0117.Populating Next Right Pointers in Each Node II",
+      "slug": "populating-next-right-pointers-in-each-node-ii",
+      "title": "Populating Next Right Pointers in Each Node II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0118.Pascal's Triangle",
+      "slug": "pascals-triangle",
+      "title": "Pascal's Triangle"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0119.Pascal's Triangle II",
+      "slug": "pascals-triangle-ii",
+      "title": "Pascal's Triangle II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0120.Triangle",
+      "slug": "triangle",
+      "title": "Triangle"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0121.Best Time to Buy and Sell Stock",
+      "slug": "best-time-to-buy-and-sell-stock",
+      "title": "Best Time to Buy and Sell Stock"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0122.Best Time to Buy and Sell Stock II",
+      "slug": "best-time-to-buy-and-sell-stock-ii",
+      "title": "Best Time to Buy and Sell Stock II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0123.Best Time to Buy and Sell Stock III",
+      "slug": "best-time-to-buy-and-sell-stock-iii",
+      "title": "Best Time to Buy and Sell Stock III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0124.Binary Tree Maximum Path Sum",
+      "slug": "binary-tree-maximum-path-sum",
+      "title": "Binary Tree Maximum Path Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0125.Valid Palindrome",
+      "slug": "valid-palindrome",
+      "title": "Valid Palindrome"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0126.Word Ladder II",
+      "slug": "word-ladder-ii",
+      "title": "Word Ladder II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0127.Word Ladder",
+      "slug": "word-ladder",
+      "title": "Word Ladder"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0128.Longest Consecutive Sequence",
+      "slug": "longest-consecutive-sequence",
+      "title": "Longest Consecutive Sequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0129.Sum Root to Leaf Numbers",
+      "slug": "sum-root-to-leaf-numbers",
+      "title": "Sum Root to Leaf Numbers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0130.Surrounded Regions",
+      "slug": "surrounded-regions",
+      "title": "Surrounded Regions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0131.Palindrome Partitioning",
+      "slug": "palindrome-partitioning",
+      "title": "Palindrome Partitioning"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0132.Palindrome Partitioning II",
+      "slug": "palindrome-partitioning-ii",
+      "title": "Palindrome Partitioning II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0133.Clone Graph",
+      "slug": "clone-graph",
+      "title": "Clone Graph"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0134.Gas Station",
+      "slug": "gas-station",
+      "title": "Gas Station"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0135.Candy",
+      "slug": "candy",
+      "title": "Candy"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0136.Single Number",
+      "slug": "single-number",
+      "title": "Single Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0137.Single Number II",
+      "slug": "single-number-ii",
+      "title": "Single Number II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0138.Copy List with Random Pointer",
+      "slug": "copy-list-with-random-pointer",
+      "title": "Copy List with Random Pointer"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0139.Word Break",
+      "slug": "word-break",
+      "title": "Word Break"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0140.Word Break II",
+      "slug": "word-break-ii",
+      "title": "Word Break II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0141.Linked List Cycle",
+      "slug": "linked-list-cycle",
+      "title": "Linked List Cycle"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0142.Linked List Cycle II",
+      "slug": "linked-list-cycle-ii",
+      "title": "Linked List Cycle II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0143.Reorder List",
+      "slug": "reorder-list",
+      "title": "Reorder List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0144.Binary Tree Preorder Traversal",
+      "slug": "binary-tree-preorder-traversal",
+      "title": "Binary Tree Preorder Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0145.Binary Tree Postorder Traversal",
+      "slug": "binary-tree-postorder-traversal",
+      "title": "Binary Tree Postorder Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0146.LRU Cache",
+      "slug": "lru-cache",
+      "title": "LRU Cache"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0147.Insertion Sort List",
+      "slug": "insertion-sort-list",
+      "title": "Insertion Sort List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0148.Sort List",
+      "slug": "sort-list",
+      "title": "Sort List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0149.Max Points on a Line",
+      "slug": "max-points-on-a-line",
+      "title": "Max Points on a Line"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0150.Evaluate Reverse Polish Notation",
+      "slug": "evaluate-reverse-polish-notation",
+      "title": "Evaluate Reverse Polish Notation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0151.Reverse Words in a String",
+      "slug": "reverse-words-in-a-string",
+      "title": "Reverse Words in a String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0152.Maximum Product Subarray",
+      "slug": "maximum-product-subarray",
+      "title": "Maximum Product Subarray"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0153.Find Minimum in Rotated Sorted Array",
+      "slug": "find-minimum-in-rotated-sorted-array",
+      "title": "Find Minimum in Rotated Sorted Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0154.Find Minimum in Rotated Sorted Array II",
+      "slug": "find-minimum-in-rotated-sorted-array-ii",
+      "title": "Find Minimum in Rotated Sorted Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0155.Min Stack",
+      "slug": "min-stack",
+      "title": "Min Stack"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0156.Binary Tree Upside Down",
+      "slug": "binary-tree-upside-down",
+      "title": "Binary Tree Upside Down"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0157.Read N Characters Given Read4",
+      "slug": "read-n-characters-given-read4",
+      "title": "Read N Characters Given Read4"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0158.Read N Characters Given read4 II - Call Multiple Times",
+      "slug": "read-n-characters-given-read4-ii",
+      "title": "Read N Characters Given Read4 II"
     }
   ],
   "skipped": [
