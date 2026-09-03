@@ -32,6 +32,7 @@ layout_start([
     <?php render_content_crumb($meta, 'games/index.php', []); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
     <p><?= e((string) ($meta['summary'] ?? '')) ?></p>
+    <?php render_user_tag_page('games/index.php', $slug); ?>
 </div>
 
 <div class="game-frame-wrap">

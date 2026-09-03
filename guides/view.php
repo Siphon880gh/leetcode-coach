@@ -36,6 +36,9 @@ layout_start([
     <?php render_content_crumb($meta, 'guides/index.php', ['kind' => $kind]); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
     <p><?= e((string) ($meta['summary'] ?? '')) ?></p>
+    <?php if ($kind === 'algo'): ?>
+        <?php render_user_tag_page('guides/index.php', $slug); ?>
+    <?php endif; ?>
 </div>
 
 <article class="guide-body">

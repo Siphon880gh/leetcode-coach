@@ -231,6 +231,53 @@ function filter_content_taxonomy(array $items, string $cat, string $sub): array
     return $out;
 }
 
+function user_tag_section(string $script): string
+{
+    if (strpos($script, 'games/') === 0) {
+        return 'games';
+    }
+    if (strpos($script, 'coaching/') === 0) {
+        return 'coaching';
+    }
+
+    return 'guides';
+}
+
+function user_tag_resource_key(string $script, string $slug): string
+{
+    return user_tag_section($script) . ':' . $slug;
+}
+
+function render_user_tag_editor(): void
+{
+    ?>
+    <div class="user-tags" data-user-tags>
+        <div class="user-tags__applied" data-user-tags-applied></div>
+        <div class="user-tag-pop" data-user-tag-pop>
+            <button
+                type="button"
+                class="user-tag-add"
+                data-user-tag-open
+                aria-expanded="false"
+                aria-haspopup="true"
+            >+ Tag</button>
+            <div class="user-tag-picker" data-user-tag-picker hidden></div>
+        </div>
+    </div>
+    <?php
+}
+
+function render_user_tag_page(string $script, string $slug): void
+{
+    ?>
+    <div class="user-tags-page" data-user-tags-root data-user-tag-section="<?= e(user_tag_section($script)) ?>">
+        <div data-user-tag-resource="<?= e(user_tag_resource_key($script, $slug)) ?>">
+            <?php render_user_tag_editor(); ?>
+        </div>
+    </div>
+    <?php
+}
+
 /**
  * @param array<string, string> $params
  */
@@ -281,7 +328,8 @@ function render_content_crumb(array $meta, string $script, array $baseQuery): vo
  *   cat?: string,
  *   sub?: string,
  *   empty: string,
- *   item_href: callable
+ *   item_href: callable,
+ *   user_tags?: bool
  * } $opts
  */
 function render_content_browse(array $items, array $opts): void
@@ -291,6 +339,8 @@ function render_content_browse(array $items, array $opts): void
     $cat = trim((string) ($opts['cat'] ?? ''));
     $sub = trim((string) ($opts['sub'] ?? ''));
     $empty = (string) ($opts['empty'] ?? 'Nothing here yet.');
+    $userTags = !empty($opts['user_tags']);
+    $tagSection = user_tag_section($script);
     /** @var callable $itemHref */
     $itemHref = $opts['item_href'];
 
@@ -306,10 +356,11 @@ function render_content_browse(array $items, array $opts): void
     if ($cat !== '') {
         $heading = $sub !== '' ? $cat . ' / ' . $sub : $cat;
     }
+    $visibleCount = count($visible);
     ?>
-    <div class="browse">
+    <div class="browse"<?php if ($userTags): ?> data-user-tags-root data-user-tag-section="<?= e($tagSection) ?>"<?php endif; ?>>
         <div class="browse__toolbar">
-            <h2 class="browse__heading"><?= e($heading) ?></h2>
+            <h2 class="browse__heading"><?= e($heading) ?> <span class="resource-n">(<?= $visibleCount ?>)</span></h2>
             <div class="browse__actions">
                 <div class="pop" data-pop>
                     <button
@@ -372,10 +423,11 @@ function render_content_browse(array $items, array $opts): void
                         </nav>
                     </div>
                 </div>
+                <div class="filter-ctrl">
                 <div class="pop" data-pop>
                     <button
                         type="button"
-                        class="pop__btn<?= $cat !== '' ? ' is-active' : '' ?>"
+                        class="pop__btn<?= $cat !== '' ? ' is-active has-filter' : '' ?>"
                         data-pop-btn
                         aria-expanded="false"
                         aria-controls="resource-filter"
@@ -384,22 +436,51 @@ function render_content_browse(array $items, array $opts): void
                     >Filter</button>
                     <div
                         id="resource-filter"
-                        class="pop__panel"
+                        class="pop__panel<?= $userTags ? ' pop__panel--filter' : '' ?>"
                         data-pop-panel
                         hidden
                         role="dialog"
                         aria-label="Filter"
                     >
-                        <p class="pop__title">Filter</p>
-                        <ul class="pop__list">
+                        <?php if ($userTags): ?>
+                            <div class="filter-tags" data-filter-tags>
+                                <button
+                                    type="button"
+                                    class="filter-tags__btn"
+                                    data-filter-tags-btn
+                                    aria-expanded="false"
+                                    aria-haspopup="true"
+                                    aria-controls="resource-filter-tags"
+                                >
+                                    <span class="filter-tags__caret" aria-hidden="true">◂</span>
+                                    Tags
+                                </button>
+                                <div
+                                    id="resource-filter-tags"
+                                    class="filter-tags__panel"
+                                    data-filter-tags-panel
+                                    hidden
+                                    role="dialog"
+                                    aria-label="Tags"
+                                >
+                                    <ul class="pop__list pop__list--tags" data-user-tag-filters></ul>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <p class="pop__title"><?= $userTags ? 'Topics' : 'Filter' ?></p>
+                        <ul class="pop__list pop__list--topics">
                             <li>
                                 <a
                                     class="pop__opt<?= $cat === '' ? ' is-current' : '' ?>"
                                     href="<?= e($allHref) ?>"
-                                >All resources</a>
+                                >All resources <span class="resource-n">(<?= count($items) ?>)</span></a>
                             </li>
                             <?php foreach ($tree as $category => $subs): ?>
                                 <?php
+                                $catCount = 0;
+                                foreach ($subs as $group) {
+                                    $catCount += count($group);
+                                }
                                 $catHref = content_list_href($script, array_merge($baseQuery, [
                                     'cat' => $category,
                                     'sub' => '',
@@ -410,7 +491,7 @@ function render_content_browse(array $items, array $opts): void
                                     <a
                                         class="pop__opt pop__opt--cat<?= $catOptCurrent ? ' is-current' : '' ?>"
                                         href="<?= e($catHref) ?>"
-                                    ><?= e($category) ?></a>
+                                    ><?= e($category) ?> <span class="resource-n">(<?= (int) $catCount ?>)</span></a>
                                     <ul>
                                         <?php foreach ($subs as $subcategory => $group): ?>
                                             <?php
@@ -424,7 +505,7 @@ function render_content_browse(array $items, array $opts): void
                                                 <a
                                                     class="pop__opt pop__opt--sub<?= $subOptCurrent ? ' is-current' : '' ?>"
                                                     href="<?= e($subHref) ?>"
-                                                ><?= e($subcategory) ?></a>
+                                                ><?= e($subcategory) ?> <span class="resource-n">(<?= count($group) ?>)</span></a>
                                             </li>
                                         <?php endforeach; ?>
                                     </ul>
@@ -433,11 +514,20 @@ function render_content_browse(array $items, array $opts): void
                         </ul>
                     </div>
                 </div>
+                <a
+                    class="filter-clear"
+                    href="<?= e($allHref) ?>"
+                    data-filter-clear
+                    aria-label="Clear filters"
+                    <?= $cat !== '' ? '' : 'hidden' ?>
+                >×</a>
+                </div>
             </div>
         </div>
             <?php if ($visible === []): ?>
                 <p class="empty-state">No resources in this category. <a href="<?= e($allHref) ?>">Show all</a></p>
             <?php else: ?>
+                <p class="empty-state" data-user-tag-empty hidden>No resources with that tag.</p>
                 <ul class="content-tiles">
                     <?php foreach ($visible as $item): ?>
                         <?php
@@ -445,7 +535,7 @@ function render_content_browse(array $items, array $opts): void
                         $href = (string) $itemHref($item);
                         $tags = $meta['tags'] ?? [];
                         ?>
-                        <li class="content-tile">
+                        <li class="content-tile"<?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
                             <?php render_content_crumb($meta, $script, $baseQuery); ?>
                             <a class="content-tile__body" href="<?= e($href) ?>">
                                 <h3 class="content-tile__title"><?= e((string) ($meta['title'] ?? $item['slug'])) ?></h3>
@@ -458,6 +548,9 @@ function render_content_browse(array $items, array $opts): void
                                     </div>
                                 <?php endif; ?>
                             </a>
+                            <?php if ($userTags): ?>
+                                <?php render_user_tag_editor(); ?>
+                            <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>

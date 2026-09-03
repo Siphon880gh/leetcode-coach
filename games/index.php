@@ -28,6 +28,7 @@ render_content_browse($games, [
     'query' => [],
     'cat' => $cat,
     'sub' => $sub,
+    'user_tags' => true,
     'empty' => 'No games yet. Prompt Cursor with <code>.agents/skills/harness</code> to create one under <code>content/games/</code>.',
     'item_href' => static function (array $item): string {
         return url('games/play.php?id=' . rawurlencode($item['slug']));

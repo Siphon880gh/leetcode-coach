@@ -21,6 +21,18 @@ layout_start([
         For students of system design, data structures, algorithms, and LeetCode.
         An interactive extension of the Cursor harness — learn here, then prompt Cursor to build the next guide, mini-game, or step-by-step path inside this app.
     </p>
+    <aside class="hero__note" aria-labelledby="concept-note-title">
+        <h2 id="concept-note-title">This is not a coding test</h2>
+        <p>
+            This app does not test you on coding the solutions. It focuses on applying the concepts without writing code.
+            After you work through a problem here, the next step is to implement it in your preferred language on
+            <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer">LeetCode</a>.
+        </p>
+        <p>
+            The idea is not to replace LeetCode. It adds a language-free concept-application phase.
+            Coding a solution is a lot harder if you do not have the concept yet.
+        </p>
+    </aside>
     <div class="cta-row">
         <a class="btn btn--primary" href="<?= e(guide_list_url('algo')) ?>">Algo Guides</a>
         <a class="btn btn--ghost" href="<?= e(guide_list_url('cursor')) ?>">Cursor AI Guides</a>

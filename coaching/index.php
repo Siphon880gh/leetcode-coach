@@ -28,6 +28,7 @@ render_content_browse($sessions, [
     'query' => [],
     'cat' => $cat,
     'sub' => $sub,
+    'user_tags' => true,
     'empty' => 'No step-by-step sessions yet. Prompt Cursor with <code>.agents/skills/harness</code> to create one under <code>content/coaching/</code>.',
     'item_href' => static function (array $item): string {
         return url('coaching/session.php?id=' . rawurlencode($item['slug']));

@@ -234,6 +234,7 @@ layout_start([
 <div class="page-head">
     <?php render_content_crumb($meta, 'coaching/index.php', []); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
+    <?php render_user_tag_page('coaching/index.php', $slug); ?>
 </div>
 
 <div
