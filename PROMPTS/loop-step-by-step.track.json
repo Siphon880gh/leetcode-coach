@@ -13,11 +13,11 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/0000-0099/0062.Unique Paths"
+    "last_id": "solution/0000-0099/0099.Recover Binary Search Tree"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0000-0099/0063.Unique Paths II"
+    "id": "solution/0100-0199/0100.Same Tree"
   },
   "completed": [
     {
@@ -385,6 +385,228 @@
       "id": "solution/0000-0099/0062.Unique Paths",
       "slug": "unique-paths",
       "title": "Unique Paths"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0063.Unique Paths II",
+      "slug": "unique-paths-ii",
+      "title": "Unique Paths II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0064.Minimum Path Sum",
+      "slug": "minimum-path-sum",
+      "title": "Minimum Path Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0065.Valid Number",
+      "slug": "valid-number",
+      "title": "Valid Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0066.Plus One",
+      "slug": "plus-one",
+      "title": "Plus One"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0067.Add Binary",
+      "slug": "add-binary",
+      "title": "Add Binary"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0068.Text Justification",
+      "slug": "text-justification",
+      "title": "Text Justification"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0069.Sqrt(x)",
+      "slug": "sqrt-x",
+      "title": "Sqrt(x)"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0070.Climbing Stairs",
+      "slug": "climbing-stairs",
+      "title": "Climbing Stairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0071.Simplify Path",
+      "slug": "simplify-path",
+      "title": "Simplify Path"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0072.Edit Distance",
+      "slug": "edit-distance",
+      "title": "Edit Distance"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0073.Set Matrix Zeroes",
+      "slug": "set-matrix-zeroes",
+      "title": "Set Matrix Zeroes"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0074.Search a 2D Matrix",
+      "slug": "search-a-2d-matrix",
+      "title": "Search a 2D Matrix"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0075.Sort Colors",
+      "slug": "sort-colors",
+      "title": "Sort Colors"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0076.Minimum Window Substring",
+      "slug": "minimum-window-substring",
+      "title": "Minimum Window Substring"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0077.Combinations",
+      "slug": "combinations",
+      "title": "Combinations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0078.Subsets",
+      "slug": "subsets",
+      "title": "Subsets"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0079.Word Search",
+      "slug": "word-search",
+      "title": "Word Search"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0080.Remove Duplicates from Sorted Array II",
+      "slug": "remove-duplicates-from-sorted-array-ii",
+      "title": "Remove Duplicates from Sorted Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0081.Search in Rotated Sorted Array II",
+      "slug": "search-in-rotated-sorted-array-ii",
+      "title": "Search in Rotated Sorted Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0082.Remove Duplicates from Sorted List II",
+      "slug": "remove-duplicates-from-sorted-list-ii",
+      "title": "Remove Duplicates from Sorted List II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0083.Remove Duplicates from Sorted List",
+      "slug": "remove-duplicates-from-sorted-list",
+      "title": "Remove Duplicates from Sorted List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0084.Largest Rectangle in Histogram",
+      "slug": "largest-rectangle-in-histogram",
+      "title": "Largest Rectangle in Histogram"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0085.Maximal Rectangle",
+      "slug": "maximal-rectangle",
+      "title": "Maximal Rectangle"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0086.Partition List",
+      "slug": "partition-list",
+      "title": "Partition List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0087.Scramble String",
+      "slug": "scramble-string",
+      "title": "Scramble String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0088.Merge Sorted Array",
+      "slug": "merge-sorted-array",
+      "title": "Merge Sorted Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0089.Gray Code",
+      "slug": "gray-code",
+      "title": "Gray Code"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0090.Subsets II",
+      "slug": "subsets-ii",
+      "title": "Subsets II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0091.Decode Ways",
+      "slug": "decode-ways",
+      "title": "Decode Ways"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0092.Reverse Linked List II",
+      "slug": "reverse-linked-list-ii",
+      "title": "Reverse Linked List II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0093.Restore IP Addresses",
+      "slug": "restore-ip-addresses",
+      "title": "Restore IP Addresses"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0094.Binary Tree Inorder Traversal",
+      "slug": "binary-tree-inorder-traversal",
+      "title": "Binary Tree Inorder Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0095.Unique Binary Search Trees II",
+      "slug": "unique-binary-search-trees-ii",
+      "title": "Unique Binary Search Trees II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0096.Unique Binary Search Trees",
+      "slug": "unique-binary-search-trees",
+      "title": "Unique Binary Search Trees"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0097.Interleaving String",
+      "slug": "interleaving-string",
+      "title": "Interleaving String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0098.Validate Binary Search Tree",
+      "slug": "validate-binary-search-tree",
+      "title": "Validate Binary Search Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0099.Recover Binary Search Tree",
+      "slug": "recover-binary-search-tree",
+      "title": "Recover Binary Search Tree"
     }
   ],
   "skipped": [
