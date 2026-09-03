@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Sort List: merge sort, cut at mid',
+    'leetcode' => 148,
     'summary' => 'Walk a deterministic path for O(n log n) list sort. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',

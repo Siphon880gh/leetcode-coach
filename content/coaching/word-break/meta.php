@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Word Break: prefix DP, reuse dict words',
+    'leetcode' => 139,
     'summary' => 'Walk a deterministic path for whether a string can be split using a dictionary. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',

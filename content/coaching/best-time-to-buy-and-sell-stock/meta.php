@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Best Time to Buy and Sell Stock: one buy, prefix min',
+    'leetcode' => 121,
     'summary' => 'Walk a deterministic path for one buy and one later sell. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',

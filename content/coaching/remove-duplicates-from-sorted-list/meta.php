@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Sorted list: keep one of each value',
+    'leetcode' => 83,
     'summary' => 'Walk a deterministic path for collapsing adjacent duplicates in a sorted list. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'First and last position: two lower bounds',
+    'leetcode' => 34,
     'summary' => 'Walk a deterministic path for the O(log n) target range in a sorted array. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',

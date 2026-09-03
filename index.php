@@ -25,8 +25,13 @@ layout_start([
         <h2 id="concept-note-title">This is not a coding test</h2>
         <p>
             This app does not test you on coding the solutions. It focuses on applying the concepts without writing code.
-            After you work through a problem here, the next step is to implement it in your preferred language on
-            <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer">LeetCode</a>.
+            After you work through a problem here, the next step is to implement it in your preferred language on LeetCode.
+        </p>
+        <p>
+            Each resource that maps to a LeetCode problem shows that number. Visit the
+            <a href="https://leetcode.com/problemset/" target="_blank" rel="noopener noreferrer">LeetCode problemset</a>
+            — the problems are numbered there — so you can get the coding practice when you are ready.
+            This app does not link to those problems directly.
         </p>
         <p>
             The idea is not to replace LeetCode. It adds a language-free concept-application phase.

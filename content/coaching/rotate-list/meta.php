@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Rotate list: k mod n, then a gap of k',
+    'leetcode' => 61,
     'summary' => 'Walk a deterministic path for rotating a linked list right by k. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',

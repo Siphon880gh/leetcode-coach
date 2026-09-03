@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Find min rotated II: shrink r when mid equals r',
+    'leetcode' => 154,
     'summary' => 'Walk a deterministic path for the minimum after a rotation with duplicates. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',

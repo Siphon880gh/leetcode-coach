@@ -177,6 +177,40 @@ function content_taxonomy($meta): array
 }
 
 /**
+ * Numbered LeetCode problem id from meta, if present.
+ *
+ * @param mixed $meta
+ */
+function content_leetcode_number($meta): ?int
+{
+    if (!is_array($meta) || !array_key_exists('leetcode', $meta)) {
+        return null;
+    }
+
+    $raw = $meta['leetcode'];
+    if (is_int($raw)) {
+        return $raw > 0 ? $raw : null;
+    }
+    if (is_string($raw) && preg_match('/^[1-9][0-9]*$/', trim($raw)) === 1) {
+        return (int) trim($raw);
+    }
+
+    return null;
+}
+
+/**
+ * @param mixed $meta
+ */
+function render_leetcode_row($meta): void
+{
+    $n = content_leetcode_number($meta);
+    if ($n === null) {
+        return;
+    }
+    echo '<p class="leetcode-no">LeetCode ' . e((string) $n) . '</p>';
+}
+
+/**
  * @param list<array{slug: string, meta: array<string, mixed>}> $items
  * @return array<string, array<string, list<array{slug: string, meta: array<string, mixed>}>>>
  */
@@ -410,9 +444,15 @@ function render_content_browse(array $items, array $opts): void
                                                     <?php
                                                     $href = (string) $itemHref($topicItem);
                                                     $title = (string) ($topicItem['meta']['title'] ?? $topicItem['slug']);
+                                                    $lc = content_leetcode_number($topicItem['meta'] ?? []);
                                                     ?>
                                                     <li>
-                                                        <a href="<?= e($href) ?>"><?= e($title) ?></a>
+                                                        <a href="<?= e($href) ?>">
+                                                            <span class="taxonomy-topics__name"><?= e($title) ?></span>
+                                                            <?php if ($lc !== null): ?>
+                                                                <span class="taxonomy-topics__lc">LeetCode <?= e((string) $lc) ?></span>
+                                                            <?php endif; ?>
+                                                        </a>
                                                     </li>
                                                 <?php endforeach; ?>
                                             </ul>
@@ -539,6 +579,7 @@ function render_content_browse(array $items, array $opts): void
                             <?php render_content_crumb($meta, $script, $baseQuery); ?>
                             <a class="content-tile__body" href="<?= e($href) ?>">
                                 <h3 class="content-tile__title"><?= e((string) ($meta['title'] ?? $item['slug'])) ?></h3>
+                                <?php render_leetcode_row($meta); ?>
                                 <p class="content-tile__desc"><?= e((string) ($meta['summary'] ?? '')) ?></p>
                                 <?php if (is_array($tags) && $tags !== []): ?>
                                     <div class="tags">

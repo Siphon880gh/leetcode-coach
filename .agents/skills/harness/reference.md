@@ -25,6 +25,7 @@ return [
     'category' => 'LeetCode', // Algorithms | Data Structures | System Design | Harness
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays', // {category} · {subcategory}
+    'leetcode' => 1, // omit when not a numbered LeetCode problem
     // guides only:
     'kind' => 'algo', // 'algo' → Algo Guides nav | 'cursor' → Cursor AI Guides nav
     'tags' => ['arrays', 'O(n)'],

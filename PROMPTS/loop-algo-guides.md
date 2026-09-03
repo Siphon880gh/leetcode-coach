@@ -22,7 +22,7 @@ Use `.agents/skills/harness` (section 1, kind `algo`) and `.agents/skills/harnes
 4. Derive a kebab-case `slug` from the problem title (`0001.Two Sum` → `two-sum`).
 5. If `content/guides/{slug}/` already exists, do **not** overwrite. Append to `skipped` with `"reason": "slug_exists"` and advance `next`.
 6. Otherwise create:
-   - `content/guides/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `kind` => `'algo'`, `tags`
+   - `content/guides/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `kind` => `'algo'`, `tags`, and `leetcode` when **LeetCode number** applies
    - `content/guides/{slug}/body.md` — idea, approach from `context/`, time/space, steps, then `[!ui-builder]` for a follow-on game and/or step-by-step (mention `.agents/skills/harness`)
 7. English guide body even if the source is Chinese. Do not paste copyrighted writeups verbatim; teach the same idea in original wording.
 8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
@@ -86,6 +86,7 @@ Every guide `meta.php` must set:
 | `category` | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
 | `subcategory` | One primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Binary Search`, `Stack`, …) |
 | `topic` | `{category} · {subcategory}` |
+| `leetcode` | Integer id for numbered LeetCode problems; omit otherwise. Never put it in `title`. |
 
 How to pick `category`:
 
@@ -97,6 +98,12 @@ How to pick `category`:
 | Distributed / SD prompt | `System Design` |
 
 `subcategory` is the main pattern the guide teaches (from tags, folder names, or the writeup). Example: `0001.Two Sum` → `LeetCode` / `Arrays`. A hello-algo binary-search chapter → `Algorithms` / `Binary Search`.
+
+## LeetCode number
+
+When the last path segment of `next.id` starts with digits and a dot (`0001.Two Sum`, `158. Title`), set `'leetcode' => N` with that integer and no leading zeros (`1`, `158`). Omit the key when the source is not a numbered LeetCode problem (hello-algo chapters, labuladong essays, 剑指 Offer, LCR, …).
+
+Never put the number in `title`. The app shows `LeetCode N` on its own row.
 
 ## Do not
 

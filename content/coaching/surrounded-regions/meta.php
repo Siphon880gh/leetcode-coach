@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Surrounded Regions: save the border O’s, then flip',
+    'leetcode' => 130,
     'summary' => 'Walk a deterministic path for capturing enclosed O regions in place. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',

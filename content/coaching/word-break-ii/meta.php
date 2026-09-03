@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Word Break II: all sentences, not a boolean',
+    'leetcode' => 140,
     'summary' => 'Walk a deterministic path for listing every dictionary segmentation. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',

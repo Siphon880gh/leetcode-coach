@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Maximum subarray: drop a negative prefix',
+    'leetcode' => 53,
     'summary' => 'Walk a deterministic path for the largest contiguous sum in linear time. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',

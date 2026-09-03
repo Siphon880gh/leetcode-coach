@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Binary Tree Upside Down: flip along the left spine',
+    'leetcode' => 156,
     'summary' => 'Walk a deterministic path for turning the tree upside down. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',

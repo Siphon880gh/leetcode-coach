@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Subsets II: sort, then skip twins',
+    'leetcode' => 90,
     'summary' => 'Walk a deterministic path for unique subsets when nums have duplicates. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Sorted list II: drop every duplicated value',
+    'leetcode' => 82,
     'summary' => 'Walk a deterministic path for deleting all nodes whose values appear more than once. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Valid number: grammar scan, not language float',
+    'leetcode' => 65,
     'summary' => 'Walk a deterministic path for checking a signed decimal with an optional integer exponent. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',

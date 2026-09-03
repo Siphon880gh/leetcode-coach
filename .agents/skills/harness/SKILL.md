@@ -60,6 +60,7 @@ Every `meta.php` must include:
 | `category` | yes | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
 | `subcategory` | yes | Primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Cursor`, …) |
 | `topic` | yes | `{category} · {subcategory}` — display fallback |
+| `leetcode` | no | Integer LeetCode id when this is a numbered problem (`1`, `158`). Shown on its own row. Never put it in `title`. |
 
 **How to file**
 
@@ -105,6 +106,7 @@ Prefer `body.md` for all new guides. Legacy `body.php` still renders if `body.md
 | `category` | yes | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
 | `subcategory` | yes | Primary pattern (`Arrays`, `Trees`, `Cursor`, …) |
 | `topic` | yes | `{category} · {subcategory}` |
+| `leetcode` | no | Integer LeetCode id for numbered problems. Own row in the UI — not part of `title`. |
 | `kind` | yes | `cursor` or `algo` |
 | `tags` | yes | string[] |
 
@@ -167,6 +169,7 @@ content/games/{slug}/
 | `subcategory` | yes | Primary pattern or structure |
 | `topic` | yes | `{category} · {subcategory}` |
 | `tags` | yes | string[] |
+| `leetcode` | no | Integer LeetCode id for numbered problems. Own row in the UI — not part of `title`. |
 | `entry` | no | Default `index.html` |
 
 **index.html**
@@ -191,7 +194,7 @@ content/coaching/{slug}/
   tree.php
 ```
 
-**meta.php keys** — same shape as guides (`title`, `summary`, `category`, `subcategory`, `topic`, `tags`)
+**meta.php keys** — same shape as guides (`title`, `summary`, `category`, `subcategory`, `topic`, `tags`; optional `leetcode` integer for numbered LeetCode problems, never folded into `title`)
 
 **tree.php**
 

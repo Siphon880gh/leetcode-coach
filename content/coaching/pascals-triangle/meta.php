@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Pascal’s triangle: 1s on the edge, sum above',
+    'leetcode' => 118,
     'summary' => 'Walk a deterministic path for building the first n rows of Pascal’s triangle. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',

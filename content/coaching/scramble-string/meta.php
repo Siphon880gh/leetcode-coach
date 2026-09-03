@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Scramble string: split, maybe swap',
+    'leetcode' => 87,
     'summary' => 'Walk a deterministic path for memoized scramble checks. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',

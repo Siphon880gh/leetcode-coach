@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Plus one: carry from the last digit',
+    'leetcode' => 66,
     'summary' => 'Walk a deterministic path for adding one to a digit array without converting to an integer. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',

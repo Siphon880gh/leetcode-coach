@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Unique BSTs II: pick each root, cartesian kids',
+    'leetcode' => 95,
     'summary' => 'Walk a deterministic path for generating every BST on 1..n. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',

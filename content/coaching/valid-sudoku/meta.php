@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Valid sudoku: seen in row, column, box',
+    'leetcode' => 36,
     'summary' => 'Walk a deterministic path for checking a 9x9 board without solving it. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',

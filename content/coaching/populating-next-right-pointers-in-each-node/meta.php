@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Next right I: link each BFS level',
+    'leetcode' => 116,
     'summary' => 'Walk a deterministic path for connecting next pointers in a perfect binary tree. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',

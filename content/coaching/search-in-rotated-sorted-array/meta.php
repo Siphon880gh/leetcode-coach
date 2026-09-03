@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Search in rotated sorted array: sorted half first',
+    'leetcode' => 33,
     'summary' => 'Walk a deterministic path for O(log n) search after a rotation. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',

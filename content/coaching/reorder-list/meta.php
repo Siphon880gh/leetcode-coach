@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Reorder List: split, reverse, merge',
+    'leetcode' => 143,
     'summary' => 'Walk a deterministic path for L0, Ln, L1, Ln-1 in place. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',

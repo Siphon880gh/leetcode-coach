@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Permutations II: skip an unused twin',
+    'leetcode' => 47,
     'summary' => 'Walk a deterministic path for unique permutations when nums may repeat. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',

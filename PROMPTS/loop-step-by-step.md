@@ -22,7 +22,7 @@ Use `.agents/skills/harness` (section 3) and `.agents/skills/harness/reference.m
 4. Derive a kebab-case `slug` from the problem title (`0001.Two Sum` → `two-sum`).
 5. If `content/coaching/{slug}/` already exists, do **not** overwrite. Append to `skipped` with `"reason": "slug_exists"` and advance `next`.
 6. Otherwise create:
-   - `content/coaching/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`
+   - `content/coaching/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, and `leetcode` when **LeetCode number** applies
    - `content/coaching/{slug}/tree.php` — deterministic graph: `start`, readable `choices[].label`, at least one `wrong` leaf with `rewind_to`, a `success` leaf. No randomness, no live AI, no breadcrumbs file.
 7. Teach the actual approach from `context/` (complexity, key invariant, common trap). English UI copy even if the source is Chinese.
 8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
@@ -86,6 +86,7 @@ Every session `meta.php` must set:
 | `category` | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
 | `subcategory` | One primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Binary Search`, `Stack`, …) |
 | `topic` | `{category} · {subcategory}` |
+| `leetcode` | Integer id for numbered LeetCode problems; omit otherwise. Never put it in `title`. |
 
 How to pick `category`:
 
@@ -97,6 +98,12 @@ How to pick `category`:
 | Distributed / SD prompt | `System Design` |
 
 `subcategory` is the main pattern the session teaches. Example: Two Sum approach tree → `LeetCode` / `Arrays`.
+
+## LeetCode number
+
+When the last path segment of `next.id` starts with digits and a dot (`0001.Two Sum`, `158. Title`), set `'leetcode' => N` with that integer and no leading zeros (`1`, `158`). Omit the key when the source is not a numbered LeetCode problem (hello-algo chapters, labuladong essays, 剑指 Offer, LCR, …).
+
+Never put the number in `title`. The app shows `LeetCode N` on its own row.
 
 ## Do not
 

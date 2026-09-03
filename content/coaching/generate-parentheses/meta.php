@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Generate parentheses: DFS with prune',
+    'leetcode' => 22,
     'summary' => 'Walk a deterministic path for all well-formed n-pair strings. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',

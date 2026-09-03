@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Reverse list II: one segment, then relink',
+    'leetcode' => 92,
     'summary' => 'Walk a deterministic path for reversing nodes from left to right. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',

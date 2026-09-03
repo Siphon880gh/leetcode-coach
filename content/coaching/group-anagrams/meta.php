@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Group anagrams: sorted letters as the key',
+    'leetcode' => 49,
     'summary' => 'Walk a deterministic path for bucketing strings that share a letter multiset. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',

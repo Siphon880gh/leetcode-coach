@@ -36,7 +36,7 @@ Skip (still advance `next`) when the source is theory-only, a huge DP recap with
 4. Decide create vs skip using **When to create vs skip**.
 5. If creating: derive kebab-case `slug` from the title plus the mechanic (`two-sum` + hash map → `two-sum-pointers`). If `content/games/{slug}/` exists, skip with `"reason": "slug_exists"` (do not overwrite).
 6. Otherwise write:
-   - `content/games/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, optional `entry`
+   - `content/games/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, optional `entry`, and `leetcode` when **LeetCode number** applies
    - `content/games/{slug}/index.html` — one idea, inline CSS/JS, playable without a build step
 7. English UI copy even if the source is Chinese. The game should make the `context/` approach visible (pointers, set, stack), not only quiz for the answer.
 8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
@@ -100,6 +100,7 @@ Every game `meta.php` must set:
 | `category` | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
 | `subcategory` | One primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Binary Search`, `Stack`, …) |
 | `topic` | `{category} · {subcategory}` |
+| `leetcode` | Integer id for numbered LeetCode problems; omit otherwise. Never put it in `title`. |
 
 How to pick `category`:
 
@@ -111,6 +112,12 @@ How to pick `category`:
 | Distributed / SD prompt | `System Design` |
 
 `subcategory` is the mechanic the game teaches. Example: Two Sum complement drill → `LeetCode` / `Arrays`. A binary-search lo/hi board → `Algorithms` / `Binary Search`.
+
+## LeetCode number
+
+When the last path segment of `next.id` starts with digits and a dot (`0001.Two Sum`, `158. Title`), set `'leetcode' => N` with that integer and no leading zeros (`1`, `158`). Omit the key when the source is not a numbered LeetCode problem (hello-algo chapters, labuladong essays, 剑指 Offer, LCR, …).
+
+Never put the number in `title`. The app shows `LeetCode N` on its own row.
 
 ## Do not
 

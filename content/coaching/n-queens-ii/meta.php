@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'N-Queens II: count placements, skip the board',
+    'leetcode' => 52,
     'summary' => 'Walk a deterministic path for how many n-queen boards exist. Wrong turns tell you when to step back.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
