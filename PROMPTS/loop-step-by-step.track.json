@@ -13,11 +13,11 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/0100-0199/0158.Read N Characters Given read4 II - Call Multiple Times"
+    "last_id": "solution/0100-0199/0169.Majority Element"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0100-0199/0159.Longest Substring with At Most Two Distinct Characters"
+    "id": "solution/0100-0199/0170.Two Sum III - Data structure design"
   },
   "completed": [
     {
@@ -961,6 +961,72 @@
       "id": "solution/0100-0199/0158.Read N Characters Given read4 II - Call Multiple Times",
       "slug": "read-n-characters-given-read4-ii",
       "title": "Read N Characters Given Read4 II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0159.Longest Substring with At Most Two Distinct Characters",
+      "slug": "longest-substring-with-at-most-two-distinct-characters",
+      "title": "Longest Substring with At Most Two Distinct Characters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0160.Intersection of Two Linked Lists",
+      "slug": "intersection-of-two-linked-lists",
+      "title": "Intersection of Two Linked Lists"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0161.One Edit Distance",
+      "slug": "one-edit-distance",
+      "title": "One Edit Distance"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0162.Find Peak Element",
+      "slug": "find-peak-element",
+      "title": "Find Peak Element"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0163.Missing Ranges",
+      "slug": "missing-ranges",
+      "title": "Missing Ranges"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0164.Maximum Gap",
+      "slug": "maximum-gap",
+      "title": "Maximum Gap"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0165.Compare Version Numbers",
+      "slug": "compare-version-numbers",
+      "title": "Compare Version Numbers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0166.Fraction to Recurring Decimal",
+      "slug": "fraction-to-recurring-decimal",
+      "title": "Fraction to Recurring Decimal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0167.Two Sum II - Input Array Is Sorted",
+      "slug": "two-sum-ii-input-array-is-sorted",
+      "title": "Two Sum II - Input Array Is Sorted"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0168.Excel Sheet Column Title",
+      "slug": "excel-sheet-column-title",
+      "title": "Excel Sheet Column Title"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0169.Majority Element",
+      "slug": "majority-element",
+      "title": "Majority Element"
     }
   ],
   "skipped": [
