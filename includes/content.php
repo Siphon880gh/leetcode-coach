@@ -198,6 +198,35 @@ function content_leetcode_number($meta): ?int
     return null;
 }
 
+function content_leetcode_url(int $n): ?string
+{
+    static $map = null;
+    if ($map === null) {
+        $path = dirname(__DIR__) . '/context-leetcode-urls/data-cleaned.json';
+        $raw = is_file($path) ? file_get_contents($path) : false;
+        $decoded = is_string($raw) ? json_decode($raw, true) : null;
+        $map = is_array($decoded) ? $decoded : [];
+    }
+
+    $url = $map[$n] ?? $map[(string) $n] ?? null;
+    if (!is_string($url) || strncmp($url, 'https://leetcode.com/', 21) !== 0) {
+        return null;
+    }
+
+    return $url;
+}
+
+function content_leetcode_label_html(int $n): string
+{
+    $label = 'LeetCode ' . e((string) $n);
+    $url = content_leetcode_url($n);
+    if ($url === null) {
+        return $label;
+    }
+
+    return '<a class="leetcode-link" href="' . e($url) . '" target="_blank" rel="noopener noreferrer">' . $label . '</a>';
+}
+
 /**
  * @param mixed $meta
  */
@@ -207,7 +236,7 @@ function render_leetcode_row($meta): void
     if ($n === null) {
         return;
     }
-    echo '<p class="leetcode-no">LeetCode ' . e((string) $n) . '</p>';
+    echo '<p class="leetcode-no">' . content_leetcode_label_html($n) . '</p>';
 }
 
 /**
@@ -447,12 +476,12 @@ function render_content_browse(array $items, array $opts): void
                                                     $lc = content_leetcode_number($topicItem['meta'] ?? []);
                                                     ?>
                                                     <li>
-                                                        <a href="<?= e($href) ?>">
+                                                        <a class="taxonomy-topics__item" href="<?= e($href) ?>">
                                                             <span class="taxonomy-topics__name"><?= e($title) ?></span>
-                                                            <?php if ($lc !== null): ?>
-                                                                <span class="taxonomy-topics__lc">LeetCode <?= e((string) $lc) ?></span>
-                                                            <?php endif; ?>
                                                         </a>
+                                                        <?php if ($lc !== null): ?>
+                                                            <span class="taxonomy-topics__lc"><?= content_leetcode_label_html($lc) ?></span>
+                                                        <?php endif; ?>
                                                     </li>
                                                 <?php endforeach; ?>
                                             </ul>
@@ -577,18 +606,22 @@ function render_content_browse(array $items, array $opts): void
                         ?>
                         <li class="content-tile"<?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
                             <?php render_content_crumb($meta, $script, $baseQuery); ?>
-                            <a class="content-tile__body" href="<?= e($href) ?>">
-                                <h3 class="content-tile__title"><?= e((string) ($meta['title'] ?? $item['slug'])) ?></h3>
+                            <div class="content-tile__body">
+                                <a class="content-tile__goto" href="<?= e($href) ?>">
+                                    <h3 class="content-tile__title"><?= e((string) ($meta['title'] ?? $item['slug'])) ?></h3>
+                                </a>
                                 <?php render_leetcode_row($meta); ?>
-                                <p class="content-tile__desc"><?= e((string) ($meta['summary'] ?? '')) ?></p>
-                                <?php if (is_array($tags) && $tags !== []): ?>
-                                    <div class="tags">
-                                        <?php foreach ($tags as $tag): ?>
-                                            <span class="tag"><?= e((string) $tag) ?></span>
-                                        <?php endforeach; ?>
-                                    </div>
-                                <?php endif; ?>
-                            </a>
+                                <a class="content-tile__goto" href="<?= e($href) ?>">
+                                    <p class="content-tile__desc"><?= e((string) ($meta['summary'] ?? '')) ?></p>
+                                    <?php if (is_array($tags) && $tags !== []): ?>
+                                        <div class="tags">
+                                            <?php foreach ($tags as $tag): ?>
+                                                <span class="tag"><?= e((string) $tag) ?></span>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </a>
+                            </div>
                             <?php if ($userTags): ?>
                                 <?php render_user_tag_editor(); ?>
                             <?php endif; ?>
