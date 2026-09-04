@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',
     'tags' => ['binary-search', 'divide-and-conquer', 'arrays', 'step-by-step'],
+    'related_guide' => 'median-of-two-sorted-arrays',
 ];

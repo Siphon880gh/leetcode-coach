@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',
     'tags' => ['sliding-window', 'hash-table', 'strings', 'step-by-step'],
+    'related_guide' => 'longest-substring-without-repeating-characters',
 ];

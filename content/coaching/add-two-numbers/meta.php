@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',
     'tags' => ['linked-list', 'carry', 'math', 'step-by-step'],
+    'related_guide' => 'add-two-numbers',
 ];

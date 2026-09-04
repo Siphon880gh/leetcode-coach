@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',
     'tags' => ['two-pointers', 'arrays', 'in-place', 'step-by-step'],
+    'related_guide' => 'remove-duplicates-from-sorted-array',
 ];

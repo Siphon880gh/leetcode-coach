@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',
     'tags' => ['dynamic-programming', 'recursion', 'strings', 'step-by-step'],
+    'related_guide' => 'regular-expression-matching',
 ];

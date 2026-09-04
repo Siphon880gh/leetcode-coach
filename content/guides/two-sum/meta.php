@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Arrays',
     'kind' => 'algo',
     'tags' => ['arrays', 'hash-map', 'O(n)', 'leetcode'],
+    'related_session' => 'two-sum',
 ];

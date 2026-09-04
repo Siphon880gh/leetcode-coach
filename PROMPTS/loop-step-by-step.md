@@ -24,6 +24,7 @@ Use `.agents/skills/harness` (section 3) and `.agents/skills/harness/reference.m
 6. Otherwise create:
    - `content/coaching/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, and `leetcode` when **LeetCode number** applies
    - `content/coaching/{slug}/tree.php` — deterministic graph: `start`, readable `choices[].label`, at least one `wrong` leaf with `rewind_to`, a `success` leaf. No randomness, no live AI, no breadcrumbs file.
+   - If `content/guides/{slug}/` already exists with `kind => 'algo'`, set `'related_guide' => '{slug}'` on this session and `'related_session' => '{slug}'` on that guide. Do not backfill other pairs.
 7. Teach the actual approach from `context/` (complexity, key invariant, common trap). English UI copy even if the source is Chinese.
 8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
 9. Stop. Do not start a second problem in the same tick.

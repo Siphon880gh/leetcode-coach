@@ -6,7 +6,7 @@ Invoke from the repo root. Copy the **Invoke** block inside each prompt.
 
 ## Author from `context/`
 
-These three walk the cloned libraries under `context/` (alphabetical repo order). They **create** artifacts. They do not link them.
+These three walk the cloned libraries under `context/` (alphabetical repo order). They **create** artifacts. If the same slug already exists on the other side, they set that one pair’s companion keys. They do not backfill every pair.
 
 | Prompt | Writes | Notes |
 |--------|--------|--------|
@@ -18,21 +18,28 @@ A loop is **drained** when its tracker has `"exhausted": true` (queue finished, 
 
 Mini games can run whenever. It does not feed the link loop.
 
+## Catch-up (step-by-step paused)
+
+When step-by-step is paused and Algo Guides are behind, do **not** drain [`loop-guide-step-links.md`](loop-guide-step-links.md) standalone. Its union/`no_pair` walk would skip coaching slugs that do not have a guide yet.
+
+Use [`graph-guides-and-links.md`](graph-guides-and-links.md): one graph tick runs one algo-guides problem, then one **pairable** guide↔session link (intersection only).
+
 ## Link after both author loops are drained
 
 [`loop-guide-step-links.md`](loop-guide-step-links.md) does **not** create guides or sessions. It pairs an Algo Guide and a Step-by-step that already share a slug, writes `related_session` / `related_guide`, and shows a chrome link each way.
 
-**Run it only after you have finished draining both:**
+The standalone union/`no_pair` walk is for after both author loops are exhausted:
 
 1. [`loop-step-by-step.md`](loop-step-by-step.md)
 2. [`loop-algo-guides.md`](loop-algo-guides.md)
 
-If you run the link loop earlier, unmatched slugs skip with `"reason": "no_pair"` and you will miss pairs that the author loops have not written yet. Drain those two first, then start [`loop-guide-step-links.md`](loop-guide-step-links.md).
+Until then, use [`graph-guides-and-links.md`](graph-guides-and-links.md) (or the Catch-up queue inside the link prompt).
 
 ## Trackers
 
 | Prompt | Tracker |
 |--------|---------|
+| `graph-guides-and-links.md` | Child trackers below (no separate graph tracker) |
 | `loop-step-by-step.md` | [`loop-step-by-step.track.json`](loop-step-by-step.track.json) |
 | `loop-algo-guides.md` | [`loop-algo-guides.track.json`](loop-algo-guides.track.json) |
 | `loop-mini-games.md` | [`loop-mini-games.track.json`](loop-mini-games.track.json) |

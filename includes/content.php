@@ -240,6 +240,56 @@ function render_leetcode_row($meta): void
 }
 
 /**
+ * @param mixed $meta
+ */
+function companion_slug($meta, string $key): ?string
+{
+    if (!is_array($meta) || !array_key_exists($key, $meta)) {
+        return null;
+    }
+    $slug = trim((string) $meta[$key]);
+    if ($slug === '' || strpos($slug, '..') !== false || strpos($slug, '/') !== false) {
+        return null;
+    }
+
+    return $slug;
+}
+
+/**
+ * Page-head chrome: Algo Guide ↔ Step-by-step. Renders only when the key is set
+ * and the other artifact is on disk. $from is `guide` or `session`.
+ *
+ * @param array<string, mixed> $meta
+ */
+function render_companion_link(string $from, array $meta): void
+{
+    if ($from === 'guide') {
+        $slug = companion_slug($meta, 'related_session');
+        if ($slug === null || load_content('coaching', $slug) === null) {
+            return;
+        }
+        $href = url('coaching/session.php?id=' . rawurlencode($slug));
+        echo '<p class="companion-link"><a href="' . e($href) . '">Step-by-step</a></p>';
+        return;
+    }
+
+    if ($from !== 'session') {
+        return;
+    }
+
+    $slug = companion_slug($meta, 'related_guide');
+    if ($slug === null) {
+        return;
+    }
+    $item = load_content('guides', $slug);
+    if ($item === null || normalize_guide_kind($item['meta']['kind'] ?? null) !== 'algo') {
+        return;
+    }
+    $href = url('guides/view.php?id=' . rawurlencode($slug));
+    echo '<p class="companion-link"><a href="' . e($href) . '">Algo Guide</a></p>';
+}
+
+/**
  * @param list<array{slug: string, meta: array<string, mixed>}> $items
  * @return array<string, array<string, list<array{slug: string, meta: array<string, mixed>}>>>
  */

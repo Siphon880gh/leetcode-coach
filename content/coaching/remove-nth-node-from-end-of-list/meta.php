@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',
     'tags' => ['linked-list', 'two-pointers', 'dummy-node', 'step-by-step'],
+    'related_guide' => 'remove-nth-node-from-end-of-list',
 ];

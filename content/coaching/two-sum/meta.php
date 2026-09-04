@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'hash-map', 'step-by-step'],
+    'related_guide' => 'two-sum',
 ];

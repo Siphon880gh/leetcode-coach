@@ -109,6 +109,7 @@ Prefer `body.md` for all new guides. Legacy `body.php` still renders if `body.md
 | `leetcode` | no | Integer LeetCode id for numbered problems. Own row in the UI — not part of `title`. |
 | `kind` | yes | `cursor` or `algo` |
 | `tags` | yes | string[] |
+| `related_session` | no | Same slug as a Step-by-step under `content/coaching/{slug}/`. Chrome on the guide: **Step-by-step** → `coaching/session.php?id={slug}` |
 
 **body.md**
 
@@ -194,7 +195,7 @@ content/coaching/{slug}/
   tree.php
 ```
 
-**meta.php keys** — same shape as guides (`title`, `summary`, `category`, `subcategory`, `topic`, `tags`; optional `leetcode` integer for numbered LeetCode problems, never folded into `title`)
+**meta.php keys** — same shape as guides (`title`, `summary`, `category`, `subcategory`, `topic`, `tags`; optional `leetcode` integer for numbered LeetCode problems, never folded into `title`; optional `related_guide` — same slug as an Algo Guide, chrome **Algo Guide** → `guides/view.php?id={slug}`)
 
 **tree.php**
 

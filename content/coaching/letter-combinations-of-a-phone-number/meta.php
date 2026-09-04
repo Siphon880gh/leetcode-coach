@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',
     'tags' => ['backtracking', 'hash-table', 'strings', 'step-by-step'],
+    'related_guide' => 'letter-combinations-of-a-phone-number',
 ];

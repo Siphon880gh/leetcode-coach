@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',
     'tags' => ['strings', 'string-matching', 'two-pointers', 'step-by-step'],
+    'related_guide' => 'find-the-index-of-the-first-occurrence-in-a-string',
 ];

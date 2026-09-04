@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',
     'tags' => ['strings', 'arrays', 'prefix', 'step-by-step'],
+    'related_guide' => 'longest-common-prefix',
 ];

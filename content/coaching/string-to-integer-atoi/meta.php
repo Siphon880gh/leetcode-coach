@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',
     'tags' => ['strings', 'parsing', 'overflow', 'step-by-step'],
+    'related_guide' => 'string-to-integer-atoi',
 ];

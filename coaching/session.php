@@ -235,6 +235,7 @@ layout_start([
     <?php render_content_crumb($meta, 'coaching/index.php', []); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
     <?php render_leetcode_row($meta); ?>
+    <?php render_companion_link('session', $meta); ?>
     <?php render_user_tag_page('coaching/index.php', $slug); ?>
 </div>
 

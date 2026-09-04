@@ -24,6 +24,7 @@ Use `.agents/skills/harness` (section 1, kind `algo`) and `.agents/skills/harnes
 6. Otherwise create:
    - `content/guides/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `kind` => `'algo'`, `tags`, and `leetcode` when **LeetCode number** applies
    - `content/guides/{slug}/body.md` — idea, approach from `context/`, time/space, steps, then `[!ui-builder]` for a follow-on game and/or step-by-step (mention `.agents/skills/harness`)
+   - If `content/coaching/{slug}/` already exists, set `'related_session' => '{slug}'` on this guide and `'related_guide' => '{slug}'` on that session. Do not backfill other pairs.
 7. English guide body even if the source is Chinese. Do not paste copyrighted writeups verbatim; teach the same idea in original wording.
 8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
 9. Stop. Do not start a second problem in the same tick.

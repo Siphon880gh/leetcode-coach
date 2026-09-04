@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',
     'tags' => ['linked-list', 'recursion', 'dummy-node', 'step-by-step'],
+    'related_guide' => 'reverse-nodes-in-k-group',
 ];

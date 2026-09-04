@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Stack',
     'topic' => 'LeetCode · Stack',
     'tags' => ['stack', 'strings', 'parentheses', 'step-by-step'],
+    'related_guide' => 'valid-parentheses',
 ];

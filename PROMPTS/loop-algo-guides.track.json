@@ -12,14 +12,191 @@
     "walkccc-leetcode"
   ],
   "cursor": {
-    "repo": null,
-    "last_id": null
+    "repo": "doocs-leetcode",
+    "last_id": "solution/0000-0099/0029.Divide Two Integers"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0000-0099/0001.Two Sum"
+    "id": "solution/0000-0099/0030.Substring with Concatenation of All Words"
   },
-  "completed": [],
-  "skipped": [],
+  "completed": [
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0002.Add Two Numbers",
+      "slug": "add-two-numbers",
+      "title": "Add Two Numbers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0003.Longest Substring Without Repeating Characters",
+      "slug": "longest-substring-without-repeating-characters",
+      "title": "Longest Substring Without Repeating Characters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0004.Median of Two Sorted Arrays",
+      "slug": "median-of-two-sorted-arrays",
+      "title": "Median of Two Sorted Arrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0005.Longest Palindromic Substring",
+      "slug": "longest-palindromic-substring",
+      "title": "Longest Palindromic Substring"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0006.Zigzag Conversion",
+      "slug": "zigzag-conversion",
+      "title": "Zigzag Conversion"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0007.Reverse Integer",
+      "slug": "reverse-integer",
+      "title": "Reverse Integer"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0008.String to Integer (atoi)",
+      "slug": "string-to-integer-atoi",
+      "title": "String to Integer (atoi)"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0009.Palindrome Number",
+      "slug": "palindrome-number",
+      "title": "Palindrome Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0010.Regular Expression Matching",
+      "slug": "regular-expression-matching",
+      "title": "Regular Expression Matching"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0011.Container With Most Water",
+      "slug": "container-with-most-water",
+      "title": "Container With Most Water"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0012.Integer to Roman",
+      "slug": "integer-to-roman",
+      "title": "Integer to Roman"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0013.Roman to Integer",
+      "slug": "roman-to-integer",
+      "title": "Roman to Integer"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0014.Longest Common Prefix",
+      "slug": "longest-common-prefix",
+      "title": "Longest Common Prefix"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0015.3Sum",
+      "slug": "3sum",
+      "title": "3Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0016.3Sum Closest",
+      "slug": "3sum-closest",
+      "title": "3Sum Closest"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0017.Letter Combinations of a Phone Number",
+      "slug": "letter-combinations-of-a-phone-number",
+      "title": "Letter Combinations of a Phone Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0018.4Sum",
+      "slug": "4sum",
+      "title": "4Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0019.Remove Nth Node From End of List",
+      "slug": "remove-nth-node-from-end-of-list",
+      "title": "Remove Nth Node From End of List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0020.Valid Parentheses",
+      "slug": "valid-parentheses",
+      "title": "Valid Parentheses"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0021.Merge Two Sorted Lists",
+      "slug": "merge-two-sorted-lists",
+      "title": "Merge Two Sorted Lists"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0022.Generate Parentheses",
+      "slug": "generate-parentheses",
+      "title": "Generate Parentheses"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0023.Merge k Sorted Lists",
+      "slug": "merge-k-sorted-lists",
+      "title": "Merge k Sorted Lists"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0024.Swap Nodes in Pairs",
+      "slug": "swap-nodes-in-pairs",
+      "title": "Swap Nodes in Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0025.Reverse Nodes in k-Group",
+      "slug": "reverse-nodes-in-k-group",
+      "title": "Reverse Nodes in k-Group"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0026.Remove Duplicates from Sorted Array",
+      "slug": "remove-duplicates-from-sorted-array",
+      "title": "Remove Duplicates from Sorted Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0027.Remove Element",
+      "slug": "remove-element",
+      "title": "Remove Element"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0028.Find the Index of the First Occurrence in a String",
+      "slug": "find-the-index-of-the-first-occurrence-in-a-string",
+      "title": "Find the Index of the First Occurrence in a String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0029.Divide Two Integers",
+      "slug": "divide-two-integers",
+      "title": "Divide Two Integers"
+    }
+  ],
+  "skipped": [
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0000-0099/0001.Two Sum",
+      "slug": "two-sum",
+      "title": "Two Sum",
+      "reason": "slug_exists"
+    }
+  ],
   "exhausted": false
 }

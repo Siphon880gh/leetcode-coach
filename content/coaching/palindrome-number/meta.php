@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',
     'tags' => ['math', 'palindrome', 'integers', 'step-by-step'],
+    'related_guide' => 'palindrome-number',
 ];

@@ -38,6 +38,7 @@ layout_start([
     <?php render_leetcode_row($meta); ?>
     <p><?= e((string) ($meta['summary'] ?? '')) ?></p>
     <?php if ($kind === 'algo'): ?>
+        <?php render_companion_link('guide', $meta); ?>
         <?php render_user_tag_page('guides/index.php', $slug); ?>
     <?php endif; ?>
 </div>

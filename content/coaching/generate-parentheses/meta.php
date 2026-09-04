@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',
     'tags' => ['backtracking', 'dfs', 'parentheses', 'step-by-step'],
+    'related_guide' => 'generate-parentheses',
 ];

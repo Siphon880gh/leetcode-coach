@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Heap',
     'topic' => 'LeetCode · Heap',
     'tags' => ['heap', 'linked-list', 'divide-and-conquer', 'step-by-step'],
+    'related_guide' => 'merge-k-sorted-lists',
 ];

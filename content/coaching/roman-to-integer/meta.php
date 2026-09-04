@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',
     'tags' => ['math', 'hash-table', 'strings', 'step-by-step'],
+    'related_guide' => 'roman-to-integer',
 ];

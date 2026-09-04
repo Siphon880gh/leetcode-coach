@@ -29,6 +29,10 @@ return [
     // guides only:
     'kind' => 'algo', // 'algo' → Algo Guides nav | 'cursor' → Cursor AI Guides nav
     'tags' => ['arrays', 'O(n)'],
+    // guides: optional companion Step-by-step (same slug)
+    // 'related_session' => 'two-sum',
+    // coaching: optional companion Algo Guide (same slug)
+    // 'related_guide' => 'two-sum',
     // games only:
     // 'entry' => 'index.html',
 ];

@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',
     'tags' => ['two-pointers', 'sorting', 'arrays', 'step-by-step'],
+    'related_guide' => '3sum-closest',
 ];

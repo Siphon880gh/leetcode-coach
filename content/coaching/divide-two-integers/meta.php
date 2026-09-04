@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',
     'tags' => ['bit-manipulation', 'math', 'overflow', 'step-by-step'],
+    'related_guide' => 'divide-two-integers',
 ];

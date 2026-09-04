@@ -46,21 +46,41 @@ Before processing `next` on a tick, if the chrome (or the harness docs) are stil
 
 Skip this block on later ticks if it is already in place.
 
+## Catch-up (author loops still running)
+
+If [`loop-algo-guides.track.json`](loop-algo-guides.track.json) or [`loop-step-by-step.track.json`](loop-step-by-step.track.json) has `"exhausted": false`, do **not** walk the union and skip `"no_pair"`. Prefer [`graph-guides-and-links.md`](graph-guides-and-links.md).
+
+Catch-up queue:
+
+1. Pairable = algo-guide slugs ∩ coaching slugs, `LC_ALL=C` sort.
+2. Take the first pairable slug that is not in `completed` and not `already_linked`. Prefer the slug just authored in the same graph tick if it is pairable.
+3. If none: set `next` to `null`, leave `exhausted` false, stop the tick. Do not append `"no_pair"`.
+4. If both keys already point at this slug and the chrome would work: append to `skipped` with `"reason": "already_linked"` and go to **Advance `next`**.
+5. If both sides exist and keys are missing: write the two `meta.php` keys. Append to `completed`.
+6. After this slug is in `completed` or `skipped`, set `next` to the next remaining pairable slug, or `null` if none.
+
+Set `"exhausted": true` on this tracker only when **both** author loops are exhausted **and** no unlinked pair remains. Then leftover union-only slugs may be recorded as `"no_pair"`.
+
 ## Each tick
 
 1. Read [`loop-guide-step-links.track.json`](loop-guide-step-links.track.json). If `exhausted` is `true`, stop the loop and say the queue is finished.
 2. Run **Once (if missing)** when needed.
-3. Rebuild the queue: union of algo-guide slugs and coaching slugs, `LC_ALL=C` sort. Rescan every tick; the set grows as the other loops add content.
-4. Take `next.slug`. If that slug is missing from the current union, advance `next`.
-5. If both sides exist: write the two `meta.php` keys. Append to `completed`.
-6. If only one side exists: do **not** create the missing artifact. Append to `skipped` with `"reason": "no_pair"` and advance `next`.
-7. If both keys already point at this slug and the chrome would work: append to `skipped` with `"reason": "already_linked"` and advance `next`.
-8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
-9. Stop. Do not start a second slug in the same tick.
+3. If an author loop is still running, follow **Catch-up** and stop after one slug (or idle). Skip the union walk below.
+4. Rebuild the queue: union of algo-guide slugs and coaching slugs, `LC_ALL=C` sort. Rescan every tick; the set grows as the other loops add content.
+5. Take `next.slug`. If `next` is `null` or that slug is missing from the current union, advance `next`.
+6. If both sides exist: write the two `meta.php` keys. Append to `completed`.
+7. If only one side exists: do **not** create the missing artifact. Append to `skipped` with `"reason": "no_pair"` and advance `next`.
+8. If both keys already point at this slug and the chrome would work: append to `skipped` with `"reason": "already_linked"` and advance `next`.
+9. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
+10. Stop. Do not start a second slug in the same tick.
 
 ## Advance `next`
 
 After this tick’s slug is in `completed` or `skipped`:
+
+**Catch-up:** rebuild the pairable intersection. Take the first remaining unlinked pairable slug **strictly after** the slug you just processed, or `null` if none. Do not set `exhausted`.
+
+**Union walk** (both author loops exhausted):
 
 1. Rebuild the union with `LC_ALL=C` sort.
 2. Take the first slug **strictly after** the slug you just processed.
