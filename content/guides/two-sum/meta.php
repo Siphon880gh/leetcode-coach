@@ -11,4 +11,5 @@ return [
     'kind' => 'algo',
     'tags' => ['arrays', 'hash-map', 'O(n)', 'leetcode'],
     'related_session' => 'two-sum',
+    'related_game' => 'two-sum-pointers',
 ];
