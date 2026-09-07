@@ -205,8 +205,74 @@ function guide_md_render_basic(string $markdown): string
 /**
  * @param array{id: string, title: string, inputs: list<array{key: string, label: string}>, prompt: string} $builder
  */
-function guide_md_render_builder(array $builder): string
+function guide_md_is_step_by_step_builder(array $builder): bool
 {
+    $title = strtolower(trim((string) ($builder['title'] ?? '')));
+    if (preg_match('/step[\s-]*by[\s-]*step/', $title) === 1) {
+        return true;
+    }
+
+    $prompt = (string) ($builder['prompt'] ?? '');
+
+    return stripos($prompt, 'content/coaching/') !== false;
+}
+
+/**
+ * @param array{id: string, title: string, inputs: list<array{key: string, label: string}>, prompt: string} $builder
+ */
+function guide_md_is_mini_game_builder(array $builder): bool
+{
+    $title = strtolower(trim((string) ($builder['title'] ?? '')));
+    if (preg_match('/mini[\s-]*game/', $title) === 1) {
+        return true;
+    }
+
+    $prompt = (string) ($builder['prompt'] ?? '');
+
+    return stripos($prompt, 'content/games/') !== false;
+}
+
+function guide_md_render_existing_session(string $title, string $sessionSlug): string
+{
+    $heading = $title !== '' ? $title : 'Step-by-step';
+    $href = url('coaching/session.php?id=' . rawurlencode($sessionSlug));
+
+    return '<div class="ui-builder ui-builder--exists">'
+        . '<p class="ui-builder__title">' . e($heading) . '</p>'
+        . '<p class="ui-builder__exists-copy">This step-by-step is already created.</p>'
+        . '<div class="ui-builder__footer">'
+        . '<a class="btn btn--small btn--ghost" href="' . e($href) . '">Open step-by-step</a>'
+        . '</div>'
+        . '</div>';
+}
+
+function guide_md_render_existing_game(string $title, string $gameSlug): string
+{
+    $heading = $title !== '' ? $title : 'Mini game';
+    $href = url('games/play.php?id=' . rawurlencode($gameSlug));
+
+    return '<div class="ui-builder ui-builder--exists">'
+        . '<p class="ui-builder__title">' . e($heading) . '</p>'
+        . '<p class="ui-builder__exists-copy">This mini game is already created.</p>'
+        . '<div class="ui-builder__footer">'
+        . '<a class="btn btn--small btn--ghost" href="' . e($href) . '">Open mini game</a>'
+        . '</div>'
+        . '</div>';
+}
+
+/**
+ * @param array{id: string, title: string, inputs: list<array{key: string, label: string}>, prompt: string} $builder
+ */
+function guide_md_render_builder(array $builder, ?string $existingSessionSlug = null, ?string $existingGameSlug = null): string
+{
+    if ($existingGameSlug !== null && $existingGameSlug !== '' && guide_md_is_mini_game_builder($builder)) {
+        return guide_md_render_existing_game((string) $builder['title'], $existingGameSlug);
+    }
+
+    if ($existingSessionSlug !== null && $existingSessionSlug !== '' && guide_md_is_step_by_step_builder($builder)) {
+        return guide_md_render_existing_session((string) $builder['title'], $existingSessionSlug);
+    }
+
     $id = $builder['id'];
     $title = $builder['title'];
     $inputs = $builder['inputs'];
@@ -249,14 +315,26 @@ function guide_md_render_builder(array $builder): string
         . '</div>';
 }
 
-function render_guide_markdown(string $markdown): string
+/**
+ * Guide markdown with [!ui-builder] blocks removed, for Generate Code prompts.
+ */
+function guide_md_prompt_source(string $markdown): string
+{
+    $extracted = guide_md_extract_builders($markdown);
+    $source = $extracted['html'];
+    $source = preg_replace('/\R*%%UI_BUILDER_[a-z0-9-]+%%\R*/', "\n\n", $source) ?? $source;
+
+    return trim($source);
+}
+
+function render_guide_markdown(string $markdown, ?string $existingSessionSlug = null, ?string $existingGameSlug = null): string
 {
     $extracted = guide_md_extract_builders($markdown);
     $html = guide_md_render_basic($extracted['html']);
 
     foreach ($extracted['builders'] as $builder) {
         $token = '%%UI_BUILDER_' . $builder['id'] . '%%';
-        $widget = guide_md_render_builder($builder);
+        $widget = guide_md_render_builder($builder, $existingSessionSlug, $existingGameSlug);
         $html = str_replace($token, $widget, $html);
     }
 

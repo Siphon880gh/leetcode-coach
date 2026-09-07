@@ -31,9 +31,13 @@ return [
     'tags' => ['arrays', 'O(n)'],
     // guides: optional companion Step-by-step (same slug)
     // 'related_session' => 'two-sum',
+    // guides / coaching: optional companion Mini game (slug may differ)
+    // 'related_game' => 'two-sum-pointers',
     // coaching: optional companion Algo Guide (same slug)
     // 'related_guide' => 'two-sum',
-    // games only:
+    // games: set when matching Algo Guide / Step-by-step exist (harness does this on create)
+    // 'related_guide' => 'two-sum',
+    // 'related_session' => 'two-sum',
     // 'entry' => 'index.html',
 ];
 ```
@@ -63,8 +67,6 @@ Intro paragraph in Markdown.
 | `INPUT_NAME: Label` | Text field; key must be `INPUT_[A-Z0-9_]+` |
 | `PROMPT:` | Template lines that follow |
 | `[INPUT_NAME]` in prompt | Replaced by field value, or `___` if empty |
-
-Viewer: fill fields → live **Prompt preview** → **Copy prompt** → paste into Cursor / Claude Code / etc.
 
 ## tree.php node fields
 

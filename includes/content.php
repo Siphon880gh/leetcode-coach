@@ -228,15 +228,64 @@ function content_leetcode_label_html(int $n): string
 }
 
 /**
+ * YouTube results URL for a numbered LeetCode problem.
+ * Query is "Leet Code {n} {title}" with punctuation skipped and spaces as +.
+ */
+function content_youtube_search_url(int $n, string $title): string
+{
+    $phrase = 'Leet Code ' . $n . ' ' . $title;
+    $cleaned = preg_replace('/[^A-Za-z0-9 ]+/', ' ', $phrase);
+    $cleaned = is_string($cleaned) ? preg_replace('/\s+/', ' ', $cleaned) : '';
+    $cleaned = trim(is_string($cleaned) ? $cleaned : '');
+
+    return 'https://www.youtube.com/results?' . http_build_query(['search_query' => $cleaned]);
+}
+
+function content_youtube_link_html(int $n, string $title, bool $labeled = false): string
+{
+    $url = content_youtube_search_url($n, $title);
+    $label = 'YouTube: Leet Code ' . $n;
+    $class = $labeled ? 'youtube-search youtube-search--labeled' : 'youtube-search';
+    $inner = '<svg class="youtube-search__icon" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+        . '<path fill="currentColor" fill-rule="evenodd" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>'
+        . '</svg>';
+    if ($labeled) {
+        $inner .= '<span class="youtube-search__label">' . e('YouTube') . '</span>';
+    }
+    $attrs = ' class="' . $class . '" href="' . e($url) . '" target="_blank" rel="noopener noreferrer" title="' . e($label) . '"';
+    if (!$labeled) {
+        $attrs .= ' aria-label="' . e($label) . '"';
+    }
+
+    return '<a' . $attrs . '>' . $inner . '</a>';
+}
+
+/**
+ * LeetCode number link plus YouTube search icon for numbered problems.
+ *
+ * @param mixed $meta
+ */
+function content_leetcode_chrome_html($meta): string
+{
+    $n = content_leetcode_number($meta);
+    if ($n === null) {
+        return '';
+    }
+    $title = is_array($meta) ? (string) ($meta['title'] ?? '') : '';
+
+    return content_leetcode_label_html($n) . content_youtube_link_html($n, $title);
+}
+
+/**
  * @param mixed $meta
  */
 function render_leetcode_row($meta): void
 {
-    $n = content_leetcode_number($meta);
-    if ($n === null) {
+    $html = content_leetcode_chrome_html($meta);
+    if ($html === '') {
         return;
     }
-    echo '<p class="leetcode-no">' . content_leetcode_label_html($n) . '</p>';
+    echo '<p class="leetcode-no">' . $html . '</p>';
 }
 
 /**
@@ -256,37 +305,196 @@ function companion_slug($meta, string $key): ?string
 }
 
 /**
- * Page-head chrome: Algo Guide ↔ Step-by-step. Renders only when the key is set
- * and the other artifact is on disk. $from is `guide` or `session`.
+ * @param array{slug: string, meta: array<string, mixed>} $item
+ */
+function companion_item_is_usable(string $type, array $item): bool
+{
+    if ($type !== 'guides') {
+        return true;
+    }
+
+    return normalize_guide_kind($item['meta']['kind'] ?? null) === 'algo';
+}
+
+/**
+ * Existing companion slug: related_* key, same folder slug, or matching leetcode id.
  *
  * @param array<string, mixed> $meta
  */
-function render_companion_link(string $from, array $meta): void
+function companion_existing_slug(string $type, array $meta, string $ownSlug, string $relatedKey): ?string
 {
-    if ($from === 'guide') {
-        $slug = companion_slug($meta, 'related_session');
-        if ($slug === null || load_content('coaching', $slug) === null) {
-            return;
+    $related = companion_slug($meta, $relatedKey);
+    if ($related !== null) {
+        $item = load_content($type, $related);
+        if ($item !== null && companion_item_is_usable($type, $item)) {
+            return $related;
         }
-        $href = url('coaching/session.php?id=' . rawurlencode($slug));
-        echo '<p class="companion-link"><a href="' . e($href) . '">Step-by-step</a></p>';
+    }
+
+    $ownSlug = trim($ownSlug);
+    if ($ownSlug !== '') {
+        $item = load_content($type, $ownSlug);
+        if ($item !== null && companion_item_is_usable($type, $item)) {
+            return $ownSlug;
+        }
+    }
+
+    $n = content_leetcode_number($meta);
+    if ($n === null) {
+        return null;
+    }
+
+    foreach (list_content($type) as $item) {
+        if (!companion_item_is_usable($type, $item)) {
+            continue;
+        }
+        if (content_leetcode_number($item['meta'] ?? []) === $n) {
+            return $item['slug'];
+        }
+    }
+
+    return null;
+}
+
+/**
+ * Step-by-step slug already on disk for this Algo Guide, if any.
+ *
+ * @param array<string, mixed> $meta
+ */
+function guide_existing_session_slug(array $meta, string $guideSlug): ?string
+{
+    return companion_existing_slug('coaching', $meta, $guideSlug, 'related_session');
+}
+
+/**
+ * Mini game slug already on disk for this guide or session, if any.
+ *
+ * @param array<string, mixed> $meta
+ */
+function companion_existing_game_slug(array $meta, string $ownSlug): ?string
+{
+    return companion_existing_slug('games', $meta, $ownSlug, 'related_game');
+}
+
+/**
+ * Page-head chrome between Algo Guide, Step-by-step, and Mini game.
+ * $from is `guide`, `session`, or `game`.
+ *
+ * @param array<string, mixed> $meta
+ */
+function render_companion_link(string $from, array $meta, string $ownSlug = ''): void
+{
+    $links = [];
+
+    if ($from === 'guide') {
+        $session = guide_existing_session_slug($meta, $ownSlug);
+        if ($session !== null) {
+            $links[] = [
+                'href' => url('coaching/session.php?id=' . rawurlencode($session)),
+                'label' => 'Step-by-step',
+            ];
+        }
+        $game = companion_existing_game_slug($meta, $ownSlug);
+        if ($game !== null) {
+            $links[] = [
+                'href' => url('games/play.php?id=' . rawurlencode($game)),
+                'label' => 'Mini game',
+            ];
+        }
+    } elseif ($from === 'session') {
+        $guide = companion_existing_slug('guides', $meta, $ownSlug, 'related_guide');
+        if ($guide !== null) {
+            $links[] = [
+                'href' => url('guides/view.php?id=' . rawurlencode($guide)),
+                'label' => 'Algo Guide',
+            ];
+        }
+        $game = companion_existing_game_slug($meta, $ownSlug);
+        if ($game !== null) {
+            $links[] = [
+                'href' => url('games/play.php?id=' . rawurlencode($game)),
+                'label' => 'Mini game',
+            ];
+        }
+    } elseif ($from === 'game') {
+        $guide = companion_existing_slug('guides', $meta, $ownSlug, 'related_guide');
+        if ($guide !== null) {
+            $links[] = [
+                'href' => url('guides/view.php?id=' . rawurlencode($guide)),
+                'label' => 'Algo Guide',
+            ];
+        }
+        $session = companion_existing_slug('coaching', $meta, $ownSlug, 'related_session');
+        if ($session !== null) {
+            $links[] = [
+                'href' => url('coaching/session.php?id=' . rawurlencode($session)),
+                'label' => 'Step-by-step',
+            ];
+        }
+    }
+
+    if ($links === []) {
         return;
     }
 
-    if ($from !== 'session') {
-        return;
+    echo '<p class="companion-link">';
+    foreach ($links as $i => $link) {
+        if ($i > 0) {
+            echo '<span class="companion-link__sep" aria-hidden="true"> · </span>';
+        }
+        echo '<a href="' . e($link['href']) . '">' . e($link['label']) . '</a>';
+    }
+    echo '</p>';
+}
+
+/**
+ * Insert or update a string meta.php key. Returns true when the file changed.
+ */
+function content_meta_ensure_string_key(string $path, string $key, string $value): bool
+{
+    if (!is_file($path) || preg_match('/^[a-z][a-z0-9_]*$/', $key) !== 1) {
+        return false;
+    }
+    if (preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $value) !== 1) {
+        return false;
     }
 
-    $slug = companion_slug($meta, 'related_guide');
-    if ($slug === null) {
-        return;
+    $raw = file_get_contents($path);
+    if (!is_string($raw) || $raw === '') {
+        return false;
     }
-    $item = load_content('guides', $slug);
-    if ($item === null || normalize_guide_kind($item['meta']['kind'] ?? null) !== 'algo') {
-        return;
+
+    $keyPat = preg_quote($key, '/');
+    if (preg_match("/'" . $keyPat . "'\\s*=>\\s*'([^']*)'/", $raw, $m) === 1) {
+        if ($m[1] === $value) {
+            return false;
+        }
+        $updated = preg_replace(
+            "/'" . $keyPat . "'\\s*=>\\s*'[^']*'/",
+            "'" . $key . "' => '" . $value . "'",
+            $raw,
+            1
+        );
+        if (!is_string($updated) || $updated === $raw) {
+            return false;
+        }
+
+        return file_put_contents($path, $updated) !== false;
     }
-    $href = url('guides/view.php?id=' . rawurlencode($slug));
-    echo '<p class="companion-link"><a href="' . e($href) . '">Algo Guide</a></p>';
+
+    if (preg_match('/^(.*?)(\n\];\s*)$/s', $raw, $m) !== 1) {
+        return false;
+    }
+    $before = rtrim($m[1], " \t");
+    if ($before === '' || substr($before, -1) === '[') {
+        return false;
+    }
+    if (substr($before, -1) !== ',') {
+        $before .= ',';
+    }
+    $updated = $before . "\n    '" . $key . "' => '" . $value . "',\n];\n";
+
+    return file_put_contents($path, $updated) !== false;
 }
 
 /**
@@ -344,6 +552,41 @@ function filter_content_taxonomy(array $items, string $cat, string $sub): array
     return $out;
 }
 
+/**
+ * Lowercased haystack for Browse search (title, slug, taxonomy, summary, tags, LeetCode id).
+ *
+ * @param array{slug?: string, meta?: mixed} $item
+ */
+function content_browse_query_haystack(array $item): string
+{
+    $meta = is_array($item['meta'] ?? null) ? $item['meta'] : [];
+    $tax = content_taxonomy($meta);
+    $parts = [
+        (string) ($meta['title'] ?? ''),
+        (string) ($item['slug'] ?? ''),
+        $tax['category'],
+        $tax['subcategory'],
+        (string) ($meta['summary'] ?? ''),
+    ];
+    $lc = content_leetcode_number($meta);
+    if ($lc !== null) {
+        $parts[] = (string) $lc;
+        $parts[] = 'leetcode ' . $lc;
+    }
+    if (isset($meta['tags']) && is_array($meta['tags'])) {
+        foreach ($meta['tags'] as $tag) {
+            $parts[] = (string) $tag;
+        }
+    }
+    $hay = preg_replace('/\s+/u', ' ', implode(' ', $parts));
+    $hay = is_string($hay) ? $hay : '';
+    if (function_exists('mb_strtolower')) {
+        return mb_strtolower($hay, 'UTF-8');
+    }
+
+    return strtolower($hay);
+}
+
 function user_tag_section(string $script): string
 {
     if (strpos($script, 'games/') === 0) {
@@ -389,6 +632,30 @@ function render_user_tag_page(string $script, string $slug): void
         </div>
     </div>
     <?php
+}
+
+/**
+ * Page-head actions: + Tag, LeetCode, YouTube, then companion links.
+ * $from is `guide`, `session`, or `game`.
+ *
+ * @param array<string, mixed> $meta
+ */
+function render_resource_head_chrome(string $from, array $meta, string $ownSlug, string $tagScript): void
+{
+    echo '<div class="page-head__links">';
+    render_user_tag_page($tagScript, $ownSlug);
+
+    $n = content_leetcode_number($meta);
+    if ($n !== null) {
+        echo '<p class="leetcode-no">'
+            . content_leetcode_label_html($n)
+            . '<span class="leetcode-no__sep" aria-hidden="true"></span>'
+            . content_youtube_link_html($n, (string) ($meta['title'] ?? ''), true)
+            . '</p>';
+    }
+
+    render_companion_link($from, $meta, $ownSlug);
+    echo '</div>';
 }
 
 /**
@@ -492,7 +759,55 @@ function render_content_browse(array $items, array $opts): void
                         role="dialog"
                         aria-label="Browse"
                     >
-                        <p class="pop__title">Browse</p>
+                        <div class="pop__head">
+                            <p class="pop__title">Browse</p>
+                            <button
+                                type="button"
+                                class="browse-sort"
+                                data-browse-sort="usual"
+                                aria-label="Sort, usual order"
+                            >
+                                <svg class="browse-sort__icon" width="14" height="12" viewBox="0 0 14 12" aria-hidden="true" focusable="false">
+                                    <rect x="0" y="0.75" width="14" height="1.7" fill="currentColor"/>
+                                    <rect x="0" y="5.15" width="10" height="1.7" fill="currentColor"/>
+                                    <rect x="0" y="9.55" width="6" height="1.7" fill="currentColor"/>
+                                </svg>
+                                <span data-browse-sort-label>Sort</span>
+                            </button>
+                        </div>
+                        <div class="browse-search" data-browse-search>
+                            <div class="browse-search__field">
+                                <input
+                                    id="resource-browse-q"
+                                    class="browse-search__input"
+                                    type="text"
+                                    data-browse-search-input
+                                    placeholder="Search"
+                                    autocomplete="off"
+                                    autocorrect="off"
+                                    spellcheck="false"
+                                    role="combobox"
+                                    aria-label="Search"
+                                    aria-autocomplete="list"
+                                    aria-expanded="false"
+                                    aria-controls="resource-browse-suggest"
+                                >
+                                <button
+                                    type="button"
+                                    class="browse-search__clear"
+                                    data-browse-search-clear
+                                    hidden
+                                    aria-label="Clear search"
+                                >×</button>
+                            </div>
+                            <ul
+                                id="resource-browse-suggest"
+                                class="browse-search__suggest"
+                                data-browse-suggest
+                                role="listbox"
+                                hidden
+                            ></ul>
+                        </div>
                         <nav class="taxonomy" aria-label="Categories">
                             <?php foreach ($tree as $category => $subs): ?>
                                 <?php
@@ -525,12 +840,12 @@ function render_content_browse(array $items, array $opts): void
                                                     $title = (string) ($topicItem['meta']['title'] ?? $topicItem['slug']);
                                                     $lc = content_leetcode_number($topicItem['meta'] ?? []);
                                                     ?>
-                                                    <li>
+                                                    <li<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?>>
                                                         <a class="taxonomy-topics__item" href="<?= e($href) ?>">
                                                             <span class="taxonomy-topics__name"><?= e($title) ?></span>
                                                         </a>
                                                         <?php if ($lc !== null): ?>
-                                                            <span class="taxonomy-topics__lc"><?= content_leetcode_label_html($lc) ?></span>
+                                                            <span class="taxonomy-topics__lc"><?= content_leetcode_chrome_html($topicItem['meta'] ?? []) ?></span>
                                                         <?php endif; ?>
                                                     </li>
                                                 <?php endforeach; ?>
@@ -647,14 +962,16 @@ function render_content_browse(array $items, array $opts): void
                 <p class="empty-state">No resources in this category. <a href="<?= e($allHref) ?>">Show all</a></p>
             <?php else: ?>
                 <p class="empty-state" data-user-tag-empty hidden>No resources with that tag.</p>
+                <p class="empty-state" data-browse-empty hidden>No resources match that search.</p>
                 <ul class="content-tiles">
                     <?php foreach ($visible as $item): ?>
                         <?php
                         $meta = $item['meta'];
                         $href = (string) $itemHref($item);
                         $tags = $meta['tags'] ?? [];
+                        $lc = content_leetcode_number($meta);
                         ?>
-                        <li class="content-tile"<?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
+                        <li class="content-tile" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
                             <?php render_content_crumb($meta, $script, $baseQuery); ?>
                             <div class="content-tile__body">
                                 <a class="content-tile__goto" href="<?= e($href) ?>">

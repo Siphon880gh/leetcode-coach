@@ -110,6 +110,7 @@ Prefer `body.md` for all new guides. Legacy `body.php` still renders if `body.md
 | `kind` | yes | `cursor` or `algo` |
 | `tags` | yes | string[] |
 | `related_session` | no | Same slug as a Step-by-step under `content/coaching/{slug}/`. Chrome on the guide: **Step-by-step** → `coaching/session.php?id={slug}` |
+| `related_game` | no | Mini game under `content/games/{slug}/` (slug may differ, e.g. `two-sum-pointers`). Chrome: **Mini game** → `games/play.php?id={slug}`. If a game exists, the Mini game `[!ui-builder]` renders as already-created + link instead of the prompt form |
 
 **body.md**
 
@@ -172,6 +173,8 @@ content/games/{slug}/
 | `tags` | yes | string[] |
 | `leetcode` | no | Integer LeetCode id for numbered problems. Own row in the UI — not part of `title`. |
 | `entry` | no | Default `index.html` |
+| `related_guide` | when a matching Algo Guide exists | Algo Guide slug. Chrome: **Algo Guide** → `guides/view.php?id={slug}` |
+| `related_session` | when a matching Step-by-step exists | Step-by-step slug. Chrome: **Step-by-step** → `coaching/session.php?id={slug}` |
 
 **index.html**
 
@@ -179,7 +182,18 @@ content/games/{slug}/
 - Teach one idea (pointer motion, hash map “seen”, recursion stack, etc.)
 - Keep MVP games small; for richer web/2d work, apply `game-development-sickn33` then still wire `meta.php` + entry here
 
-**UI:** `games/index.php` (tiles with breadcrumbs; Browse and Filter are secondary popovers; `?cat=` / `&sub=` filters tiles); play via `games/play.php?id={slug}` (iframe to the entry file)
+**Link to existing Algo Guide and Step-by-step**
+
+Creating a mini game includes companion chrome. Do this in the same pass as writing the game — do not leave it for a later prompt.
+
+1. Resolve an Algo Guide (`content/guides/` with `kind => 'algo'`) with a valid `related_guide`, else the same folder slug, else the same `leetcode` integer
+2. Resolve a Step-by-step (`content/coaching/`) the same way with `related_session`
+3. If a guide exists, set `'related_guide'` on this game and `'related_game'` on that guide
+4. If a session exists, set `'related_session'` on this game and `'related_game'` on that session
+5. Leave a side unset when that artifact does not exist. Do not invent slugs. Do not overwrite a valid `related_game` that already points at a different existing game
+6. Run `php .agents/skills/link-mini-games/scripts/link.php` so leftover companion keys are filled
+
+**UI:** `games/index.php` (tiles with breadcrumbs; Browse and Filter are secondary popovers; `?cat=` / `&sub=` filters tiles); play via `games/play.php?id={slug}` (iframe to the entry file). Companion chrome on the game, Algo Guide, and Step-by-step must work after create.
 
 ---
 
@@ -195,7 +209,7 @@ content/coaching/{slug}/
   tree.php
 ```
 
-**meta.php keys** — same shape as guides (`title`, `summary`, `category`, `subcategory`, `topic`, `tags`; optional `leetcode` integer for numbered LeetCode problems, never folded into `title`; optional `related_guide` — same slug as an Algo Guide, chrome **Algo Guide** → `guides/view.php?id={slug}`)
+**meta.php keys** — same shape as guides (`title`, `summary`, `category`, `subcategory`, `topic`, `tags`; optional `leetcode` integer for numbered LeetCode problems, never folded into `title`; optional `related_guide` — Algo Guide chrome; optional `related_game` — Mini game chrome **Mini game** → `games/play.php?id={slug}`)
 
 **tree.php**
 
@@ -238,6 +252,7 @@ return [
 4. For guides: write `body.md`; add `[!ui-builder]` when the student should fill variables before copying a Cursor prompt
 5. Match contracts exactly so list/view/play/session pick them up
 6. For games needing real game design, open `game-development-sickn33` first, then wire harness meta/entry
-7. Smoke-check: open the section list page and open the new item
+7. For mini games: link to an existing Algo Guide and Step-by-step (set `related_*` keys; run `php .agents/skills/link-mini-games/scripts/link.php`)
+8. Smoke-check: open the section list page and open the new item; for games, confirm Algo Guide / Step-by-step chrome when those pages exist
 
 See [reference.md](reference.md) for schemas, ui-builder syntax, and student-facing prompt templates.

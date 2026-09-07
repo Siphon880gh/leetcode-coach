@@ -31,9 +31,8 @@ layout_start([
 <div class="page-head">
     <?php render_content_crumb($meta, 'games/index.php', []); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
-    <?php render_leetcode_row($meta); ?>
+    <?php render_resource_head_chrome('game', $meta, $slug, 'games/index.php'); ?>
     <p><?= e((string) ($meta['summary'] ?? '')) ?></p>
-    <?php render_user_tag_page('games/index.php', $slug); ?>
 </div>
 
 <div class="game-frame-wrap">

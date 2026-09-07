@@ -25,7 +25,7 @@ function layout_start(array $opts = []): void
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= e(url('assets/css/app.css')) ?>">
+    <link rel="stylesheet" href="<?= e(url('assets/css/app.css')) ?>?v=<?= (int) @filemtime(dirname(__DIR__) . '/assets/css/app.css') ?>">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -76,7 +76,7 @@ function layout_end(): void
             </details>
         </div>
     </footer>
-    <script src="<?= e(url('assets/js/app.js')) ?>" defer></script>
+    <script src="<?= e(url('assets/js/app.js')) ?>?v=<?= (int) @filemtime(dirname(__DIR__) . '/assets/js/app.js') ?>" defer></script>
 </body>
 </html>
     <?php

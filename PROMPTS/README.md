@@ -6,7 +6,7 @@ Invoke from the repo root. Copy the **Invoke** block inside each prompt.
 
 ## Author from `context/`
 
-These three walk the cloned libraries under `context/` (alphabetical repo order). They **create** artifacts. If the same slug already exists on the other side, they set that one pair’s companion keys. They do not backfill every pair.
+These three walk the cloned libraries under `context/` (alphabetical repo order). They **create** artifacts. If the same slug already exists on the other side, they set that one pair’s companion keys. They do not backfill every pair. Authoring an Algo Guide or Step-by-step also scans `content/games/` for a matching mini game (same slug, related keys, or same `leetcode`) and sets `related_game`.
 
 | Prompt | Writes | Notes |
 |--------|--------|--------|
@@ -16,13 +16,13 @@ These three walk the cloned libraries under `context/` (alphabetical repo order)
 
 A loop is **drained** when its tracker has `"exhausted": true` (queue finished, `next` is `null`).
 
-Mini games can run whenever. It does not feed the link loop.
+Mini games can run whenever. It does not feed the guide↔session link loop. Creating a game still sets `related_guide` / `related_session` when a matching guide or session already exists.
 
-## Catch-up (step-by-step paused)
+## Catch-up (keep G and S within 20, always pair on catch-up)
 
-When step-by-step is paused and Algo Guides are behind, do **not** drain [`loop-guide-step-links.md`](loop-guide-step-links.md) standalone. Its union/`no_pair` walk would skip coaching slugs that do not have a guide yet.
+Do **not** drain [`loop-guide-step-links.md`](loop-guide-step-links.md) standalone while an author loop is still running. Its union/`no_pair` walk would skip slugs that exist on only one side.
 
-Use [`graph-guides-and-links.md`](graph-guides-and-links.md): one graph tick runs one algo-guides problem, then one **pairable** guide↔session link (intersection only).
+Use [`graph-guides-and-links.md`](graph-guides-and-links.md): each tick counts Algo Guides (`G`) vs Step-by-step (`S`). If one side is more than 20 ahead, author one companion on the lagging side for a slug that already has the leading side. Otherwise author one algo-guides problem. Then one **pairable** guide↔session link (intersection only).
 
 ## Link after both author loops are drained
 

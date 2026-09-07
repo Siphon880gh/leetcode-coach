@@ -963,6 +963,7 @@
 
       function applyFilterVisibility() {
         var selected = filterTagIds(state, section);
+        var q = browseSearchQuery(root);
         var anyShown = false;
         var shown = 0;
         tiles.forEach(function (tile) {
@@ -978,8 +979,10 @@
               }
             }
           }
+          var searchOk = browseTileMatches(tile, q);
           tile.hidden = !show;
-          if (show) {
+          tile.classList.toggle('is-browse-miss', !searchOk);
+          if (show && searchOk) {
             anyShown = true;
             shown += 1;
           }
@@ -987,8 +990,12 @@
         if (headingCount) {
           headingCount.textContent = '(' + shown + ')';
         }
+        var browseEmpty = root.querySelector('[data-browse-empty]');
+        if (browseEmpty) {
+          browseEmpty.hidden = !(q !== '' && !anyShown);
+        }
         if (emptyEl) {
-          emptyEl.hidden = selected.length === 0 || anyShown;
+          emptyEl.hidden = !(q === '' && selected.length > 0 && !anyShown);
         }
         var topicOn = !!(filterBtn && filterBtn.classList.contains('is-active'));
         var tagOn = selected.length > 0;
@@ -1005,6 +1012,8 @@
           clearBtn.hidden = !(topicOn || tagOn);
         }
       }
+
+      root._applyResourceFilter = applyFilterVisibility;
 
       function renderApplied(tile) {
         var key = tile.getAttribute('data-user-tag-resource');
@@ -1266,6 +1275,487 @@
 
   initUserTags();
 
+  var BROWSE_SORT_MODES = ['usual', 'az', 'za', 'lc', 'lcdesc'];
+  var BROWSE_PERSIST_PREFIX = 'algos-browse-state-v1:';
+
+  function browsePersistKey() {
+    var path = String(window.location.pathname || '').replace(/\/+$/, '') || '/';
+    var kind = '';
+    try {
+      kind = new URLSearchParams(window.location.search).get('kind') || '';
+    } catch (err) {}
+    return BROWSE_PERSIST_PREFIX + path + (kind ? '?kind=' + kind : '');
+  }
+
+  function readBrowsePersist() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(browsePersistKey()) || 'null');
+      if (!raw || typeof raw !== 'object') return { sort: 'usual', q: '' };
+      var sort = raw.sort;
+      if (BROWSE_SORT_MODES.indexOf(sort) < 0) sort = 'usual';
+      var q = typeof raw.q === 'string' ? raw.q : '';
+      return { sort: sort, q: q };
+    } catch (err) {
+      return { sort: 'usual', q: '' };
+    }
+  }
+
+  function writeBrowsePersist(patch) {
+    var cur = readBrowsePersist();
+    if (patch.sort !== undefined) cur.sort = patch.sort;
+    if (patch.q !== undefined) cur.q = patch.q;
+    try {
+      var key = browsePersistKey();
+      if (cur.sort === 'usual' && String(cur.q).trim() === '') {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, JSON.stringify(cur));
+      }
+    } catch (err) {}
+  }
+
+  function browseSearchQuery(root) {
+    var input = root.querySelector('[data-browse-search-input]');
+    return input ? String(input.value || '').trim().toLowerCase() : '';
+  }
+
+  function browseTileMatches(tile, q) {
+    if (!q) return true;
+    return (tile.getAttribute('data-browse-q') || '').indexOf(q) !== -1;
+  }
+
+  function syncBrowseIndicator(root) {
+    var btn = root.querySelector('[aria-controls="resource-browse"]');
+    if (!btn) return;
+    var filtered = browseSearchQuery(root) !== '';
+    var sorted = (root.getAttribute('data-browse-sort-mode') || 'usual') !== 'usual';
+    var on = filtered || sorted;
+    btn.classList.toggle('has-filter', on);
+    if (!on) btn.removeAttribute('aria-label');
+    else if (filtered && sorted) btn.setAttribute('aria-label', 'Browse, filtered and sorted');
+    else if (filtered) btn.setAttribute('aria-label', 'Browse, filtered');
+    else btn.setAttribute('aria-label', 'Browse, sorted');
+  }
+
+  function initBrowseSearch() {
+    var MAX_SUGGEST = 8;
+
+    function kids(parent, selector) {
+      return Array.prototype.filter.call(parent.children, function (el) {
+        return el.matches(selector);
+      });
+    }
+
+    function accLabel(details) {
+      var label = details.querySelector(':scope > .taxonomy-acc__summary .taxonomy-acc__label');
+      return label ? (label.textContent || '').trim() : '';
+    }
+
+    function topicText(li) {
+      var name = li.querySelector('.taxonomy-topics__name');
+      var lc = li.querySelector('.taxonomy-topics__lc');
+      var bits = [];
+      if (name) bits.push(name.textContent || '');
+      if (lc) bits.push(lc.textContent || '');
+      return bits.join(' ');
+    }
+
+    function topicName(li) {
+      var name = li.querySelector('.taxonomy-topics__name');
+      return name ? (name.textContent || '').trim() : '';
+    }
+
+    document.querySelectorAll('[data-browse-search]').forEach(function (wrap) {
+      var panel = wrap.closest('[data-pop-panel]');
+      var root = wrap.closest('.browse');
+      var input = wrap.querySelector('[data-browse-search-input]');
+      var clearBtn = wrap.querySelector('[data-browse-search-clear]');
+      var suggest = wrap.querySelector('[data-browse-suggest]');
+      var nav = panel && panel.querySelector('.taxonomy');
+      if (!panel || !root || !input || !suggest || !nav) return;
+
+      var headingCount = root.querySelector('.browse__heading .resource-n');
+      var browseEmpty = root.querySelector('[data-browse-empty]');
+      var tiles = root.querySelectorAll('.content-tile');
+      var activeIndex = -1;
+
+      nav.querySelectorAll('details.taxonomy-acc').forEach(function (d) {
+        d.setAttribute('data-was-open', d.open ? '1' : '0');
+      });
+
+      function optionEls() {
+        return Array.prototype.slice.call(suggest.querySelectorAll('[role="option"]'));
+      }
+
+      function closeSuggest() {
+        suggest.hidden = true;
+        suggest.innerHTML = '';
+        activeIndex = -1;
+        input.setAttribute('aria-expanded', 'false');
+        input.removeAttribute('aria-activedescendant');
+      }
+
+      function setActive(index) {
+        var opts = optionEls();
+        if (!opts.length) {
+          activeIndex = -1;
+          input.removeAttribute('aria-activedescendant');
+          return;
+        }
+        if (index < 0) index = opts.length - 1;
+        if (index >= opts.length) index = 0;
+        activeIndex = index;
+        opts.forEach(function (opt, i) {
+          var on = i === activeIndex;
+          opt.classList.toggle('is-active', on);
+          opt.setAttribute('aria-selected', on ? 'true' : 'false');
+          if (on) {
+            input.setAttribute('aria-activedescendant', opt.id);
+            if (opt.scrollIntoView) opt.scrollIntoView({ block: 'nearest' });
+          }
+        });
+      }
+
+      function collectTopics() {
+        var out = [];
+        nav.querySelectorAll('.taxonomy-topics li').forEach(function (li) {
+          var name = topicName(li);
+          if (!name) return;
+          out.push({
+            name: name,
+            hay: topicText(li).toLowerCase(),
+            li: li
+          });
+        });
+        return out;
+      }
+
+      function applyAccordion(q) {
+        kids(nav, '.taxonomy-acc').forEach(function (cat) {
+          var catHit = q !== '' && accLabel(cat).toLowerCase().indexOf(q) !== -1;
+          var anySub = false;
+          kids(cat, '.taxonomy-acc').forEach(function (sub) {
+            var subHit = q !== '' && accLabel(sub).toLowerCase().indexOf(q) !== -1;
+            var list = sub.querySelector(':scope > .taxonomy-topics');
+            var anyTopic = false;
+            if (list) {
+              kids(list, 'li').forEach(function (li) {
+                var hit = q === '' || catHit || subHit || topicText(li).toLowerCase().indexOf(q) !== -1;
+                li.hidden = !hit;
+                if (hit) anyTopic = true;
+              });
+            }
+            var showSub = q === '' || catHit || subHit || anyTopic;
+            sub.hidden = !showSub;
+            if (showSub) {
+              anySub = true;
+              if (q && (subHit || anyTopic || catHit)) sub.open = true;
+              else if (!q) sub.open = sub.getAttribute('data-was-open') === '1';
+            }
+          });
+          var showCat = q === '' || catHit || anySub;
+          cat.hidden = !showCat;
+          if (showCat) {
+            if (q && (catHit || anySub)) cat.open = true;
+            else if (!q) cat.open = cat.getAttribute('data-was-open') === '1';
+          }
+        });
+      }
+
+      function applyTiles(q) {
+        if (typeof root._applyResourceFilter === 'function') {
+          root._applyResourceFilter();
+          return;
+        }
+        var shown = 0;
+        tiles.forEach(function (tile) {
+          var ok = browseTileMatches(tile, q);
+          tile.classList.toggle('is-browse-miss', !ok);
+          if (ok) shown += 1;
+        });
+        if (headingCount) headingCount.textContent = '(' + shown + ')';
+        if (browseEmpty) browseEmpty.hidden = !(q !== '' && shown === 0);
+      }
+
+      function renderSuggest(q) {
+        suggest.innerHTML = '';
+        activeIndex = -1;
+        if (q === '') {
+          closeSuggest();
+          return;
+        }
+        var matches = [];
+        var seen = {};
+        collectTopics().forEach(function (row) {
+          if (matches.length >= MAX_SUGGEST) return;
+          if (row.hay.indexOf(q) === -1) return;
+          var key = row.name.toLowerCase();
+          if (seen[key]) return;
+          seen[key] = true;
+          matches.push(row);
+        });
+        if (!matches.length) {
+          closeSuggest();
+          return;
+        }
+        matches.forEach(function (row, i) {
+          var li = document.createElement('li');
+          li.setAttribute('role', 'presentation');
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'browse-search__opt';
+          btn.setAttribute('role', 'option');
+          btn.id = 'browse-opt-' + i;
+          btn.setAttribute('aria-selected', 'false');
+          btn.textContent = row.name;
+          btn.addEventListener('mousedown', function (e) {
+            e.preventDefault();
+          });
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            pick(row.name);
+          });
+          li.appendChild(btn);
+          suggest.appendChild(li);
+        });
+        suggest.hidden = false;
+        input.setAttribute('aria-expanded', 'true');
+      }
+
+      function applyQuery() {
+        var q = browseSearchQuery(root);
+        if (clearBtn) clearBtn.hidden = q === '';
+        syncBrowseIndicator(root);
+        applyAccordion(q);
+        applyTiles(q);
+        writeBrowsePersist({ q: input.value });
+      }
+
+      function pick(name) {
+        input.value = name;
+        closeSuggest();
+        applyQuery();
+      }
+
+      function clearSearch() {
+        input.value = '';
+        closeSuggest();
+        applyQuery();
+        input.focus();
+      }
+
+      input.addEventListener('input', function () {
+        var q = browseSearchQuery(root);
+        applyQuery();
+        renderSuggest(q);
+      });
+
+      input.addEventListener('keydown', function (e) {
+        var opts = optionEls();
+        if (e.key === 'ArrowDown' && !suggest.hidden && opts.length) {
+          e.preventDefault();
+          setActive(activeIndex + 1);
+          return;
+        }
+        if (e.key === 'ArrowUp' && !suggest.hidden && opts.length) {
+          e.preventDefault();
+          setActive(activeIndex - 1);
+          return;
+        }
+        if (e.key === 'Enter' && !suggest.hidden && opts.length) {
+          e.preventDefault();
+          var chosen = activeIndex >= 0 ? opts[activeIndex] : opts[0];
+          if (chosen) pick(chosen.textContent || '');
+          return;
+        }
+        if (e.key === 'Escape') {
+          if (!suggest.hidden) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeSuggest();
+          }
+        }
+      });
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          clearSearch();
+        });
+      }
+
+      nav.addEventListener('mousedown', function () {
+        closeSuggest();
+      });
+
+      root._restoreBrowseSearch = function (q) {
+        input.value = q || '';
+        closeSuggest();
+        applyQuery();
+      };
+    });
+  }
+
+  initBrowseSearch();
+
+  function initBrowseSort() {
+    var modes = BROWSE_SORT_MODES;
+    var labels = { usual: 'Sort', az: 'A-Z', za: 'Z-A', lc: '1-n', lcdesc: 'n-1' };
+    var spoken = {
+      usual: 'Sort, usual order',
+      az: 'Sort, A to Z',
+      za: 'Sort, Z to A',
+      lc: 'Sort, LeetCode number ascending',
+      lcdesc: 'Sort, LeetCode number descending'
+    };
+
+    function kids(parent, selector) {
+      return Array.prototype.filter.call(parent.children, function (el) {
+        return el.matches(selector);
+      });
+    }
+
+    function stamp(nodes) {
+      nodes.forEach(function (el, i) {
+        el.setAttribute('data-browse-ord', String(i));
+      });
+    }
+
+    function nameOfAcc(details) {
+      var label = details.querySelector(':scope > .taxonomy-acc__summary .taxonomy-acc__label');
+      return label ? (label.textContent || '').trim() : '';
+    }
+
+    function nameOfTopic(li) {
+      var name = li.querySelector('.taxonomy-topics__name');
+      return name ? (name.textContent || '').trim() : '';
+    }
+
+    function lcOfTopic(li) {
+      var raw = li.getAttribute('data-leetcode');
+      if (raw === null || raw === '') return null;
+      var n = Number(raw);
+      return isFinite(n) ? n : null;
+    }
+
+    function byOrd(a, b) {
+      return Number(a.getAttribute('data-browse-ord')) - Number(b.getAttribute('data-browse-ord'));
+    }
+
+    function reorder(parent, nodes, mode, getName, getLc) {
+      var ordered = nodes.slice();
+      if (mode === 'usual') {
+        ordered.sort(byOrd);
+      } else if (mode === 'lc' || mode === 'lcdesc') {
+        if (!getLc) {
+          ordered.sort(byOrd);
+        } else {
+          ordered.sort(function (a, b) {
+            var na = getLc(a);
+            var nb = getLc(b);
+            if (na === null && nb === null) return byOrd(a, b);
+            if (na === null) return 1;
+            if (nb === null) return -1;
+            if (na !== nb) return mode === 'lcdesc' ? nb - na : na - nb;
+            return byOrd(a, b);
+          });
+        }
+      } else {
+        ordered.sort(function (a, b) {
+          return getName(a).localeCompare(getName(b), undefined, { numeric: true, sensitivity: 'base' });
+        });
+        if (mode === 'za') ordered.reverse();
+      }
+      ordered.forEach(function (el) {
+        parent.appendChild(el);
+      });
+    }
+
+    function titleOfTile(tile) {
+      var title = tile.querySelector('.content-tile__title');
+      return title ? (title.textContent || '').trim() : '';
+    }
+
+    function lcOfTile(tile) {
+      var raw = tile.getAttribute('data-leetcode');
+      if (raw === null || raw === '') return null;
+      var n = Number(raw);
+      return isFinite(n) ? n : null;
+    }
+
+    function applySort(nav, mode, tileList) {
+      var catMode = mode === 'lc' || mode === 'lcdesc' ? 'usual' : mode;
+      var cats = kids(nav, '.taxonomy-acc');
+      reorder(nav, cats, catMode, nameOfAcc);
+      kids(nav, '.taxonomy-acc').forEach(function (cat) {
+        var subs = kids(cat, '.taxonomy-acc');
+        reorder(cat, subs, catMode, nameOfAcc);
+        kids(cat, '.taxonomy-acc').forEach(function (sub) {
+          var list = sub.querySelector(':scope > .taxonomy-topics');
+          if (!list) return;
+          reorder(list, kids(list, 'li'), mode, nameOfTopic, lcOfTopic);
+        });
+      });
+      if (tileList) {
+        reorder(tileList, kids(tileList, '.content-tile'), mode, titleOfTile, lcOfTile);
+      }
+    }
+
+    document.querySelectorAll('[data-browse-sort]').forEach(function (btn) {
+      var panel = btn.closest('[data-pop-panel]');
+      var nav = panel && panel.querySelector('.taxonomy');
+      var root = panel && panel.closest('.browse');
+      if (!panel || !nav) return;
+
+      var tileList = root && root.querySelector('.content-tiles');
+      var cats = kids(nav, '.taxonomy-acc');
+      stamp(cats);
+      cats.forEach(function (cat) {
+        var subs = kids(cat, '.taxonomy-acc');
+        stamp(subs);
+        subs.forEach(function (sub) {
+          var list = sub.querySelector(':scope > .taxonomy-topics');
+          if (!list) return;
+          stamp(kids(list, 'li'));
+        });
+      });
+      if (tileList) stamp(kids(tileList, '.content-tile'));
+      if (root) root.setAttribute('data-browse-sort-mode', 'usual');
+
+      var modeIndex = 0;
+
+      function setSortMode(mode, persist) {
+        var idx = modes.indexOf(mode);
+        modeIndex = idx < 0 ? 0 : idx;
+        mode = modes[modeIndex];
+        var label = btn.querySelector('[data-browse-sort-label]');
+        btn.setAttribute('data-browse-sort', mode);
+        btn.setAttribute('aria-label', spoken[mode]);
+        if (label) label.textContent = labels[mode];
+        if (root) root.setAttribute('data-browse-sort-mode', mode);
+        applySort(nav, mode, tileList);
+        if (root) syncBrowseIndicator(root);
+        if (persist !== false) writeBrowsePersist({ sort: mode });
+      }
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        setSortMode(modes[(modeIndex + 1) % modes.length]);
+      });
+
+      var saved = readBrowsePersist();
+      if (saved.sort !== 'usual') setSortMode(saved.sort, false);
+      if (root && saved.q && typeof root._restoreBrowseSearch === 'function') {
+        root._restoreBrowseSearch(saved.q);
+      }
+    });
+  }
+
+  initBrowseSort();
+
   document.querySelectorAll('[data-pop]').forEach(function (root) {
     var btn = root.querySelector('[data-pop-btn]');
     var panel = root.querySelector('[data-pop-panel]');
@@ -1322,4 +1812,432 @@
       if (e.key === 'Escape') closeAll();
     });
   });
+
+  var guideSelectRoot = document.querySelector('[data-guide-select]');
+  var guideSelectMenu = document.getElementById('guide-select-menu');
+  var guideGenModal = document.getElementById('guide-gen-modal');
+  var guideGenPreview = document.getElementById('guide-gen-preview');
+  var guideGenCopy = document.getElementById('guide-gen-copy');
+  var guideGenDone = document.getElementById('guide-gen-modal-done');
+  var guideGenChatgpt = document.getElementById('guide-gen-open-chatgpt');
+  var guideGenClaude = document.getElementById('guide-gen-open-claude');
+  var guideGenCursor = document.getElementById('guide-gen-open-cursor');
+  var guideGenCursorNote = document.getElementById('guide-gen-cursor-note');
+  var guideSelectGenerate = document.getElementById('guide-select-generate');
+  var guideSelectCopy = document.getElementById('guide-select-copy');
+  var savedGuideSelectionText = '';
+  var savedGuideExplanation = '';
+  var lastGuideGenFocus = null;
+  var guideSelectTimer = null;
+
+  function guideClosestEl(node) {
+    if (!node) return null;
+    return node.nodeType === 1 ? node : node.parentElement;
+  }
+
+  function guideNodeIn(node, selector) {
+    var el = guideClosestEl(node);
+    return !!(el && el.closest && el.closest(selector));
+  }
+
+  function isUsableGuideSelection(sel) {
+    if (!guideSelectRoot || !sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+    var text = String(sel.toString() || '').trim();
+    if (!text) return false;
+    var range = sel.getRangeAt(0);
+    if (!guideSelectRoot.contains(range.startContainer) || !guideSelectRoot.contains(range.endContainer)) {
+      return false;
+    }
+    if (guideNodeIn(range.startContainer, '.ui-builder') && guideNodeIn(range.endContainer, '.ui-builder')) {
+      return false;
+    }
+    return true;
+  }
+
+  function explanationThroughSelection(sel) {
+    var title = guideSelectRoot ? String(guideSelectRoot.getAttribute('data-guide-title') || '').trim() : '';
+    if (!sel || sel.rangeCount === 0) return title ? '# ' + title : '';
+    var range = sel.getRangeAt(0);
+    var collect = document.createRange();
+    collect.selectNodeContents(guideSelectRoot);
+    try {
+      collect.setEnd(range.endContainer, range.endOffset);
+    } catch (err) {
+      return title ? '# ' + title : '';
+    }
+    var wrap = document.createElement('div');
+    wrap.appendChild(collect.cloneContents());
+    wrap.querySelectorAll('.ui-builder').forEach(function (el) {
+      el.remove();
+    });
+    var plainPrefix = String(wrap.innerText || wrap.textContent || '').replace(/\s+/g, ' ').trim();
+    var sourceMd = readGuideSourceMd();
+    var body = '';
+    if (sourceMd && plainPrefix) {
+      body = cutMarkdownToPlainPrefix(sourceMd, plainPrefix);
+    }
+    if (!body) {
+      body = htmlFragmentToMarkdown(wrap);
+    }
+    body = String(body || '').replace(/\n{3,}/g, '\n\n').trim();
+    if (!title) return body;
+    var heading = '# ' + title;
+    if (!body) return heading;
+    if (body.indexOf(heading) === 0) return body;
+    return heading + '\n\n' + body;
+  }
+
+  function readGuideSourceMd() {
+    var el = document.getElementById('guide-source-md');
+    if (!el) return '';
+    try {
+      var parsed = JSON.parse(el.textContent || '""');
+      return typeof parsed === 'string' ? parsed : '';
+    } catch (err) {
+      return '';
+    }
+  }
+
+  function cutMarkdownToPlainPrefix(md, plainPrefix) {
+    var target = String(plainPrefix || '').replace(/\s+/g, ' ').trim();
+    if (!target) return '';
+    var i = 0;
+    var p = 0;
+    var inFence = false;
+    var n = md.length;
+
+    function atLineStart(idx) {
+      return idx === 0 || md.charAt(idx - 1) === '\n' || md.charAt(idx - 1) === '\r';
+    }
+
+    while (i < n && p < target.length) {
+      if (atLineStart(i) && md.slice(i, i + 3) === '```') {
+        inFence = !inFence;
+        i += 3;
+        while (i < n && md.charAt(i) !== '\n') i++;
+        if (i < n && md.charAt(i) === '\n') i++;
+        continue;
+      }
+
+      var mc = md.charAt(i);
+      var pc = target.charAt(p);
+
+      if (/\s/.test(mc)) {
+        i++;
+        if (/\s/.test(pc)) {
+          while (p < target.length && /\s/.test(target.charAt(p))) p++;
+        }
+        continue;
+      }
+
+      if (/\s/.test(pc)) {
+        p++;
+        continue;
+      }
+
+      if (mc === pc) {
+        i++;
+        p++;
+        continue;
+      }
+
+      if (!inFence) {
+        if (atLineStart(i) && mc === '#') {
+          while (i < n && md.charAt(i) === '#') i++;
+          while (i < n && md.charAt(i) === ' ') i++;
+          continue;
+        }
+        if (atLineStart(i) && (mc === '-' || mc === '*') && i + 1 < n && md.charAt(i + 1) === ' ') {
+          i += 2;
+          continue;
+        }
+        if (mc === '`' || mc === '*' || mc === '_') {
+          i++;
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (p < target.length * 0.85) return '';
+    return md.slice(0, i).replace(/[ \t]+$/g, '').replace(/\n+$/g, '');
+  }
+
+  function htmlFragmentToMarkdown(root) {
+    var blocks = [];
+
+    function inlineMd(el) {
+      var out = '';
+      Array.prototype.forEach.call(el.childNodes, function (child) {
+        if (child.nodeType === 3) {
+          out += child.nodeValue;
+          return;
+        }
+        if (child.nodeType !== 1) return;
+        var tag = child.tagName.toLowerCase();
+        var inner = inlineMd(child);
+        if (tag === 'code') out += '`' + inner + '`';
+        else if (tag === 'strong' || tag === 'b') out += '**' + inner + '**';
+        else if (tag === 'em' || tag === 'i') out += '*' + inner + '*';
+        else if (tag === 'br') out += '\n';
+        else out += inner;
+      });
+      return out.replace(/[ \t]+\n/g, '\n').replace(/[ \t]{2,}/g, ' ');
+    }
+
+    function pushBlock(text) {
+      var t = String(text || '').trim();
+      if (t) blocks.push(t);
+    }
+
+    Array.prototype.forEach.call(root.childNodes, function walk(child) {
+      if (child.nodeType === 3) {
+        var loose = String(child.nodeValue || '').replace(/\s+/g, ' ').trim();
+        if (loose) pushBlock(loose);
+        return;
+      }
+      if (child.nodeType !== 1) return;
+      if (child.classList && child.classList.contains('ui-builder')) return;
+      var tag = child.tagName.toLowerCase();
+      if (tag === 'h1' || tag === 'h2') pushBlock('# ' + inlineMd(child).trim());
+      else if (tag === 'h3') pushBlock('## ' + inlineMd(child).trim());
+      else if (tag === 'h4') pushBlock('### ' + inlineMd(child).trim());
+      else if (tag === 'p') pushBlock(inlineMd(child).trim());
+      else if (tag === 'ul' || tag === 'ol') {
+        var items = [];
+        Array.prototype.forEach.call(child.children, function (li, idx) {
+          if (li.tagName.toLowerCase() !== 'li') return;
+          var bullet = tag === 'ol' ? String(idx + 1) + '. ' : '- ';
+          items.push(bullet + inlineMd(li).trim());
+        });
+        if (items.length) pushBlock(items.join('\n'));
+      } else if (tag === 'pre') {
+        var code = String(child.textContent || '').replace(/\n+$/g, '');
+        pushBlock('```\n' + code + '\n```');
+      } else {
+        Array.prototype.forEach.call(child.childNodes, walk);
+      }
+    });
+
+    return blocks.join('\n\n');
+  }
+
+  function buildGuideGenPrompt(explanation) {
+    return [
+      'Read this explanation to the end. At the last section, generate the code snippet it\'s talking about. If that code snippet wouldn\'t be optimized, do not optimize it. If the section appears to talk about more than one approach, ask User which approach they want before generating the code snippet.',
+      '',
+      'Explanation here:',
+      '"""',
+      explanation,
+      '"""',
+      '',
+      '---',
+      '',
+      'After the code snippet, give fast facts to these items (no need to explain, just give the fact):',
+      '',
+      '## Fast Facts',
+      '- What is time complexity?',
+      '- What is space complexity?',
+      '- What is the data structure(s)?',
+      '',
+      '---',
+      '',
+      'After that, offer user what they can ask (Echo back to user exactly):',
+      '',
+      '## Ask Me',
+      '- Explain the time complexity',
+      '- Explain the space complexity',
+      '- Explain why use the data structure(s)',
+      '',
+      'Or if you want to be coached on the concept, then prompt me with:',
+      '```',
+      'Be my interactive coach for algorithm and coding-interview problems. Before solving, write a short roadmap in paragraph prose describing the questions you will guide me through: first testing my understanding of the question by repeating the explanation text and asking me to reply in my own wording what I think the problem is, then correcting me if needed; then understanding the input, output, and constraints; finding a simple baseline; identifying a useful pattern or data structure; deriving the algorithm; walking through an example; and checking time and space complexity. Then ask me only the first question.',
+      '',
+      'Start with that first step: repeat the explanation text and ask me to reply with my own wording of what I think the problem is. Tell me that if I am having a hard time, I can ask you to reword the problem for me. Correct me if needed before continuing. Guide me one step at a time and wait for my answer before moving on. Do not reveal the full solution, code, or later hints unless I ask for them or have completed the current step. If I am wrong or stuck, briefly explain why, give the smallest useful hint, and let me try again. Adapt the pace and explanations to my answers. Once I can explain the approach in my own words, help me write the JavaScript solution and then have me identify its time and space complexity.',
+      '```',  
+    ].join('\n');
+  }
+
+  function currentGuideGenPrompt() {
+    return buildGuideGenPrompt(savedGuideExplanation);
+  }
+
+  function hideGuideSelectMenu() {
+    if (guideSelectMenu) guideSelectMenu.hidden = true;
+  }
+
+  function placeGuideSelectMenu(range) {
+    if (!guideSelectMenu) return;
+    var rect = range.getBoundingClientRect();
+    guideSelectMenu.hidden = false;
+    var menuRect = guideSelectMenu.getBoundingClientRect();
+    var top = rect.top - menuRect.height - 8;
+    if (top < 8) top = rect.bottom + 8;
+    var left = rect.left + rect.width / 2 - menuRect.width / 2;
+    var maxLeft = window.innerWidth - menuRect.width - 8;
+    if (left < 8) left = 8;
+    if (left > maxLeft) left = Math.max(8, maxLeft);
+    guideSelectMenu.style.top = top + 'px';
+    guideSelectMenu.style.left = left + 'px';
+  }
+
+  function captureGuideSelection(sel) {
+    savedGuideSelectionText = String(sel.toString() || '').trim();
+    try {
+      savedGuideExplanation = explanationThroughSelection(sel);
+    } catch (err) {
+      savedGuideExplanation = savedGuideSelectionText;
+    }
+  }
+
+  function syncGuideSelectMenu() {
+    if (guideGenModal && !guideGenModal.hidden) {
+      hideGuideSelectMenu();
+      return;
+    }
+    var sel = window.getSelection();
+    if (!isUsableGuideSelection(sel)) {
+      hideGuideSelectMenu();
+      return;
+    }
+    captureGuideSelection(sel);
+    placeGuideSelectMenu(sel.getRangeAt(0));
+  }
+
+  function scheduleGuideSelectMenu() {
+    clearTimeout(guideSelectTimer);
+    guideSelectTimer = setTimeout(syncGuideSelectMenu, 80);
+  }
+
+  function setGuideGenCursorNoteOpen(open) {
+    if (guideGenCursorNote) guideGenCursorNote.hidden = !open;
+    if (guideGenCursor) guideGenCursor.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function setGuideGenModalOpen(open) {
+    if (!guideGenModal) return;
+    guideGenModal.hidden = !open;
+    document.body.classList.toggle('modal-open', open);
+    if (open) {
+      hideGuideSelectMenu();
+      setGuideGenCursorNoteOpen(false);
+      if (guideGenPreview) guideGenPreview.textContent = currentGuideGenPrompt();
+      var panel = guideGenModal.querySelector('.modal__panel');
+      if (panel && typeof panel.focus === 'function') panel.focus();
+    } else if (lastGuideGenFocus && typeof lastGuideGenFocus.focus === 'function') {
+      lastGuideGenFocus.focus();
+    }
+  }
+
+  function copyGuideGenPrompt(done) {
+    copyText(currentGuideGenPrompt()).then(function () {
+      if (typeof done === 'function') done();
+    }).catch(function () {
+      if (typeof done === 'function') done();
+    });
+  }
+
+  function openGuideGenService(url) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+    copyGuideGenPrompt(function () {
+      if (guideGenCopy) flashCopied(guideGenCopy);
+    });
+  }
+
+  if (guideSelectRoot && guideSelectMenu && guideGenModal) {
+    document.addEventListener('selectionchange', scheduleGuideSelectMenu);
+    document.addEventListener('mouseup', scheduleGuideSelectMenu);
+    document.addEventListener('keyup', function (e) {
+      if (e.key === 'Shift' || e.key.indexOf('Arrow') === 0) scheduleGuideSelectMenu();
+    });
+
+    window.addEventListener('scroll', hideGuideSelectMenu, true);
+    window.addEventListener('resize', hideGuideSelectMenu);
+
+    document.addEventListener('mousedown', function (e) {
+      if (guideSelectMenu.contains(e.target)) {
+        e.preventDefault();
+        return;
+      }
+      if (!guideGenModal.hidden && guideGenModal.contains(e.target)) return;
+      hideGuideSelectMenu();
+    });
+
+    if (guideSelectGenerate) {
+      guideSelectGenerate.addEventListener('click', function () {
+        lastGuideGenFocus = guideSelectGenerate;
+        try {
+          var sel = window.getSelection();
+          if (isUsableGuideSelection(sel)) captureGuideSelection(sel);
+        } catch (err) {}
+        setGuideGenModalOpen(true);
+      });
+    }
+
+    if (guideSelectCopy) {
+      guideSelectCopy.addEventListener('click', function () {
+        var text = savedGuideSelectionText;
+        if (!text) {
+          var sel = window.getSelection();
+          text = sel ? String(sel.toString() || '').trim() : '';
+        }
+        if (!text) return;
+        copyText(text).then(function () {
+          flashCopied(guideSelectCopy);
+        });
+      });
+    }
+
+    var guideGenBackdrop = guideGenModal.querySelector('[data-action="close-guide-gen-modal"]');
+    if (guideGenBackdrop) {
+      guideGenBackdrop.addEventListener('click', function () {
+        setGuideGenModalOpen(false);
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && guideGenModal && !guideGenModal.hidden) {
+        e.preventDefault();
+        setGuideGenModalOpen(false);
+      }
+    });
+
+    if (guideGenDone) {
+      guideGenDone.addEventListener('click', function () {
+        setGuideGenModalOpen(false);
+      });
+    }
+
+    if (guideGenCopy) {
+      guideGenCopy.addEventListener('click', function () {
+        copyGuideGenPrompt(function () {
+          flashCopied(guideGenCopy);
+        });
+      });
+    }
+
+    if (guideGenChatgpt) {
+      guideGenChatgpt.addEventListener('click', function (e) {
+        e.preventDefault();
+        openGuideGenService(guideGenChatgpt.href || 'https://chatgpt.com/');
+      });
+    }
+
+    if (guideGenClaude) {
+      guideGenClaude.addEventListener('click', function (e) {
+        e.preventDefault();
+        openGuideGenService(guideGenClaude.href || 'https://claude.ai/new');
+      });
+    }
+
+    if (guideGenCursor) {
+      guideGenCursor.addEventListener('click', function () {
+        copyGuideGenPrompt(function () {
+          if (guideGenCopy) flashCopied(guideGenCopy);
+        });
+        setGuideGenCursorNoteOpen(true);
+      });
+    }
+  }
 })();

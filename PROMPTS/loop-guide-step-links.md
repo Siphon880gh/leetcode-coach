@@ -30,19 +30,22 @@ Both directions, or the tick is not done:
 | Side | `meta.php` key | Chrome |
 |------|----------------|--------|
 | Algo Guide | `'related_session' => '{slug}'` | **Step-by-step** → `coaching/session.php?id={slug}` |
+| Algo Guide | `'related_game' => '{gameSlug}'` | **Mini game** → `games/play.php?id={gameSlug}` |
 | Step-by-step | `'related_guide' => '{slug}'` | **Algo Guide** → `guides/view.php?id={slug}` |
+| Step-by-step | `'related_game' => '{gameSlug}'` | **Mini game** → `games/play.php?id={gameSlug}` |
+| Mini game | `'related_guide'` / `'related_session'` | **Algo Guide** / **Step-by-step** on `games/play.php` |
 
 Keep every other `meta.php` field as-is. Do not rewrite `body.md`, `body.php`, or `tree.php`.
 
-Chrome lives in the page-head on `guides/view.php` and `coaching/session.php`. Render the link only when the key is set **and** the other artifact is on disk. Do not add routes.
+Chrome lives in the page-head on `guides/view.php`, `coaching/session.php`, and `games/play.php`. Render a companion link when the matching artifact is on disk (related key, same slug, or same `leetcode`). Do not add routes.
 
 ## Once (if missing)
 
 Before processing `next` on a tick, if the chrome (or the harness docs) are still missing, do this **once** in that tick, then continue with the slug:
 
-1. Page-head companion links on `guides/view.php` and `coaching/session.php` as in **Link contract**.
-2. Document optional `related_session` (guides) and `related_guide` (coaching) in `.agents/skills/harness/SKILL.md` and `.agents/skills/harness/reference.md`.
-3. In `PROMPTS/loop-algo-guides.md` and `PROMPTS/loop-step-by-step.md`: when creating an artifact, if the same slug already exists on the other side, set the companion key. Those loops must not backfill every existing pair.
+1. Page-head companion links on `guides/view.php`, `coaching/session.php`, and `games/play.php` as in **Link contract**.
+2. Document optional `related_session` / `related_game` (guides), `related_guide` / `related_game` (coaching), and `related_guide` / `related_session` (games) in `.agents/skills/harness/SKILL.md` and `.agents/skills/harness/reference.md`.
+3. In `PROMPTS/loop-algo-guides.md` and `PROMPTS/loop-step-by-step.md`: when creating an artifact, if the same slug already exists on the other side, set the companion key. If a matching mini game already exists, set `related_game`. Those loops must not backfill every existing pair.
 
 Skip this block on later ticks if it is already in place.
 
@@ -105,7 +108,7 @@ Keep `cursor.last_slug` equal to the slug you just processed.
 
 - Create `content/guides/`, `content/coaching/`, or `content/games/` folders
 - Overwrite teaching content (`body.md`, `body.php`, `tree.php`, titles, summaries)
-- Pair mini games
+- Walk the union to pair mini games (author loops set `related_game` when a game already exists)
 - Pair `kind => 'cursor'` guides
 - Walk `context/`
 - Commit unless the user asks

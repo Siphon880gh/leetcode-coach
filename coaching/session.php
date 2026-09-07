@@ -234,9 +234,13 @@ layout_start([
 <div class="page-head">
     <?php render_content_crumb($meta, 'coaching/index.php', []); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
-    <?php render_leetcode_row($meta); ?>
-    <?php render_companion_link('session', $meta); ?>
-    <?php render_user_tag_page('coaching/index.php', $slug); ?>
+    <?php render_resource_head_chrome('session', $meta, $slug, 'coaching/index.php'); ?>
+    <?php
+    $sessionSummary = trim((string) ($meta['summary'] ?? ''));
+    if ($sessionSummary !== ''):
+    ?>
+    <p><?= e($sessionSummary) ?></p>
+    <?php endif; ?>
 </div>
 
 <div

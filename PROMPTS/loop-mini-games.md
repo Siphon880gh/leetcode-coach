@@ -38,6 +38,7 @@ Skip (still advance `next`) when the source is theory-only, a huge DP recap with
 6. Otherwise write:
    - `content/games/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, optional `entry`, and `leetcode` when **LeetCode number** applies
    - `content/games/{slug}/index.html` — one idea, inline CSS/JS, playable without a build step
+   - If an Algo Guide exists for this problem (`content/guides/` with `kind => 'algo'`, same slug or same `leetcode`), set `'related_guide'` on this game and `'related_game'` on that guide. If a Step-by-step exists (`content/coaching/`, same slug or same `leetcode`), set `'related_session'` on this game and `'related_game'` on that session. Then run `.agents/skills/link-mini-games` (or `php .agents/skills/link-mini-games/scripts/link.php`) so any leftover companion keys are filled.
 7. English UI copy even if the source is Chinese. The game should make the `context/` approach visible (pointers, set, stack), not only quiz for the answer.
 8. Advance the cursor (below) and write the tracking JSON (pretty-printed, 2-space indent).
 9. Stop. Do not start a second problem in the same tick.
