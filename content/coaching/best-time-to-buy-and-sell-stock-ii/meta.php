@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'greedy', 'stock', 'step-by-step'],
+    'related_guide' => 'best-time-to-buy-and-sell-stock-ii',
 ];

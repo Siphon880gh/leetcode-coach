@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'matrix', 'in-place', 'step-by-step'],
+    'related_guide' => 'rotate-image',
 ];

@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',
     'tags' => ['two-pointers', 'arrays', 'prefix-max', 'step-by-step'],
+    'related_guide' => 'trapping-rain-water',
 ];

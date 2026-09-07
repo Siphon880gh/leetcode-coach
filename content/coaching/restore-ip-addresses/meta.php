@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',
     'tags' => ['backtracking', 'strings', 'ip', 'step-by-step'],
+    'related_guide' => 'restore-ip-addresses',
 ];

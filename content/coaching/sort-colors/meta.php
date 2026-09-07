@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',
     'tags' => ['two-pointers', 'arrays', 'partition', 'step-by-step'],
+    'related_guide' => 'sort-colors',
 ];

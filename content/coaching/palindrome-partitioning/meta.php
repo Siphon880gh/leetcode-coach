@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',
     'tags' => ['backtracking', 'palindrome', 'dfs', 'step-by-step'],
+    'related_guide' => 'palindrome-partitioning',
 ];

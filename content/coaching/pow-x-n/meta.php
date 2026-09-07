@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',
     'tags' => ['math', 'bit-manipulation', 'recursion', 'step-by-step'],
+    'related_guide' => 'pow-x-n',
 ];

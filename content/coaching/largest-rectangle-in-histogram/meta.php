@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Stack',
     'topic' => 'LeetCode · Stack',
     'tags' => ['stack', 'monotonic-stack', 'arrays', 'step-by-step'],
+    'related_guide' => 'largest-rectangle-in-histogram',
 ];

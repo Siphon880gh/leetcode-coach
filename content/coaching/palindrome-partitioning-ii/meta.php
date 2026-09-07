@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',
     'tags' => ['dynamic-programming', 'palindrome', 'min-cut', 'step-by-step'],
+    'related_guide' => 'palindrome-partitioning-ii',
 ];

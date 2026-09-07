@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'dfs', 'recursion', 'step-by-step'],
+    'related_guide' => 'minimum-depth-of-binary-tree',
 ];

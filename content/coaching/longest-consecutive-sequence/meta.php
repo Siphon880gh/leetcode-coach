@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',
     'tags' => ['hash-table', 'arrays', 'consecutive', 'step-by-step'],
+    'related_guide' => 'longest-consecutive-sequence',
 ];

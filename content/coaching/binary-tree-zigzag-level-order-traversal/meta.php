@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'bfs', 'zigzag', 'step-by-step'],
+    'related_guide' => 'binary-tree-zigzag-level-order-traversal',
 ];

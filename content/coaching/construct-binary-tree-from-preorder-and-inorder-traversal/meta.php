@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'divide-and-conquer', 'hash-table', 'step-by-step'],
+    'related_guide' => 'construct-binary-tree-from-preorder-and-inorder-traversal',
 ];

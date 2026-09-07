@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',
     'tags' => ['hash-table', 'linked-list', 'design', 'step-by-step'],
+    'related_guide' => 'lru-cache',
 ];

@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'sorting', 'intervals', 'step-by-step'],
+    'related_guide' => 'merge-intervals',
 ];

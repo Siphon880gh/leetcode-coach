@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',
     'tags' => ['backtracking', 'arrays', 'dfs', 'step-by-step'],
+    'related_guide' => 'permutations',
 ];

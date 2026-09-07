@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',
     'tags' => ['dynamic-programming', 'arrays', 'kadane', 'step-by-step'],
+    'related_guide' => 'maximum-product-subarray',
 ];

@@ -10,4 +10,6 @@ return [
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'hash-map', 'two-sum'],
     'entry' => 'index.html',
+    'related_guide' => 'two-sum',
+    'related_session' => 'two-sum',
 ];

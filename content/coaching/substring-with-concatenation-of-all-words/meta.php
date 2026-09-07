@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',
     'tags' => ['sliding-window', 'hash-table', 'strings', 'step-by-step'],
+    'related_guide' => 'substring-with-concatenation-of-all-words',
 ];

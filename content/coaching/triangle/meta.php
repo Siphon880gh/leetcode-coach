@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',
     'tags' => ['dynamic-programming', 'triangle', 'path-sum', 'step-by-step'],
+    'related_guide' => 'triangle',
 ];

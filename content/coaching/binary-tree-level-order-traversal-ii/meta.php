@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'bfs', 'queue', 'step-by-step'],
+    'related_guide' => 'binary-tree-level-order-traversal-ii',
 ];

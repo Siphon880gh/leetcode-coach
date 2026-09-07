@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',
     'tags' => ['bit-manipulation', 'xor', 'arrays', 'step-by-step'],
+    'related_guide' => 'single-number-ii',
 ];

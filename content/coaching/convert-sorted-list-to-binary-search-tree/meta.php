@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'bst', 'linked-list', 'step-by-step'],
+    'related_guide' => 'convert-sorted-list-to-binary-search-tree',
 ];

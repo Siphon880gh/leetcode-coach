@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',
     'tags' => ['bit-manipulation', 'gray-code', 'math', 'step-by-step'],
+    'related_guide' => 'gray-code',
 ];

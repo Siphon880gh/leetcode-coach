@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',
     'tags' => ['backtracking', 'trie', 'strings', 'step-by-step'],
+    'related_guide' => 'word-break-ii',
 ];

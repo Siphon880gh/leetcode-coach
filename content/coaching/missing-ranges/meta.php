@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'intervals', 'step-by-step'],
+    'related_guide' => 'missing-ranges',
 ];

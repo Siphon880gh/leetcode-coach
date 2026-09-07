@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'hash-table', 'in-place', 'step-by-step'],
+    'related_guide' => 'first-missing-positive',
 ];

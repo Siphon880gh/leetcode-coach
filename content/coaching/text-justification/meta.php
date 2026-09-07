@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',
     'tags' => ['strings', 'simulation', 'greedy', 'step-by-step'],
+    'related_guide' => 'text-justification',
 ];

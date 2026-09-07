@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'matrix', 'simulation', 'step-by-step'],
+    'related_guide' => 'spiral-matrix',
 ];

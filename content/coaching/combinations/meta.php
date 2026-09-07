@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',
     'tags' => ['backtracking', 'dfs', 'combinations', 'step-by-step'],
+    'related_guide' => 'combinations',
 ];

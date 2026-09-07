@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',
     'tags' => ['sliding-window', 'strings', 'hash-table', 'step-by-step'],
+    'related_guide' => 'minimum-window-substring',
 ];

@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',
     'tags' => ['hash-table', 'matrix', 'arrays', 'step-by-step'],
+    'related_guide' => 'valid-sudoku',
 ];

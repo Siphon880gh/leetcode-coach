@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'math', 'carry', 'step-by-step'],
+    'related_guide' => 'plus-one',
 ];

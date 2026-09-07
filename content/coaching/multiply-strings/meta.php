@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',
     'tags' => ['math', 'strings', 'simulation', 'step-by-step'],
+    'related_guide' => 'multiply-strings',
 ];

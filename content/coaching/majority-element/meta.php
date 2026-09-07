@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'boyer-moore', 'voting', 'step-by-step'],
+    'related_guide' => 'majority-element',
 ];

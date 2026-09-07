@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',
     'tags' => ['backtracking', 'dfs', 'counting', 'step-by-step'],
+    'related_guide' => 'n-queens-ii',
 ];

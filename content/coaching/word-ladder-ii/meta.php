@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',
     'tags' => ['graphs', 'bfs', 'backtracking', 'step-by-step'],
+    'related_guide' => 'word-ladder-ii',
 ];

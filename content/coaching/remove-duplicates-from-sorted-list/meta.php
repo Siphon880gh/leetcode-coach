@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',
     'tags' => ['linked-list', 'two-pointers', 'step-by-step'],
+    'related_guide' => 'remove-duplicates-from-sorted-list',
 ];

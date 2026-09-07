@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',
     'tags' => ['dynamic-programming', 'strings', 'levenshtein', 'step-by-step'],
+    'related_guide' => 'edit-distance',
 ];

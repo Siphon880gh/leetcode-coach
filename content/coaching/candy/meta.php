@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'greedy', 'two-pass', 'step-by-step'],
+    'related_guide' => 'candy',
 ];

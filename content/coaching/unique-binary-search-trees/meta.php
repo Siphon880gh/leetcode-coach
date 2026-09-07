@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',
     'tags' => ['dynamic-programming', 'catalan', 'bst', 'step-by-step'],
+    'related_guide' => 'unique-binary-search-trees',
 ];

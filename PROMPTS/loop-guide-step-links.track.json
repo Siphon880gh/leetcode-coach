@@ -3,7 +3,7 @@
   "kind": "guide-step-links",
   "prompt": "PROMPTS/loop-guide-step-links.md",
   "cursor": {
-    "last_slug": "divide-two-integers"
+    "last_slug": "rank-scores"
   },
   "next": null,
   "completed": [
@@ -178,6 +178,900 @@
     },
     {
       "slug": "divide-two-integers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "substring-with-concatenation-of-all-words",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "next-permutation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-valid-parentheses",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "search-in-rotated-sorted-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-first-and-last-position-of-element-in-sorted-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "search-insert-position",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-sudoku",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sudoku-solver",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-and-say",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "combination-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "combination-sum-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "first-missing-positive",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "trapping-rain-water",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "multiply-strings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "wildcard-matching",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "jump-game-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "permutations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "permutations-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "rotate-image",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "group-anagrams",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "pow-x-n",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "n-queens",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "n-queens-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-subarray",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "spiral-matrix",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "jump-game",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "merge-intervals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "insert-interval",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "length-of-last-word",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "spiral-matrix-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "permutation-sequence",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "rotate-list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unique-paths",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unique-paths-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-path-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "plus-one",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "add-binary",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "text-justification",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sqrt-x",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "climbing-stairs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "simplify-path",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "edit-distance",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "set-matrix-zeroes",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "search-a-2d-matrix",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sort-colors",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-window-substring",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "combinations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "subsets",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "word-search",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "remove-duplicates-from-sorted-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "search-in-rotated-sorted-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "remove-duplicates-from-sorted-list-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "remove-duplicates-from-sorted-list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "largest-rectangle-in-histogram",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximal-rectangle",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "partition-list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "scramble-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "merge-sorted-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "gray-code",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "subsets-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "decode-ways",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-linked-list-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "restore-ip-addresses",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-inorder-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unique-binary-search-trees-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unique-binary-search-trees",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "interleaving-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "validate-binary-search-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "recover-binary-search-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "same-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "symmetric-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-level-order-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-zigzag-level-order-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-depth-of-binary-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "construct-binary-tree-from-inorder-and-postorder-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-level-order-traversal-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "convert-sorted-array-to-binary-search-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "convert-sorted-list-to-binary-search-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "balanced-binary-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-depth-of-binary-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "path-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "path-sum-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "flatten-binary-tree-to-linked-list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "distinct-subsequences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "populating-next-right-pointers-in-each-node",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "populating-next-right-pointers-in-each-node-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "pascals-triangle",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "pascals-triangle-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "triangle",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-maximum-path-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-palindrome",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "word-ladder-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "word-ladder",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-consecutive-sequence",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-root-to-leaf-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "surrounded-regions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "palindrome-partitioning",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "palindrome-partitioning-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "clone-graph",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "gas-station",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "candy",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "single-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "single-number-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "copy-list-with-random-pointer",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "word-break",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "word-break-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "linked-list-cycle",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "linked-list-cycle-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reorder-list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-preorder-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-postorder-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lru-cache",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "insertion-sort-list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sort-list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "max-points-on-a-line",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "evaluate-reverse-polish-notation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-words-in-a-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-product-subarray",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-minimum-in-rotated-sorted-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-minimum-in-rotated-sorted-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "min-stack",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-upside-down",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "read-n-characters-given-read4",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "read-n-characters-given-read4-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-substring-with-at-most-two-distinct-characters",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "intersection-of-two-linked-lists",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "one-edit-distance",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-peak-element",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "missing-ranges",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-gap",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "compare-version-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "fraction-to-recurring-decimal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "two-sum-ii-input-array-is-sorted",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "excel-sheet-column-title",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "majority-element",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "two-sum-iii-data-structure-design",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "excel-sheet-column-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "factorial-trailing-zeroes",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-search-tree-iterator",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "dungeon-game",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "combine-two-tables",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "second-highest-salary",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "nth-highest-salary",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "rank-scores",
       "guide": true,
       "session": true,
       "reason": "already_linked"

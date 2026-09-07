@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',
     'tags' => ['binary-search', 'matrix', 'arrays', 'step-by-step'],
+    'related_guide' => 'search-a-2d-matrix',
 ];

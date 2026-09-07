@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',
     'tags' => ['strings', 'two-pointers', 'reverse', 'step-by-step'],
+    'related_guide' => 'reverse-words-in-a-string',
 ];

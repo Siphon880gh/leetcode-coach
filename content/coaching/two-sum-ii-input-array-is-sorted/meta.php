@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',
     'tags' => ['two-pointers', 'arrays', 'step-by-step'],
+    'related_guide' => 'two-sum-ii-input-array-is-sorted',
 ];

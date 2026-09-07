@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Stack',
     'topic' => 'LeetCode · Stack',
     'tags' => ['stack', 'monotonic-stack', 'matrix', 'step-by-step'],
+    'related_guide' => 'maximal-rectangle',
 ];

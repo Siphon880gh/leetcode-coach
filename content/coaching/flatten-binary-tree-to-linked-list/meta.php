@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'linked-list', 'preorder', 'step-by-step'],
+    'related_guide' => 'flatten-binary-tree-to-linked-list',
 ];

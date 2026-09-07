@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',
     'tags' => ['hash-table', 'strings', 'sorting', 'step-by-step'],
+    'related_guide' => 'group-anagrams',
 ];

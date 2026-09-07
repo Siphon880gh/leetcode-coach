@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'bucket-sort', 'pigeonhole', 'step-by-step'],
+    'related_guide' => 'maximum-gap',
 ];

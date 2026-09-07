@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',
     'tags' => ['strings', 'math', 'carry', 'step-by-step'],
+    'related_guide' => 'add-binary',
 ];

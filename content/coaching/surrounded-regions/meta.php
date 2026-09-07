@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',
     'tags' => ['graphs', 'dfs', 'matrix', 'step-by-step'],
+    'related_guide' => 'surrounded-regions',
 ];

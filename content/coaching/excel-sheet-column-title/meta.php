@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',
     'tags' => ['math', 'strings', 'base-conversion', 'step-by-step'],
+    'related_guide' => 'excel-sheet-column-title',
 ];

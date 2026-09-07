@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'dfs', 'path-sum', 'step-by-step'],
+    'related_guide' => 'binary-tree-maximum-path-sum',
 ];

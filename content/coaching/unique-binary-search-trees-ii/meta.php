@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'bst', 'catalan', 'step-by-step'],
+    'related_guide' => 'unique-binary-search-trees-ii',
 ];

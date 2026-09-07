@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',
     'tags' => ['dynamic-programming', 'hash-table', 'strings', 'step-by-step'],
+    'related_guide' => 'word-break',
 ];

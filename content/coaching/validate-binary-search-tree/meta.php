@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'bst', 'inorder', 'step-by-step'],
+    'related_guide' => 'validate-binary-search-tree',
 ];

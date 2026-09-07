@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',
     'tags' => ['graphs', 'dfs', 'hash-table', 'step-by-step'],
+    'related_guide' => 'clone-graph',
 ];

@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'dfs', 'mirror', 'step-by-step'],
+    'related_guide' => 'symmetric-tree',
 ];

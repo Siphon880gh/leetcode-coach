@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'dfs', 'path-sum', 'step-by-step'],
+    'related_guide' => 'sum-root-to-leaf-numbers',
 ];

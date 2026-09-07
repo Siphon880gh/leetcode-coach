@@ -13,11 +13,11 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/0100-0199/0169.Majority Element"
+    "last_id": "solution/0100-0199/0178.Rank Scores"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0100-0199/0170.Two Sum III - Data structure design"
+    "id": "solution/0100-0199/0179.Largest Number"
   },
   "completed": [
     {
@@ -1027,6 +1027,60 @@
       "id": "solution/0100-0199/0169.Majority Element",
       "slug": "majority-element",
       "title": "Majority Element"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0170.Two Sum III - Data structure design",
+      "slug": "two-sum-iii-data-structure-design",
+      "title": "Two Sum III - Data structure design"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0171.Excel Sheet Column Number",
+      "slug": "excel-sheet-column-number",
+      "title": "Excel Sheet Column Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0172.Factorial Trailing Zeroes",
+      "slug": "factorial-trailing-zeroes",
+      "title": "Factorial Trailing Zeroes"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0173.Binary Search Tree Iterator",
+      "slug": "binary-search-tree-iterator",
+      "title": "Binary Search Tree Iterator"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0174.Dungeon Game",
+      "slug": "dungeon-game",
+      "title": "Dungeon Game"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0175.Combine Two Tables",
+      "slug": "combine-two-tables",
+      "title": "Combine Two Tables"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0176.Second Highest Salary",
+      "slug": "second-highest-salary",
+      "title": "Second Highest Salary"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0177.Nth Highest Salary",
+      "slug": "nth-highest-salary",
+      "title": "Nth Highest Salary"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0178.Rank Scores",
+      "slug": "rank-scores",
+      "title": "Rank Scores"
     }
   ],
   "skipped": [

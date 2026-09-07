@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',
     'tags' => ['dynamic-programming', 'stock', 'state-machine', 'step-by-step'],
+    'related_guide' => 'best-time-to-buy-and-sell-stock-iii',
 ];

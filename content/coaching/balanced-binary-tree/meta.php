@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'dfs', 'height', 'step-by-step'],
+    'related_guide' => 'balanced-binary-tree',
 ];

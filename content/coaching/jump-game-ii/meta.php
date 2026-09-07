@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',
     'tags' => ['arrays', 'greedy', 'bfs', 'step-by-step'],
+    'related_guide' => 'jump-game-ii',
 ];

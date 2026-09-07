@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',
     'tags' => ['hash-table', 'math', 'geometry', 'gcd', 'step-by-step'],
+    'related_guide' => 'max-points-on-a-line',
 ];

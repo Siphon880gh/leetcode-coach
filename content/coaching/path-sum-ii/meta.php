@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'dfs', 'backtracking', 'step-by-step'],
+    'related_guide' => 'path-sum-ii',
 ];

@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',
     'tags' => ['linked-list', 'hash-table', 'deep-copy', 'step-by-step'],
+    'related_guide' => 'copy-list-with-random-pointer',
 ];

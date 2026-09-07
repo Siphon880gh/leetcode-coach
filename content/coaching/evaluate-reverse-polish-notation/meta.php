@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Stack',
     'topic' => 'LeetCode · Stack',
     'tags' => ['stack', 'math', 'rpn', 'step-by-step'],
+    'related_guide' => 'evaluate-reverse-polish-notation',
 ];

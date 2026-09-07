@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',
     'tags' => ['strings', 'two-pointers', 'step-by-step'],
+    'related_guide' => 'compare-version-numbers',
 ];

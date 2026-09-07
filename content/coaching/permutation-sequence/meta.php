@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',
     'tags' => ['math', 'factorial', 'permutation', 'step-by-step'],
+    'related_guide' => 'permutation-sequence',
 ];

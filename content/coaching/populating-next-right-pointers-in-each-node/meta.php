@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'bfs', 'linked-list', 'step-by-step'],
+    'related_guide' => 'populating-next-right-pointers-in-each-node',
 ];

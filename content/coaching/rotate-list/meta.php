@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',
     'tags' => ['linked-list', 'two-pointers', 'rotation', 'step-by-step'],
+    'related_guide' => 'rotate-list',
 ];

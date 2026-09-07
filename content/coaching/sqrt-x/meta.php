@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',
     'tags' => ['binary-search', 'math', 'overflow', 'step-by-step'],
+    'related_guide' => 'sqrt-x',
 ];

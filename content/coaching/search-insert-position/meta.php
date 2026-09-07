@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',
     'tags' => ['binary-search', 'arrays', 'bounds', 'step-by-step'],
+    'related_guide' => 'search-insert-position',
 ];

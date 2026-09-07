@@ -9,4 +9,5 @@ return [
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',
     'tags' => ['trees', 'dfs', 'postorder', 'step-by-step'],
+    'related_guide' => 'binary-tree-postorder-traversal',
 ];
