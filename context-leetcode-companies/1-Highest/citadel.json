@@ -1,0 +1,13 @@
+{
+  "slug": "citadel",
+  "name": "Citadel",
+  "url": "https://leetcode.com/company/citadel/?favoriteSlug=citadel-thirty-days",
+  "favoriteSlug": "citadel-thirty-days",
+  "updatedAt": "2026-09-08T00:36:22Z",
+  "problems": [
+    380,
+    981,
+    1801,
+    3484
+  ]
+}

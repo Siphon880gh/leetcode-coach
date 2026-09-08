@@ -1,0 +1,19 @@
+{
+  "slug": "apple",
+  "name": "Apple",
+  "url": "https://leetcode.com/company/apple/?favoriteSlug=apple-thirty-days",
+  "favoriteSlug": "apple-thirty-days",
+  "updatedAt": "2026-09-08T00:33:11Z",
+  "problems": [
+    49,
+    127,
+    198,
+    713,
+    857,
+    1046,
+    1049,
+    1143,
+    1146,
+    2402
+  ]
+}

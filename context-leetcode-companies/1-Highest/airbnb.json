@@ -1,0 +1,12 @@
+{
+  "slug": "airbnb",
+  "name": "Airbnb",
+  "url": "https://leetcode.com/company/airbnb/?favoriteSlug=airbnb-three-months",
+  "favoriteSlug": "airbnb-three-months",
+  "updatedAt": "2026-09-08T00:44:24Z",
+  "problems": [
+    68,
+    631,
+    1125
+  ]
+}

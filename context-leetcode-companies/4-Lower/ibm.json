@@ -1,0 +1,12 @@
+{
+  "slug": "ibm",
+  "name": "IBM",
+  "url": "https://leetcode.com/company/ibm/?favoriteSlug=ibm-thirty-days",
+  "favoriteSlug": "ibm-thirty-days",
+  "updatedAt": "2026-09-08T00:41:54Z",
+  "problems": [
+    12,
+    142,
+    2697
+  ]
+}

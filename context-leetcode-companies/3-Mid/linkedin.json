@@ -1,0 +1,17 @@
+{
+  "slug": "linkedin",
+  "name": "LinkedIn",
+  "url": "https://leetcode.com/company/linkedin/?favoriteSlug=linkedin-thirty-days",
+  "favoriteSlug": "linkedin-thirty-days",
+  "updatedAt": "2026-09-08T00:36:39Z",
+  "problems": [
+    17,
+    53,
+    152,
+    319,
+    364,
+    381,
+    605,
+    716
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "goldman-sachs",
+  "name": "Goldman Sachs",
+  "url": "https://leetcode.com/company/goldman-sachs/?favoriteSlug=goldman-sachs-thirty-days",
+  "favoriteSlug": "goldman-sachs-thirty-days",
+  "updatedAt": "2026-09-08T00:37:31Z",
+  "problems": [
+    42,
+    460,
+    994,
+    1648,
+    2948
+  ]
+}

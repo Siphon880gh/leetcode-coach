@@ -1,0 +1,17 @@
+{
+  "slug": "tiktok",
+  "name": "TikTok",
+  "url": "https://leetcode.com/company/tiktok/?favoriteSlug=tiktok-thirty-days",
+  "favoriteSlug": "tiktok-thirty-days",
+  "updatedAt": "2026-09-08T00:36:05Z",
+  "problems": [
+    1,
+    54,
+    189,
+    200,
+    394,
+    827,
+    1834,
+    3161
+  ]
+}

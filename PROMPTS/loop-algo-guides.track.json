@@ -13,11 +13,11 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/0100-0199/0197.Rising Temperature"
+    "last_id": "solution/0100-0199/0198.House Robber"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0100-0199/0198.House Robber"
+    "id": "solution/0100-0199/0199.Binary Tree Right Side View"
   },
   "completed": [
     {
@@ -1195,6 +1195,12 @@
       "id": "solution/0100-0199/0197.Rising Temperature",
       "slug": "rising-temperature",
       "title": "Rising Temperature"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0100-0199/0198.House Robber",
+      "slug": "house-robber",
+      "title": "House Robber"
     }
   ],
   "skipped": [

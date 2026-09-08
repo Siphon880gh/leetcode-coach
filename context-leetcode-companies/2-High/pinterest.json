@@ -1,0 +1,16 @@
+{
+  "slug": "pinterest",
+  "name": "Pinterest",
+  "url": "https://leetcode.com/company/pinterest/?favoriteSlug=pinterest-thirty-days",
+  "favoriteSlug": "pinterest-thirty-days",
+  "updatedAt": "2026-09-08T00:41:36Z",
+  "problems": [
+    43,
+    282,
+    410,
+    465,
+    494,
+    815,
+    1055
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "slug": "salesforce",
+  "name": "Salesforce",
+  "url": "https://leetcode.com/company/salesforce/?favoriteSlug=salesforce-thirty-days",
+  "favoriteSlug": "salesforce-thirty-days",
+  "updatedAt": "2026-09-08T00:40:35Z",
+  "problems": [
+    2204,
+    2551,
+    2718
+  ]
+}

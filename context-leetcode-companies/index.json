@@ -1,0 +1,215 @@
+{
+  "updatedAt": "2026-09-08T01:10:03Z",
+  "companies": [
+    {
+      "slug": "accenture",
+      "name": "Accenture",
+      "count": 1,
+      "file": "5-Lowest/accenture.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "adobe",
+      "name": "Adobe",
+      "count": 4,
+      "file": "3-Mid/adobe.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "airbnb",
+      "name": "Airbnb",
+      "count": 3,
+      "file": "1-Highest/airbnb.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "amazon",
+      "name": "Amazon",
+      "count": 157,
+      "file": "2-High/amazon.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "apple",
+      "name": "Apple",
+      "count": 10,
+      "file": "2-High/apple.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "bloomberg",
+      "name": "Bloomberg",
+      "count": 40,
+      "file": "3-Mid/bloomberg.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "capital-one",
+      "name": "Capital One",
+      "count": 6,
+      "file": "5-Lowest/capital-one.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "citadel",
+      "name": "Citadel",
+      "count": 4,
+      "file": "1-Highest/citadel.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "de-shaw",
+      "name": "DE Shaw",
+      "count": 11,
+      "file": "1-Highest/de-shaw.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "facebook",
+      "name": "Meta",
+      "count": 42,
+      "file": "2-High/facebook.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "goldman-sachs",
+      "name": "Goldman Sachs",
+      "count": 5,
+      "file": "4-Lower/goldman-sachs.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "google",
+      "name": "Google",
+      "count": 146,
+      "file": "1-Highest/google.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "ibm",
+      "name": "IBM",
+      "count": 3,
+      "file": "4-Lower/ibm.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "infosys",
+      "name": "Infosys",
+      "count": 21,
+      "file": "5-Lowest/infosys.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "jpmorgan",
+      "name": "JPMorgan Chase",
+      "count": 3,
+      "file": "5-Lowest/jpmorgan.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "linkedin",
+      "name": "LinkedIn",
+      "count": 8,
+      "file": "3-Mid/linkedin.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "count": 39,
+      "file": "4-Lower/microsoft.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "nvidia",
+      "name": "Nvidia",
+      "count": 1,
+      "file": "3-Mid/nvidia.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "oracle",
+      "name": "Oracle",
+      "count": 3,
+      "file": "4-Lower/oracle.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "palantir",
+      "name": "Palantir",
+      "count": 1,
+      "file": "3-Mid/palantir.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "pinterest",
+      "name": "Pinterest",
+      "count": 7,
+      "file": "2-High/pinterest.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "roblox",
+      "name": "Roblox",
+      "count": 4,
+      "file": "2-High/roblox.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "salesforce",
+      "name": "Salesforce",
+      "count": 3,
+      "file": "4-Lower/salesforce.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "snapchat",
+      "name": "Snap",
+      "count": 1,
+      "file": "2-High/snapchat.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "snowflake",
+      "name": "Snowflake",
+      "count": 1,
+      "file": "1-Highest/snowflake.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "tcs",
+      "name": "tcs",
+      "count": 2,
+      "file": "5-Lowest/tcs.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "tiktok",
+      "name": "TikTok",
+      "count": 8,
+      "file": "1-Highest/tiktok.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "uber",
+      "name": "Uber",
+      "count": 1,
+      "file": "3-Mid/uber.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "visa",
+      "name": "Visa",
+      "count": 2,
+      "file": "5-Lowest/visa.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "walmart-labs",
+      "name": "Walmart Labs",
+      "count": 5,
+      "file": "4-Lower/walmart-labs.json",
+      "level": "4-Lower"
+    }
+  ]
+}

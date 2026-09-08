@@ -227,6 +227,276 @@ function content_leetcode_label_html(int $n): string
     return '<a class="leetcode-link" href="' . e($url) . '" target="_blank" rel="noopener noreferrer">' . $label . '</a>';
 }
 
+function content_leetcode_company_level_rank(string $level): int
+{
+    if (preg_match('/^([1-5])-/', $level, $m) === 1) {
+        return (int) $m[1];
+    }
+
+    return 9;
+}
+
+/**
+ * Compensation bands from context-leetcode-companies/levels.json.
+ *
+ * @return list<array{id: string, name: string, rank: int}>
+ */
+function content_leetcode_company_levels(): array
+{
+    static $levels = null;
+    if ($levels !== null) {
+        return $levels;
+    }
+
+    $levels = [];
+    $path = dirname(__DIR__) . '/context-leetcode-companies/levels.json';
+    if (!is_file($path)) {
+        return $levels;
+    }
+
+    $raw = file_get_contents($path);
+    $decoded = is_string($raw) ? json_decode($raw, true) : null;
+    $rows = is_array($decoded) && isset($decoded['levels']) && is_array($decoded['levels'])
+        ? $decoded['levels']
+        : [];
+
+    foreach ($rows as $row) {
+        if (!is_array($row)) {
+            continue;
+        }
+        $id = trim((string) ($row['id'] ?? ''));
+        $name = trim((string) ($row['name'] ?? ''));
+        if ($id === '' || $name === '') {
+            continue;
+        }
+        $levels[] = [
+            'id' => $id,
+            'name' => $name,
+            'rank' => (int) ($row['rank'] ?? content_leetcode_company_level_rank($id)),
+        ];
+    }
+
+    return $levels;
+}
+
+/**
+ * @return list<array{slug: string, name: string, level: string, problems: list<int>}>
+ */
+function content_leetcode_company_catalog(): array
+{
+    static $catalog = null;
+    if ($catalog !== null) {
+        return $catalog;
+    }
+
+    $catalog = [];
+    $dir = dirname(__DIR__) . '/context-leetcode-companies';
+    $indexPath = $dir . '/index.json';
+    if (!is_file($indexPath)) {
+        return $catalog;
+    }
+
+    $raw = file_get_contents($indexPath);
+    $decoded = is_string($raw) ? json_decode($raw, true) : null;
+    $entries = is_array($decoded) && isset($decoded['companies']) && is_array($decoded['companies'])
+        ? $decoded['companies']
+        : [];
+
+    $seenSlug = [];
+    $companies = [];
+    foreach ($entries as $entry) {
+        if (!is_array($entry)) {
+            continue;
+        }
+        $slug = strtolower(trim((string) ($entry['slug'] ?? '')));
+        if ($slug === '' || isset($seenSlug[$slug])) {
+            continue;
+        }
+        $rel = str_replace('\\', '/', trim((string) ($entry['file'] ?? '')));
+        if ($rel === '' || strpos($rel, '..') !== false || strncmp($rel, '/', 1) === 0) {
+            continue;
+        }
+        $path = $dir . '/' . $rel;
+        if (!is_file($path)) {
+            continue;
+        }
+        $body = file_get_contents($path);
+        $data = is_string($body) ? json_decode($body, true) : null;
+        if (!is_array($data) || !isset($data['problems']) || !is_array($data['problems'])) {
+            continue;
+        }
+        $name = trim((string) ($data['name'] ?? $entry['name'] ?? $slug));
+        if ($name === '') {
+            $name = $slug;
+        }
+        $seenSlug[$slug] = true;
+        $problems = [];
+        $seenNum = [];
+        foreach ($data['problems'] as $num) {
+            if (is_int($num)) {
+                $problem = $num;
+            } elseif (is_string($num) && preg_match('/^[1-9][0-9]*$/', trim($num)) === 1) {
+                $problem = (int) trim($num);
+            } else {
+                continue;
+            }
+            if ($problem < 1 || isset($seenNum[$problem])) {
+                continue;
+            }
+            $seenNum[$problem] = true;
+            $problems[] = $problem;
+        }
+        $companies[] = [
+            'slug' => $slug,
+            'name' => $name,
+            'level' => trim((string) ($entry['level'] ?? '')),
+            'problems' => $problems,
+        ];
+    }
+
+    usort($companies, static function (array $a, array $b): int {
+        $rank = content_leetcode_company_level_rank($a['level']) <=> content_leetcode_company_level_rank($b['level']);
+        if ($rank !== 0) {
+            return $rank;
+        }
+
+        return strcasecmp($a['name'], $b['name']);
+    });
+
+    $catalog = $companies;
+
+    return $catalog;
+}
+
+/**
+ * Company names whose interview lists include this LeetCode id (highest band first).
+ *
+ * @return list<string>
+ */
+function content_leetcode_company_names(int $n): array
+{
+    $map = content_leetcode_company_names_by_problem();
+
+    return $map[$n] ?? [];
+}
+
+/**
+ * Company slugs whose interview lists include this LeetCode id (highest band first).
+ *
+ * @return list<string>
+ */
+function content_leetcode_company_slugs(int $n): array
+{
+    $map = content_leetcode_company_slugs_by_problem();
+
+    return $map[$n] ?? [];
+}
+
+/**
+ * @return array<int, list<string>>
+ */
+function content_leetcode_company_names_by_problem(): array
+{
+    static $map = null;
+    if ($map !== null) {
+        return $map;
+    }
+
+    $map = [];
+    foreach (content_leetcode_company_catalog() as $company) {
+        foreach ($company['problems'] as $problem) {
+            $map[$problem][] = $company['name'];
+        }
+    }
+
+    return $map;
+}
+
+/**
+ * @return array<int, list<string>>
+ */
+function content_leetcode_company_slugs_by_problem(): array
+{
+    static $map = null;
+    if ($map !== null) {
+        return $map;
+    }
+
+    $map = [];
+    foreach (content_leetcode_company_catalog() as $company) {
+        foreach ($company['problems'] as $problem) {
+            $map[$problem][] = $company['slug'];
+        }
+    }
+
+    return $map;
+}
+
+/**
+ * @return list<array{id: string, name: string, companies: list<array{slug: string, name: string}>}>
+ */
+function content_leetcode_companies_grouped(): array
+{
+    $grouped = [];
+    foreach (content_leetcode_company_levels() as $level) {
+        $grouped[$level['id']] = [
+            'id' => $level['id'],
+            'name' => $level['name'],
+            'companies' => [],
+        ];
+    }
+
+    foreach (content_leetcode_company_catalog() as $company) {
+        $id = $company['level'] !== '' ? $company['level'] : 'other';
+        if (!isset($grouped[$id])) {
+            $grouped[$id] = [
+                'id' => $id,
+                'name' => $id === 'other' ? 'Other' : $id,
+                'companies' => [],
+            ];
+        }
+        $grouped[$id]['companies'][] = [
+            'slug' => $company['slug'],
+            'name' => $company['name'],
+        ];
+    }
+
+    $out = [];
+    foreach ($grouped as $group) {
+        if ($group['companies'] !== []) {
+            $out[] = $group;
+        }
+    }
+
+    return $out;
+}
+
+function content_browse_has_leetcode(array $items): bool
+{
+    foreach ($items as $item) {
+        if (content_leetcode_number($item['meta'] ?? []) !== null) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function content_leetcode_companies_html(int $n): string
+{
+    $names = content_leetcode_company_names($n);
+    if ($names === []) {
+        return '';
+    }
+
+    $chips = '';
+    foreach ($names as $name) {
+        $chips .= '<span class="leetcode-co" aria-hidden="true">' . e($name) . '</span>';
+    }
+
+    return '<span class="leetcode-cos" aria-label="' . e('Asked at ' . implode(', ', $names)) . '">' . $chips . '</span>';
+}
+
 /**
  * YouTube results URL for a numbered LeetCode problem.
  * Query is "Leet Code {n} {title}" with punctuation skipped and spaces as +.
@@ -273,7 +543,13 @@ function content_leetcode_chrome_html($meta): string
     }
     $title = is_array($meta) ? (string) ($meta['title'] ?? '') : '';
 
-    return content_leetcode_label_html($n) . content_youtube_link_html($n, $title);
+    return '<span class="leetcode-no__line">'
+        . '<span class="leetcode-no__id">'
+        . content_leetcode_label_html($n)
+        . '</span>'
+        . content_youtube_link_html($n, $title)
+        . '</span>'
+        . content_leetcode_companies_html($n);
 }
 
 /**
@@ -553,7 +829,7 @@ function filter_content_taxonomy(array $items, string $cat, string $sub): array
 }
 
 /**
- * Lowercased haystack for Browse search (title, slug, taxonomy, summary, tags, LeetCode id).
+ * Lowercased haystack for Browse search (title, slug, taxonomy, summary, tags, LeetCode id, company names).
  *
  * @param array{slug?: string, meta?: mixed} $item
  */
@@ -572,6 +848,9 @@ function content_browse_query_haystack(array $item): string
     if ($lc !== null) {
         $parts[] = (string) $lc;
         $parts[] = 'leetcode ' . $lc;
+        foreach (content_leetcode_company_names($lc) as $companyName) {
+            $parts[] = $companyName;
+        }
     }
     if (isset($meta['tags']) && is_array($meta['tags'])) {
         foreach ($meta['tags'] as $tag) {
@@ -602,6 +881,85 @@ function user_tag_section(string $script): string
 function user_tag_resource_key(string $script, string $slug): string
 {
     return user_tag_section($script) . ':' . $slug;
+}
+
+/**
+ * @param list<array{id: string, name: string, companies: list<array{slug: string, name: string}>}> $groups
+ */
+function render_content_filter_companies(array $groups): void
+{
+    if ($groups === []) {
+        return;
+    }
+    ?>
+    <div class="filter-tags filter-companies" data-filter-companies>
+        <button
+            type="button"
+            class="filter-tags__btn"
+            data-filter-companies-btn
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="resource-filter-companies"
+        >
+            <span class="filter-tags__caret" aria-hidden="true">◂</span>
+            <span class="filter-tags__icon" aria-hidden="true">🏢</span>
+            Companies
+        </button>
+        <div
+            id="resource-filter-companies"
+            class="filter-tags__panel"
+            data-filter-companies-panel
+            hidden
+            role="dialog"
+            aria-label="Companies"
+        >
+            <ul class="pop__list">
+                <?php foreach ($groups as $group): ?>
+                    <?php $levelId = 'resource-filter-companies-' . $group['id']; ?>
+                    <li class="filter-company-level" data-filter-company-level="<?= e($group['id']) ?>">
+                        <button
+                            type="button"
+                            class="filter-tags__btn"
+                            data-filter-company-level-btn
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                            aria-controls="<?= e($levelId) ?>"
+                        >
+                            <span class="filter-tags__caret" aria-hidden="true">◂</span>
+                            <?= e($group['name']) ?>
+                            <span class="resource-n" data-filter-company-level-n hidden></span>
+                        </button>
+                        <div
+                            id="<?= e($levelId) ?>"
+                            class="filter-tags__panel filter-company-level__panel"
+                            data-filter-company-level-panel
+                            hidden
+                            role="dialog"
+                            aria-label="<?= e($group['name'] . ' companies') ?>"
+                        >
+                            <div class="filter-company-level__tools">
+                                <button type="button" data-filter-company-select-all>Select all</button>
+                                <button type="button" data-filter-company-clear>Clear</button>
+                            </div>
+                            <ul class="pop__list">
+                                <?php foreach ($group['companies'] as $company): ?>
+                                    <li>
+                                        <button
+                                            type="button"
+                                            class="pop__opt"
+                                            data-filter-company="<?= e($company['slug']) ?>"
+                                            aria-pressed="false"
+                                        ><?= e($company['name']) ?></button>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <?php
 }
 
 function render_user_tag_editor(): void
@@ -648,9 +1006,14 @@ function render_resource_head_chrome(string $from, array $meta, string $ownSlug,
     $n = content_leetcode_number($meta);
     if ($n !== null) {
         echo '<p class="leetcode-no">'
+            . '<span class="leetcode-no__line">'
+            . '<span class="leetcode-no__id">'
             . content_leetcode_label_html($n)
+            . '</span>'
             . '<span class="leetcode-no__sep" aria-hidden="true"></span>'
             . content_youtube_link_html($n, (string) ($meta['title'] ?? ''), true)
+            . '</span>'
+            . content_leetcode_companies_html($n)
             . '</p>';
     }
 
@@ -721,6 +1084,8 @@ function render_content_browse(array $items, array $opts): void
     $empty = (string) ($opts['empty'] ?? 'Nothing here yet.');
     $userTags = !empty($opts['user_tags']);
     $tagSection = user_tag_section($script);
+    $companyGroups = content_browse_has_leetcode($items) ? content_leetcode_companies_grouped() : [];
+    $hasFlyouts = $userTags || $companyGroups !== [];
     /** @var callable $itemHref */
     $itemHref = $opts['item_href'];
 
@@ -870,7 +1235,7 @@ function render_content_browse(array $items, array $opts): void
                     >Filter</button>
                     <div
                         id="resource-filter"
-                        class="pop__panel<?= $userTags ? ' pop__panel--filter' : '' ?>"
+                        class="pop__panel<?= $hasFlyouts ? ' pop__panel--filter' : '' ?>"
                         data-pop-panel
                         hidden
                         role="dialog"
@@ -887,6 +1252,7 @@ function render_content_browse(array $items, array $opts): void
                                     aria-controls="resource-filter-tags"
                                 >
                                     <span class="filter-tags__caret" aria-hidden="true">◂</span>
+                                    <span class="filter-tags__icon" aria-hidden="true">🏷</span>
                                     Tags
                                 </button>
                                 <div
@@ -900,6 +1266,9 @@ function render_content_browse(array $items, array $opts): void
                                     <ul class="pop__list pop__list--tags" data-user-tag-filters></ul>
                                 </div>
                             </div>
+                        <?php endif; ?>
+                        <?php if ($companyGroups !== []): ?>
+                            <?php render_content_filter_companies($companyGroups); ?>
                         <?php endif; ?>
                         <p class="pop__title"><?= $userTags ? 'Topics' : 'Filter' ?></p>
                         <ul class="pop__list pop__list--topics">
@@ -961,7 +1330,7 @@ function render_content_browse(array $items, array $opts): void
             <?php if ($visible === []): ?>
                 <p class="empty-state">No resources in this category. <a href="<?= e($allHref) ?>">Show all</a></p>
             <?php else: ?>
-                <p class="empty-state" data-user-tag-empty hidden>No resources with that tag.</p>
+                <p class="empty-state" data-user-tag-empty hidden>No resources match those filters.</p>
                 <p class="empty-state" data-browse-empty hidden>No resources match that search.</p>
                 <ul class="content-tiles">
                     <?php foreach ($visible as $item): ?>
@@ -970,8 +1339,9 @@ function render_content_browse(array $items, array $opts): void
                         $href = (string) $itemHref($item);
                         $tags = $meta['tags'] ?? [];
                         $lc = content_leetcode_number($meta);
+                        $companySlugs = $lc !== null ? content_leetcode_company_slugs($lc) : [];
                         ?>
-                        <li class="content-tile" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
+                        <li class="content-tile" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($companySlugs !== []): ?> data-companies="<?= e(implode(' ', $companySlugs)) ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
                             <?php render_content_crumb($meta, $script, $baseQuery); ?>
                             <div class="content-tile__body">
                                 <a class="content-tile__goto" href="<?= e($href) ?>">

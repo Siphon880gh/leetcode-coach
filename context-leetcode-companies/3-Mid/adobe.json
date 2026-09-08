@@ -1,0 +1,13 @@
+{
+  "slug": "adobe",
+  "name": "Adobe",
+  "url": "https://leetcode.com/company/adobe/?favoriteSlug=adobe-thirty-days",
+  "favoriteSlug": "adobe-thirty-days",
+  "updatedAt": "2026-09-08T00:37:14Z",
+  "problems": [
+    5,
+    176,
+    295,
+    1739
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "updatedAt": "2026-09-08T01:10:00Z",
+  "source": "Levels.fyi US Software Engineer median total compensation at the level labeled Senior (or the closest 5–8 year IC band). TCS uses Comparably (Levels.fyi had no US senior SWE median). Data retrieved 2026-09-08. https://www.levels.fyi",
+  "levels": [
+    { "id": "1-Highest", "rank": 1, "name": "Highest" },
+    { "id": "2-High", "rank": 2, "name": "High" },
+    { "id": "3-Mid", "rank": 3, "name": "Mid" },
+    { "id": "4-Lower", "rank": 4, "name": "Lower" },
+    { "id": "5-Lowest", "rank": 5, "name": "Lowest" }
+  ],
+  "companies": [
+    {
+      "slug": "snowflake",
+      "name": "Snowflake",
+      "level": "1-Highest",
+      "seniorTcUsd": 563000,
+      "seniorTitle": "IC3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/snowflake/salaries/software-engineer"
+    },
+    {
+      "slug": "de-shaw",
+      "name": "DE Shaw",
+      "level": "1-Highest",
+      "seniorTcUsd": 498000,
+      "seniorTitle": "Software Engineer (US median)",
+      "sourceUrl": "https://www.levels.fyi/companies/de-shaw/salaries/software-engineer"
+    },
+    {
+      "slug": "airbnb",
+      "name": "Airbnb",
+      "level": "1-Highest",
+      "seniorTcUsd": 469831,
+      "seniorTitle": "G9 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/airbnb/salaries/software-engineer"
+    },
+    {
+      "slug": "citadel",
+      "name": "Citadel",
+      "level": "1-Highest",
+      "seniorTcUsd": 463110,
+      "seniorTitle": "Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/citadel/salaries/software-engineer"
+    },
+    {
+      "slug": "tiktok",
+      "name": "TikTok",
+      "level": "1-Highest",
+      "seniorTcUsd": 452590,
+      "seniorTitle": "ByteDance 2-2",
+      "sourceUrl": "https://www.levels.fyi/companies/bytedance/salaries/software-engineer"
+    },
+    {
+      "slug": "google",
+      "name": "Google",
+      "level": "1-Highest",
+      "seniorTcUsd": 429000,
+      "seniorTitle": "L5 Senior SWE",
+      "sourceUrl": "https://www.levels.fyi/companies/google/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "facebook",
+      "name": "Meta",
+      "level": "2-High",
+      "seniorTcUsd": 427812,
+      "seniorTitle": "E5",
+      "sourceUrl": "https://www.levels.fyi/companies/meta/salaries/software-engineer"
+    },
+    {
+      "slug": "pinterest",
+      "name": "Pinterest",
+      "level": "2-High",
+      "seniorTcUsd": 427470,
+      "seniorTitle": "IC15 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/pinterest/salaries/software-engineer"
+    },
+    {
+      "slug": "snapchat",
+      "name": "Snap",
+      "level": "2-High",
+      "seniorTcUsd": 394088,
+      "seniorTitle": "L4 (6–7 years)",
+      "sourceUrl": "https://www.levels.fyi/companies/snap/salaries/software-engineer"
+    },
+    {
+      "slug": "amazon",
+      "name": "Amazon",
+      "level": "2-High",
+      "seniorTcUsd": 381034,
+      "seniorTitle": "L6 Senior SDE",
+      "sourceUrl": "https://www.levels.fyi/companies/amazon/salaries/software-engineer"
+    },
+    {
+      "slug": "roblox",
+      "name": "Roblox",
+      "level": "2-High",
+      "seniorTcUsd": 377726,
+      "seniorTitle": "IC3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/roblox/salaries/software-engineer"
+    },
+    {
+      "slug": "apple",
+      "name": "Apple",
+      "level": "2-High",
+      "seniorTcUsd": 374751,
+      "seniorTitle": "ICT4 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/apple/salaries/software-engineer"
+    },
+    {
+      "slug": "uber",
+      "name": "Uber",
+      "level": "3-Mid",
+      "seniorTcUsd": 368627,
+      "seniorTitle": "5a Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/uber/salaries/software-engineer"
+    },
+    {
+      "slug": "palantir",
+      "name": "Palantir",
+      "level": "3-Mid",
+      "seniorTcUsd": 346565,
+      "seniorTitle": "Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/palantir/salaries/software-engineer"
+    },
+    {
+      "slug": "nvidia",
+      "name": "Nvidia",
+      "level": "3-Mid",
+      "seniorTcUsd": 315703,
+      "seniorTitle": "IC3 Senior Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/nvidia/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "adobe",
+      "name": "Adobe",
+      "level": "3-Mid",
+      "seniorTcUsd": 306793,
+      "seniorTitle": "P40",
+      "sourceUrl": "https://www.levels.fyi/companies/adobe/salaries/software-engineer"
+    },
+    {
+      "slug": "linkedin",
+      "name": "LinkedIn",
+      "level": "3-Mid",
+      "seniorTcUsd": 302626,
+      "seniorTitle": "IC3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/linkedin/salaries/software-engineer"
+    },
+    {
+      "slug": "bloomberg",
+      "name": "Bloomberg",
+      "level": "3-Mid",
+      "seniorTcUsd": 297833,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/bloomberg/salaries/software-engineer"
+    },
+    {
+      "slug": "ibm",
+      "name": "IBM",
+      "level": "4-Lower",
+      "seniorTcUsd": 278286,
+      "seniorTitle": "Band 9 Senior Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/ibm/salaries/software-engineer"
+    },
+    {
+      "slug": "goldman-sachs",
+      "name": "Goldman Sachs",
+      "level": "4-Lower",
+      "seniorTcUsd": 261714,
+      "seniorTitle": "Vice President",
+      "sourceUrl": "https://www.levels.fyi/companies/goldman-sachs/salaries/software-engineer"
+    },
+    {
+      "slug": "walmart-labs",
+      "name": "Walmart Labs",
+      "level": "4-Lower",
+      "seniorTcUsd": 257798,
+      "seniorTitle": "Senior SWE",
+      "sourceUrl": "https://www.levels.fyi/companies/walmart/salaries/software-engineer"
+    },
+    {
+      "slug": "salesforce",
+      "name": "Salesforce",
+      "level": "4-Lower",
+      "seniorTcUsd": 253231,
+      "seniorTitle": "Senior MTS",
+      "sourceUrl": "https://www.levels.fyi/companies/salesforce/salaries/software-engineer"
+    },
+    {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "level": "4-Lower",
+      "seniorTcUsd": 244116,
+      "seniorTitle": "L63 Senior SDE",
+      "sourceUrl": "https://www.levels.fyi/companies/microsoft/salaries/software-engineer"
+    },
+    {
+      "slug": "oracle",
+      "name": "Oracle",
+      "level": "4-Lower",
+      "seniorTcUsd": 210724,
+      "seniorTitle": "IC-3 Senior MTS",
+      "sourceUrl": "https://www.levels.fyi/companies/oracle/salaries/software-engineer"
+    },
+    {
+      "slug": "capital-one",
+      "name": "Capital One",
+      "level": "5-Lowest",
+      "seniorTcUsd": 182791,
+      "seniorTitle": "Senior Software Eng",
+      "sourceUrl": "https://www.levels.fyi/companies/capital-one/salaries/software-engineer"
+    },
+    {
+      "slug": "visa",
+      "name": "Visa",
+      "level": "5-Lowest",
+      "seniorTcUsd": 156549,
+      "seniorTitle": "L5 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/visa/salaries/software-engineer"
+    },
+    {
+      "slug": "jpmorgan",
+      "name": "JPMorgan Chase",
+      "level": "5-Lowest",
+      "seniorTcUsd": 146136,
+      "seniorTitle": "602 Senior Associate",
+      "sourceUrl": "https://www.levels.fyi/companies/jpmorgan-chase/salaries/software-engineer"
+    },
+    {
+      "slug": "tcs",
+      "name": "tcs",
+      "level": "5-Lowest",
+      "seniorTcUsd": 135000,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.comparably.com/companies/tcs/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "accenture",
+      "name": "Accenture",
+      "level": "5-Lowest",
+      "seniorTcUsd": 115696,
+      "seniorTitle": "SSE Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/accenture/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "infosys",
+      "name": "Infosys",
+      "level": "5-Lowest",
+      "seniorTcUsd": 79647,
+      "seniorTitle": "JL3A Senior Systems Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/infosys/salaries/software-engineer/locations/united-states"
+    }
+  ]
+}
