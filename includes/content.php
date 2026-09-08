@@ -237,6 +237,29 @@ function content_leetcode_company_level_rank(string $level): int
 }
 
 /**
+ * @return array<string, mixed>
+ */
+function content_leetcode_companies_levels_data(): array
+{
+    static $data = null;
+    if ($data !== null) {
+        return $data;
+    }
+
+    $data = [];
+    $path = dirname(__DIR__) . '/context-leetcode-companies/levels.json';
+    if (!is_file($path)) {
+        return $data;
+    }
+
+    $raw = file_get_contents($path);
+    $decoded = is_string($raw) ? json_decode($raw, true) : null;
+    $data = is_array($decoded) ? $decoded : [];
+
+    return $data;
+}
+
+/**
  * Compensation bands from context-leetcode-companies/levels.json.
  *
  * @return list<array{id: string, name: string, rank: int}>
@@ -249,16 +272,10 @@ function content_leetcode_company_levels(): array
     }
 
     $levels = [];
-    $path = dirname(__DIR__) . '/context-leetcode-companies/levels.json';
-    if (!is_file($path)) {
+    $rows = content_leetcode_companies_levels_data()['levels'] ?? [];
+    if (!is_array($rows)) {
         return $levels;
     }
-
-    $raw = file_get_contents($path);
-    $decoded = is_string($raw) ? json_decode($raw, true) : null;
-    $rows = is_array($decoded) && isset($decoded['levels']) && is_array($decoded['levels'])
-        ? $decoded['levels']
-        : [];
 
     foreach ($rows as $row) {
         if (!is_array($row)) {
@@ -277,6 +294,58 @@ function content_leetcode_company_levels(): array
     }
 
     return $levels;
+}
+
+/**
+ * Senior SWE median total compensation from levels.json, keyed by company slug.
+ *
+ * @return array<string, array{seniorTcUsd: int, seniorTitle: string}>
+ */
+function content_leetcode_company_compensation(): array
+{
+    static $pay = null;
+    if ($pay !== null) {
+        return $pay;
+    }
+
+    $pay = [];
+    $rows = content_leetcode_companies_levels_data()['companies'] ?? [];
+    if (!is_array($rows)) {
+        return $pay;
+    }
+
+    foreach ($rows as $row) {
+        if (!is_array($row)) {
+            continue;
+        }
+        $slug = strtolower(trim((string) ($row['slug'] ?? '')));
+        if ($slug === '' || isset($pay[$slug])) {
+            continue;
+        }
+        $usd = $row['seniorTcUsd'] ?? null;
+        if (!is_numeric($usd)) {
+            continue;
+        }
+        $amount = (int) $usd;
+        if ($amount < 1) {
+            continue;
+        }
+        $pay[$slug] = [
+            'seniorTcUsd' => $amount,
+            'seniorTitle' => trim((string) ($row['seniorTitle'] ?? '')),
+        ];
+    }
+
+    return $pay;
+}
+
+function content_format_usd_k(int $usd): string
+{
+    if ($usd < 1000) {
+        return '$' . number_format($usd);
+    }
+
+    return '$' . number_format((int) round($usd / 1000)) . 'k';
 }
 
 /**
@@ -433,7 +502,7 @@ function content_leetcode_company_slugs_by_problem(): array
 }
 
 /**
- * @return list<array{id: string, name: string, companies: list<array{slug: string, name: string}>}>
+ * @return list<array{id: string, name: string, companies: list<array{slug: string, name: string, seniorTcUsd: ?int, seniorTitle: string}>}>
  */
 function content_leetcode_companies_grouped(): array
 {
@@ -446,6 +515,7 @@ function content_leetcode_companies_grouped(): array
         ];
     }
 
+    $pay = content_leetcode_company_compensation();
     foreach (content_leetcode_company_catalog() as $company) {
         $id = $company['level'] !== '' ? $company['level'] : 'other';
         if (!isset($grouped[$id])) {
@@ -455,9 +525,12 @@ function content_leetcode_companies_grouped(): array
                 'companies' => [],
             ];
         }
+        $comp = $pay[$company['slug']] ?? null;
         $grouped[$id]['companies'][] = [
             'slug' => $company['slug'],
             'name' => $company['name'],
+            'seniorTcUsd' => $comp['seniorTcUsd'] ?? null,
+            'seniorTitle' => $comp['seniorTitle'] ?? '',
         ];
     }
 
@@ -884,7 +957,7 @@ function user_tag_resource_key(string $script, string $slug): string
 }
 
 /**
- * @param list<array{id: string, name: string, companies: list<array{slug: string, name: string}>}> $groups
+ * @param list<array{id: string, name: string, companies: list<array{slug: string, name: string, seniorTcUsd?: ?int, seniorTitle?: string}>}> $groups
  */
 function render_content_filter_companies(array $groups): void
 {
@@ -943,13 +1016,27 @@ function render_content_filter_companies(array $groups): void
                             </div>
                             <ul class="pop__list">
                                 <?php foreach ($group['companies'] as $company): ?>
+                                    <?php
+                                    $payUsd = isset($company['seniorTcUsd']) ? (int) $company['seniorTcUsd'] : 0;
+                                    $payLabel = $payUsd > 0 ? content_format_usd_k($payUsd) : '';
+                                    $payHint = '';
+                                    if ($payLabel !== '') {
+                                        $title = trim((string) ($company['seniorTitle'] ?? ''));
+                                        $payHint = ($title !== '' ? $title . ' · ' : '')
+                                            . 'Senior engineer median TC $' . number_format($payUsd);
+                                    }
+                                    ?>
                                     <li>
                                         <button
                                             type="button"
                                             class="pop__opt"
                                             data-filter-company="<?= e($company['slug']) ?>"
                                             aria-pressed="false"
-                                        ><?= e($company['name']) ?></button>
+                                            <?php if ($payHint !== ''): ?>
+                                            title="<?= e($payHint) ?>"
+                                            aria-label="<?= e($company['name'] . ', ' . $payLabel) ?>"
+                                            <?php endif; ?>
+                                        ><?= e($company['name']) ?><?php if ($payLabel !== ''): ?> <span class="resource-n"><?= e($payLabel) ?></span><?php endif; ?></button>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>

@@ -140,3 +140,5 @@ EOF
 Writes `context-leetcode-companies/{level}/{slug}.json` when `levels.json` maps the slug, otherwise `context-leetcode-companies/{slug}.json`, and refreshes `context-leetcode-companies/index.json`.
 
 Do not `Read()` huge HTML dumps. Do not invent missing numbers.
+
+After companies are saved, if any scraped slug is missing from **Filter → Companies** or missing senior salary, follow `.agents/skills/sync-leetcode-company-filter` (do not implement the Filter UI here).

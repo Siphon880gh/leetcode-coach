@@ -1174,7 +1174,20 @@ code {
 
 .filter-company-level__panel {
   z-index: 5;
-  min-width: 12.5rem;
+  min-width: 14.75rem;
+}
+
+.filter-company-level__panel .pop__opt {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.filter-company-level__panel .pop__opt .resource-n {
+  margin-left: auto;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .filter-company-level__tools {
