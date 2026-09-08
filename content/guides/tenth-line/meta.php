@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Shell',
     'kind' => 'algo',
     'tags' => ['shell', 'bash', 'sed', 'leetcode'],
+    'related_session' => 'tenth-line',
 ];

@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Database',
     'kind' => 'algo',
     'tags' => ['database', 'sql', 'window-function', 'leetcode'],
+    'related_session' => 'department-highest-salary',
 ];

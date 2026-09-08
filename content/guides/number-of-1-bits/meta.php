@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Bit Manipulation',
     'kind' => 'algo',
     'tags' => ['bit-manipulation', 'hamming-weight', 'leetcode'],
+    'related_session' => 'number-of-1-bits',
 ];

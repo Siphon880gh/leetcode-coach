@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Database',
     'kind' => 'algo',
     'tags' => ['database', 'sql', 'self-join', 'leetcode'],
+    'related_session' => 'rising-temperature',
 ];

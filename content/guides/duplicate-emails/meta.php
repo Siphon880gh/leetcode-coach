@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Database',
     'kind' => 'algo',
     'tags' => ['database', 'sql', 'leetcode'],
+    'related_session' => 'duplicate-emails',
 ];

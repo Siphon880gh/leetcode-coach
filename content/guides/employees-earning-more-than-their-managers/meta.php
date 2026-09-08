@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Database',
     'kind' => 'algo',
     'tags' => ['database', 'sql', 'join', 'leetcode'],
+    'related_session' => 'employees-earning-more-than-their-managers',
 ];

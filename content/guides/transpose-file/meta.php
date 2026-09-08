@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Shell',
     'kind' => 'algo',
     'tags' => ['shell', 'bash', 'awk', 'leetcode'],
+    'related_session' => 'transpose-file',
 ];

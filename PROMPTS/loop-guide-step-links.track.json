@@ -3,7 +3,7 @@
   "kind": "guide-step-links",
   "prompt": "PROMPTS/loop-guide-step-links.md",
   "cursor": {
-    "last_slug": "rank-scores"
+    "last_slug": "implement-stack-using-queues"
   },
   "next": null,
   "completed": [
@@ -1072,6 +1072,288 @@
     },
     {
       "slug": "rank-scores",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "largest-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "consecutive-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "employees-earning-more-than-their-managers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "duplicate-emails",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "customers-who-never-order",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "department-highest-salary",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "department-top-three-salaries",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-words-in-a-string-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "repeated-dna-sequences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock-iv",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "rotate-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-bits",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-1-bits",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "word-frequency",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-phone-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "transpose-file",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "tenth-line",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "delete-duplicate-emails",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "rising-temperature",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "house-robber",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-right-side-view",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-islands",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "bitwise-and-of-numbers-range",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "happy-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "remove-linked-list-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-primes",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "isomorphic-strings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-linked-list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "course-schedule",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "implement-trie-prefix-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-size-subarray-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "course-schedule-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "design-add-and-search-words-data-structure",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "word-search-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "house-robber-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "shortest-palindrome",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "kth-largest-element-in-an-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "combination-sum-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "contains-duplicate",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "the-skyline-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "contains-duplicate-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "contains-duplicate-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximal-square",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-complete-tree-nodes",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "rectangle-area",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "basic-calculator",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "implement-stack-using-queues",
       "guide": true,
       "session": true,
       "reason": "already_linked"

@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Strings',
     'kind' => 'algo',
     'tags' => ['strings', 'two-pointers', 'in-place', 'leetcode'],
+    'related_session' => 'reverse-words-in-a-string-ii',
 ];

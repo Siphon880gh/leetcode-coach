@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Hash Table',
     'kind' => 'algo',
     'tags' => ['hash-table', 'sliding-window', 'strings', 'leetcode'],
+    'related_session' => 'repeated-dna-sequences',
 ];

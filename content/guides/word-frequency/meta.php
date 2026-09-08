@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Shell',
     'kind' => 'algo',
     'tags' => ['shell', 'bash', 'sorting', 'leetcode'],
+    'related_session' => 'word-frequency',
 ];

@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Dynamic Programming',
     'kind' => 'algo',
     'tags' => ['dynamic-programming', 'stock', 'state-machine', 'leetcode'],
+    'related_session' => 'best-time-to-buy-and-sell-stock-iv',
 ];

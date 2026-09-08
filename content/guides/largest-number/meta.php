@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Greedy',
     'kind' => 'algo',
     'tags' => ['greedy', 'sorting', 'strings', 'leetcode'],
+    'related_session' => 'largest-number',
 ];

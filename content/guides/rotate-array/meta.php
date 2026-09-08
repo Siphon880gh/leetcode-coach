@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Arrays',
     'kind' => 'algo',
     'tags' => ['arrays', 'two-pointers', 'in-place', 'leetcode'],
+    'related_session' => 'rotate-array',
 ];

@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Dynamic Programming',
     'kind' => 'algo',
     'tags' => ['dynamic-programming', 'arrays', 'leetcode'],
+    'related_session' => 'house-robber',
 ];

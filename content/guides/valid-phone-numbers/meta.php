@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Shell',
     'kind' => 'algo',
     'tags' => ['shell', 'bash', 'regex', 'leetcode'],
+    'related_session' => 'valid-phone-numbers',
 ];

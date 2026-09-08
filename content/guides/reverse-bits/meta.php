@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Bit Manipulation',
     'kind' => 'algo',
     'tags' => ['bit-manipulation', 'unsigned', 'leetcode'],
+    'related_session' => 'reverse-bits',
 ];
