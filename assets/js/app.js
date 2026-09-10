@@ -468,7 +468,8 @@
     { id: 'pass', group: 'second-pass', label: 'Confident Pass', color: '#166534' },
     { id: 'first-no-stick', group: 'first-pass', label: 'Might not have stick for the most part', color: '#9a3412' },
     { id: 'first-maybe-stick', group: 'first-pass', label: 'Might not have stick or might have stick', color: '#1d4ed8' },
-    { id: 'first-attention', group: 'first-pass', label: 'Couldn\u2019t keep attention on it', color: '#57534e' }
+    { id: 'first-attention', group: 'first-pass', label: 'Couldn\u2019t keep attention on it', color: '#57534e' },
+    { id: 'first-ready-transition', group: 'first-pass', label: 'Ready to transition', color: '#0f766e' }
   ];
 
   /*
