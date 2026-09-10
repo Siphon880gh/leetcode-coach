@@ -1076,6 +1076,37 @@ function content_leetcode_difficulty_options(): array
     ];
 }
 
+function render_content_filter_tag_group(string $group, string $label, string $icon): void
+{
+    $id = 'resource-filter-tags-' . $group;
+    ?>
+    <div class="filter-tags" data-filter-tags data-filter-tag-group="<?= e($group) ?>">
+        <button
+            type="button"
+            class="filter-tags__btn"
+            data-filter-tags-btn
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="<?= e($id) ?>"
+        >
+            <span class="filter-tags__caret" aria-hidden="true">◂</span>
+            <span class="filter-tags__icon" aria-hidden="true"><?= e($icon) ?></span>
+            <?= e($label) ?>
+        </button>
+        <div
+            id="<?= e($id) ?>"
+            class="filter-tags__panel"
+            data-filter-tags-panel
+            hidden
+            role="dialog"
+            aria-label="<?= e($label) ?>"
+        >
+            <ul class="pop__list pop__list--tags" data-user-tag-filters data-tag-group="<?= e($group) ?>"></ul>
+        </div>
+    </div>
+    <?php
+}
+
 function render_content_filter_difficulty(): void
 {
     ?>
@@ -1089,6 +1120,7 @@ function render_content_filter_difficulty(): void
             aria-controls="resource-filter-difficulty"
         >
             <span class="filter-tags__caret" aria-hidden="true">◂</span>
+            <span class="filter-tags__icon" aria-hidden="true">📶</span>
             Difficulty
         </button>
         <div
@@ -1481,30 +1513,8 @@ function render_content_browse(array $items, array $opts): void
                         aria-label="Filter"
                     >
                         <?php if ($userTags): ?>
-                            <div class="filter-tags" data-filter-tags>
-                                <button
-                                    type="button"
-                                    class="filter-tags__btn"
-                                    data-filter-tags-btn
-                                    aria-expanded="false"
-                                    aria-haspopup="true"
-                                    aria-controls="resource-filter-tags"
-                                >
-                                    <span class="filter-tags__caret" aria-hidden="true">◂</span>
-                                    <span class="filter-tags__icon" aria-hidden="true">🏷</span>
-                                    Tags
-                                </button>
-                                <div
-                                    id="resource-filter-tags"
-                                    class="filter-tags__panel"
-                                    data-filter-tags-panel
-                                    hidden
-                                    role="dialog"
-                                    aria-label="Tags"
-                                >
-                                    <ul class="pop__list pop__list--tags" data-user-tag-filters></ul>
-                                </div>
-                            </div>
+                            <?php render_content_filter_tag_group('first-pass', 'First-Pass Tag', '①'); ?>
+                            <?php render_content_filter_tag_group('second-pass', 'Second-Pass Tag', '②'); ?>
                         <?php endif; ?>
                         <?php if ($hasDifficulty): ?>
                             <?php render_content_filter_difficulty(); ?>

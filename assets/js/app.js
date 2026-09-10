@@ -457,11 +457,18 @@
   var USER_TAG_LS_LEGACY = 'algos-user-tags-v1';
   var USER_TAG_DB = 'algos';
   var USER_TAG_DB_VERSION = 1;
+  var USER_TAG_GROUPS = [
+    { id: 'first-pass', label: 'First-Pass Tag' },
+    { id: 'second-pass', label: 'Second-Pass Tag' }
+  ];
   var USER_TAG_PRESETS = [
-    { id: 'extreme', label: 'Need extreme review', color: '#c23a2b' },
-    { id: 'much', label: 'Need much review', color: '#d97706' },
-    { id: 'unsure', label: 'Unsure if need review or that it sticks', color: '#7c3aed' },
-    { id: 'pass', label: 'Confident Pass', color: '#166534' }
+    { id: 'extreme', group: 'second-pass', label: 'Need extreme review', color: '#c23a2b' },
+    { id: 'much', group: 'second-pass', label: 'Need much review', color: '#d97706' },
+    { id: 'unsure', group: 'second-pass', label: 'Unsure if need review or that it sticks', color: '#7c3aed' },
+    { id: 'pass', group: 'second-pass', label: 'Confident Pass', color: '#166534' },
+    { id: 'first-no-stick', group: 'first-pass', label: 'Might not have stick for the most part', color: '#9a3412' },
+    { id: 'first-maybe-stick', group: 'first-pass', label: 'Might not have stick or might have stick', color: '#1d4ed8' },
+    { id: 'first-attention', group: 'first-pass', label: 'Couldn\u2019t keep attention on it', color: '#57534e' }
   ];
 
   /*
@@ -565,20 +572,24 @@
   function ensurePresetTags(db, user) {
     var tx = db.transaction(['tags'], 'readonly');
     return idbReq(tx.objectStore('tags').index('user_id').getAll(user.id)).then(function (rows) {
-      var havePreset = (rows || []).some(function (row) {
-        return row.is_preset === 1;
+      var haveSlug = {};
+      (rows || []).forEach(function (row) {
+        if (row.slug) haveSlug[row.slug] = true;
       });
-      if (havePreset) return;
+      var missing = USER_TAG_PRESETS.filter(function (preset) {
+        return !haveSlug[preset.id];
+      });
+      if (!missing.length) return;
       var wtx = db.transaction(['tags'], 'readwrite');
       var store = wtx.objectStore('tags');
-      USER_TAG_PRESETS.forEach(function (preset, i) {
+      missing.forEach(function (preset) {
         store.add({
           user_id: user.id,
           name: preset.label,
           color: preset.color,
           is_preset: 1,
           slug: preset.id,
-          sort_order: i
+          sort_order: USER_TAG_PRESETS.indexOf(preset)
         });
       });
       return txDone(wtx);
@@ -750,17 +761,52 @@
     return null;
   }
 
+  function tagGroupId(row) {
+    if (!row || row.is_preset !== 1) return 'concept';
+    var i;
+    for (i = 0; i < USER_TAG_PRESETS.length; i++) {
+      if (USER_TAG_PRESETS[i].id === row.slug) return USER_TAG_PRESETS[i].group;
+    }
+    return 'second-pass';
+  }
+
+  function tagGroupRank(groupId) {
+    var i;
+    for (i = 0; i < USER_TAG_GROUPS.length; i++) {
+      if (USER_TAG_GROUPS[i].id === groupId) return i;
+    }
+    return USER_TAG_GROUPS.length;
+  }
+
+  function tagGroupLabel(groupId) {
+    var i;
+    for (i = 0; i < USER_TAG_GROUPS.length; i++) {
+      if (USER_TAG_GROUPS[i].id === groupId) return USER_TAG_GROUPS[i].label;
+    }
+    return groupId;
+  }
+
+  function appendTagGroupHeading(parent, groupId, tagName) {
+    var heading = document.createElement(tagName || 'p');
+    heading.className = 'user-tag-group';
+    heading.textContent = tagGroupLabel(groupId);
+    parent.appendChild(heading);
+  }
+
   function catalog(state) {
     return state.tags.slice().sort(function (a, b) {
-      if (a.is_preset !== b.is_preset) return b.is_preset - a.is_preset;
-      if (a.is_preset) return (a.sort_order || 0) - (b.sort_order || 0);
+      var ga = tagGroupRank(tagGroupId(a));
+      var gb = tagGroupRank(tagGroupId(b));
+      if (ga !== gb) return ga - gb;
+      if (a.is_preset === 1 && b.is_preset === 1) return (a.sort_order || 0) - (b.sort_order || 0);
       return String(a.name).localeCompare(String(b.name));
     }).map(function (row) {
       return {
         id: Number(row.id),
         label: String(row.name),
         color: hexColor(row.color, '#0d6e6e'),
-        preset: row.is_preset === 1
+        preset: row.is_preset === 1,
+        group: tagGroupId(row)
       };
     });
   }
@@ -832,46 +878,6 @@
     });
   }
 
-  function applyResourceTag(db, state, key, tagId) {
-    if (findResourceTagRow(state, key, tagId)) return Promise.resolve();
-    return toggleResourceTag(db, state, key, tagId);
-  }
-
-  function addCustomTag(db, state, label, color) {
-    var want = String(label).trim().toLowerCase();
-    var existing = null;
-    var maxSort = 0;
-    state.tags.forEach(function (row) {
-      if (String(row.name).trim().toLowerCase() === want) existing = row;
-      if ((row.sort_order || 0) > maxSort) maxSort = row.sort_order || 0;
-    });
-    if (existing) {
-      if (existing.is_preset !== 1) {
-        return updateTagColor(db, state, existing.id, color).then(function () {
-          return existing.id;
-        });
-      }
-      return Promise.resolve(existing.id);
-    }
-    var row = {
-      user_id: state.user.id,
-      name: String(label).trim(),
-      color: hexColor(color, '#0d6e6e'),
-      is_preset: 0,
-      slug: null,
-      sort_order: maxSort + 1
-    };
-    var tx = db.transaction(['tags'], 'readwrite');
-    var done = txDone(tx);
-    return idbReq(tx.objectStore('tags').add(row)).then(function (id) {
-      row.id = id;
-      state.tags.push(row);
-      return done.then(function () {
-        return id;
-      });
-    });
-  }
-
   function updateTagColor(db, state, id, color) {
     var row = tagById(state, id);
     if (!row) return Promise.resolve();
@@ -939,17 +945,16 @@
     if (!root) return;
 
     var section = root.getAttribute('data-user-tag-section') || 'guides';
-    var filterList = root.querySelector('[data-user-tag-filters]');
     var tiles = root.querySelectorAll('[data-user-tag-resource]');
-    var tagsRoot = root.querySelector('[data-filter-tags]');
-    var tagsBtn = root.querySelector('[data-filter-tags-btn]');
-    var tagsPanel = root.querySelector('[data-filter-tags-panel]');
+    var tagFlyouts = root.querySelectorAll('[data-filter-tags]');
 
-    function setTagsOpen(open) {
-      if (!tagsBtn || !tagsPanel) return;
-      if (!open && tagsRoot) tagsRoot.classList.remove('is-pinned');
-      tagsPanel.hidden = !open;
-      tagsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    function setTagFlyoutOpen(wrap, open) {
+      var btn = wrap && wrap.querySelector('[data-filter-tags-btn]');
+      var panel = wrap && wrap.querySelector('[data-filter-tags-panel]');
+      if (!btn || !panel) return;
+      if (!open) wrap.classList.remove('is-pinned');
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
 
     bootUserTags().then(function (boot) {
@@ -1035,51 +1040,15 @@
         if (!picker || !key) return;
         picker.textContent = '';
         var applied = resourceTagIds(state, key);
-        var defs = catalog(state);
-        var presetCount = 0;
-        defs.forEach(function (def) {
-          if (def.preset) presetCount += 1;
-        });
-        defs.forEach(function (def, index) {
-          if (index === presetCount) {
-            var split = document.createElement('hr');
-            split.className = 'user-tag-picker__rule';
-            picker.appendChild(split);
+        var lastGroup = null;
+        catalog(state).forEach(function (def) {
+          if (!def.preset) return;
+          if (def.group !== lastGroup) {
+            lastGroup = def.group;
+            appendTagGroupHeading(picker, def.group, 'p');
           }
           appendChoice(picker, key, def, applied);
         });
-        var rule = document.createElement('hr');
-        rule.className = 'user-tag-picker__rule';
-        picker.appendChild(rule);
-        var form = document.createElement('form');
-        form.className = 'user-tag-new';
-        var nameInput = document.createElement('input');
-        nameInput.type = 'text';
-        nameInput.maxLength = 48;
-        nameInput.required = true;
-        nameInput.placeholder = 'New tag';
-        nameInput.setAttribute('aria-label', 'New tag name');
-        var colorInput = document.createElement('input');
-        colorInput.type = 'color';
-        colorInput.className = 'user-tag-swatch';
-        colorInput.value = '#0d6e6e';
-        colorInput.setAttribute('aria-label', 'New tag color');
-        var addBtn = document.createElement('button');
-        addBtn.type = 'submit';
-        addBtn.textContent = 'Add';
-        form.appendChild(nameInput);
-        form.appendChild(colorInput);
-        form.appendChild(addBtn);
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          var label = nameInput.value.trim();
-          if (!label) return;
-          addCustomTag(db, state, label, colorInput.value).then(function (id) {
-            return applyResourceTag(db, state, key, id);
-          }).then(renderAll);
-        });
-        picker.appendChild(form);
       }
 
       function paintTagColor(id, next) {
@@ -1096,54 +1065,72 @@
         });
       }
 
+      function renderFilterRow(list, def, selected) {
+        var row = document.createElement('li');
+        row.className = 'user-tag-filter-row';
+        var wrap = document.createElement('div');
+        wrap.className = 'filter-tag' + (selected.indexOf(def.id) >= 0 ? ' is-current' : '');
+        var swatchWrap = document.createElement('span');
+        swatchWrap.className = 'user-tag-swatch-wrap';
+        var swatch = document.createElement('input');
+        swatch.type = 'color';
+        swatch.className = 'user-tag-swatch';
+        swatch.value = hexColor(def.color, '#0d6e6e');
+        swatch.setAttribute('data-tag-id', String(def.id));
+        swatch.setAttribute('aria-label', 'Change color for ' + def.label);
+        swatch.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+        swatch.addEventListener('mousedown', function (e) {
+          e.stopPropagation();
+        });
+        swatch.addEventListener('input', function (e) {
+          e.stopPropagation();
+          var next = hexColor(swatch.value, def.color);
+          updateTagColor(db, state, def.id, next).then(function () {
+            paintTagColor(def.id, next);
+          });
+        });
+        swatchWrap.appendChild(swatch);
+        var opt = document.createElement('button');
+        opt.type = 'button';
+        opt.className = 'filter-tag__label';
+        opt.setAttribute('aria-pressed', selected.indexOf(def.id) >= 0 ? 'true' : 'false');
+        opt.textContent = def.label;
+        opt.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleFilterTag(db, state, section, def.id).then(function () {
+            renderFilters();
+            applyFilterVisibility();
+          });
+        });
+        wrap.appendChild(swatchWrap);
+        wrap.appendChild(opt);
+        row.appendChild(wrap);
+        list.appendChild(row);
+      }
+
       function renderFilters() {
-        if (!filterList) return;
-        filterList.textContent = '';
         var selected = filterTagIds(state, section);
+        var byGroup = {};
         catalog(state).forEach(function (def) {
-          var row = document.createElement('li');
-          row.className = 'user-tag-filter-row';
-          var wrap = document.createElement('div');
-          wrap.className = 'filter-tag' + (selected.indexOf(def.id) >= 0 ? ' is-current' : '');
-          var swatchWrap = document.createElement('span');
-          swatchWrap.className = 'user-tag-swatch-wrap';
-          var swatch = document.createElement('input');
-          swatch.type = 'color';
-          swatch.className = 'user-tag-swatch';
-          swatch.value = hexColor(def.color, '#0d6e6e');
-          swatch.setAttribute('data-tag-id', String(def.id));
-          swatch.setAttribute('aria-label', 'Change color for ' + def.label);
-          swatch.addEventListener('click', function (e) {
-            e.stopPropagation();
+          if (!byGroup[def.group]) byGroup[def.group] = [];
+          byGroup[def.group].push(def);
+        });
+        root._tagIdsByGroup = {};
+        Object.keys(byGroup).forEach(function (groupId) {
+          root._tagIdsByGroup[groupId] = byGroup[groupId].map(function (def) {
+            return def.id;
           });
-          swatch.addEventListener('mousedown', function (e) {
-            e.stopPropagation();
+        });
+        root.querySelectorAll('[data-user-tag-filters]').forEach(function (list) {
+          var groupId = list.getAttribute('data-tag-group');
+          if (!groupId) return;
+          list.textContent = '';
+          (byGroup[groupId] || []).forEach(function (def) {
+            renderFilterRow(list, def, selected);
           });
-          swatch.addEventListener('input', function (e) {
-            e.stopPropagation();
-            var next = hexColor(swatch.value, def.color);
-            updateTagColor(db, state, def.id, next).then(function () {
-              paintTagColor(def.id, next);
-            });
-          });
-          swatchWrap.appendChild(swatch);
-          var opt = document.createElement('button');
-          opt.type = 'button';
-          opt.className = 'filter-tag__label';
-          opt.setAttribute('aria-pressed', selected.indexOf(def.id) >= 0 ? 'true' : 'false');
-          opt.textContent = def.label;
-          opt.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleFilterTag(db, state, section, def.id).then(function () {
-              renderFilters();
-              applyFilterVisibility();
-            });
-          });
-          wrap.appendChild(swatchWrap);
-          wrap.appendChild(opt);
-          row.appendChild(wrap);
-          filterList.appendChild(row);
         });
       }
 
@@ -1177,38 +1164,43 @@
         });
       });
 
-      if (tagsRoot && tagsBtn && tagsPanel) {
-        tagsRoot.addEventListener('mouseenter', function () {
+      tagFlyouts.forEach(function (wrap) {
+        var btn = wrap.querySelector('[data-filter-tags-btn]');
+        var panel = wrap.querySelector('[data-filter-tags-panel]');
+        if (!btn || !panel) return;
+        wrap.addEventListener('mouseenter', function () {
           closeFilterCompaniesFlyout(root, true);
           closeFilterDifficultyFlyout(root, true);
-          setTagsOpen(true);
+          closeFilterTagsFlyout(root, true, wrap);
+          setTagFlyoutOpen(wrap, true);
         });
-        tagsRoot.addEventListener('mouseleave', function () {
-          if (!tagsRoot.classList.contains('is-pinned')) setTagsOpen(false);
+        wrap.addEventListener('mouseleave', function () {
+          if (!wrap.classList.contains('is-pinned')) setTagFlyoutOpen(wrap, false);
         });
-        tagsBtn.addEventListener('click', function (e) {
+        btn.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
           closeFilterCompaniesFlyout(root, true);
           closeFilterDifficultyFlyout(root, true);
-          if (tagsPanel.hidden) {
-            tagsRoot.classList.add('is-pinned');
-            setTagsOpen(true);
-          } else if (tagsRoot.classList.contains('is-pinned')) {
-            setTagsOpen(false);
+          closeFilterTagsFlyout(root, true, wrap);
+          if (panel.hidden) {
+            wrap.classList.add('is-pinned');
+            setTagFlyoutOpen(wrap, true);
+          } else if (wrap.classList.contains('is-pinned')) {
+            setTagFlyoutOpen(wrap, false);
           } else {
-            tagsRoot.classList.add('is-pinned');
-            setTagsOpen(true);
+            wrap.classList.add('is-pinned');
+            setTagFlyoutOpen(wrap, true);
           }
         });
-        tagsPanel.addEventListener('click', function (e) {
+        panel.addEventListener('click', function (e) {
           e.stopPropagation();
         });
-      }
+      });
 
       document.addEventListener('click', function () {
         closeUserTagPickers();
-        setTagsOpen(false);
+        closeFilterTagsFlyout(root, true);
       });
 
       document.addEventListener('keydown', function (e) {
@@ -1396,7 +1388,6 @@
     var tiles = root.querySelectorAll('.content-tile');
     var headingCount = root.querySelector('.browse__heading .resource-n');
     var filterBtn = root.querySelector('[aria-controls="resource-filter"]');
-    var tagsBtn = root.querySelector('[data-filter-tags-btn]');
     var companiesBtn = root.querySelector('[data-filter-companies-btn]');
     var difficultyBtn = root.querySelector('[data-filter-difficulty-btn]');
     var clearBtn = root.querySelector('[data-filter-clear]');
@@ -1462,7 +1453,21 @@
       filterBtn.classList.toggle('has-company-filter', companyOn);
       filterBtn.classList.toggle('has-difficulty-filter', difficultyOn);
     }
-    if (tagsBtn) tagsBtn.classList.toggle('has-tag-filter', tagOn);
+    root.querySelectorAll('[data-filter-tags]').forEach(function (wrap) {
+      var btn = wrap.querySelector('[data-filter-tags-btn]');
+      if (!btn) return;
+      var group = wrap.getAttribute('data-filter-tag-group') || '';
+      var ids = (root._tagIdsByGroup && root._tagIdsByGroup[group]) || [];
+      var groupOn = false;
+      var i;
+      for (i = 0; i < selectedTags.length; i++) {
+        if (ids.indexOf(selectedTags[i]) >= 0) {
+          groupOn = true;
+          break;
+        }
+      }
+      btn.classList.toggle('has-tag-filter', groupOn);
+    });
     if (companiesBtn) companiesBtn.classList.toggle('has-company-filter', companyOn);
     if (difficultyBtn) difficultyBtn.classList.toggle('has-difficulty-filter', difficultyOn);
     if (clearBtn) clearBtn.hidden = !(topicOn || tagOn || companyOn || difficultyOn);
@@ -1497,13 +1502,16 @@
     });
   }
 
-  function closeFilterTagsFlyout(root, unpin) {
-    var tagsRoot = root.querySelector('[data-filter-tags]');
-    var tagsBtn = root.querySelector('[data-filter-tags-btn]');
-    var tagsPanel = root.querySelector('[data-filter-tags-panel]');
-    if (unpin && tagsRoot) tagsRoot.classList.remove('is-pinned');
-    if (tagsPanel) tagsPanel.hidden = true;
-    if (tagsBtn) tagsBtn.setAttribute('aria-expanded', 'false');
+  function closeFilterTagsFlyout(root, unpin, except) {
+    if (!root) return;
+    root.querySelectorAll('[data-filter-tags]').forEach(function (wrap) {
+      if (except && wrap === except) return;
+      if (unpin) wrap.classList.remove('is-pinned');
+      var panel = wrap.querySelector('[data-filter-tags-panel]');
+      var btn = wrap.querySelector('[data-filter-tags-btn]');
+      if (panel) panel.hidden = true;
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
   }
 
   function setCompanyLevelOpen(level, open, unpin) {
