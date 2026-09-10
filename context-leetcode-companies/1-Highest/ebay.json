@@ -1,0 +1,12 @@
+{
+  "slug": "ebay",
+  "name": "eBay",
+  "url": "https://leetcode.com/company/ebay/?favoriteSlug=ebay-three-months",
+  "favoriteSlug": "ebay-three-months",
+  "updatedAt": "2026-09-08T08:30:57Z",
+  "problems": [
+    4,
+    221,
+    2232
+  ]
+}

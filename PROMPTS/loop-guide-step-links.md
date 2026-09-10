@@ -44,7 +44,7 @@ Chrome lives in the page-head on `guides/view.php`, `coaching/session.php`, and 
 Before processing `next` on a tick, if the chrome (or the harness docs) are still missing, do this **once** in that tick, then continue with the slug:
 
 1. Page-head companion links on `guides/view.php`, `coaching/session.php`, and `games/play.php` as in **Link contract**.
-2. Document optional `related_session` / `related_game` (guides), `related_guide` / `related_game` (coaching), and `related_guide` / `related_session` (games) in `.agents/skills/harness/SKILL.md` and `.agents/skills/harness/reference.md`.
+2. Document optional `related_session` / `related_game` (guides), `related_guide` / `related_game` (coaching), and `related_guide` / `related_session` (games) in `.agents/skills/harness/SKILL.md` and `.agents/skills/harness/reference.md`. Document `'difficulty' => 'Easy'|'Med'|'Hard'` whenever `'leetcode'` is set.
 3. In `PROMPTS/loop-algo-guides.md` and `PROMPTS/loop-step-by-step.md`: when creating an artifact, if the same slug already exists on the other side, set the companion key. If a matching mini game already exists, set `related_game`. Those loops must not backfill every existing pair.
 
 Skip this block on later ticks if it is already in place.

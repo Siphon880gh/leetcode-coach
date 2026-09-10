@@ -137,8 +137,8 @@ python3 .agents/skills/update-leetcode-companies/scripts/save.py <<'EOF'
 EOF
 ```
 
-Writes `context-leetcode-companies/{level}/{slug}.json` when `levels.json` maps the slug, otherwise `context-leetcode-companies/{slug}.json`, and refreshes `context-leetcode-companies/index.json`.
+Writes `context-leetcode-companies/{level}/{slug}.json` when `levels.json` maps the slug, otherwise `context-leetcode-companies/{slug}.json`, and refreshes `context-leetcode-companies/index.json`. Level folders are `1-Highest` … `5-Lowest` plus Others: `6-Unpriceable`, `7-Cooldown`, `8-WillPrice`.
 
 Do not `Read()` huge HTML dumps. Do not invent missing numbers.
 
-After companies are saved, if any scraped slug is missing from **Filter → Companies** or missing senior salary, follow `.agents/skills/sync-leetcode-company-filter` (do not implement the Filter UI here).
+After companies are saved, follow `.agents/skills/sync-leetcode-company-filter` (do not implement the Filter UI here): queue new slugs into **Others (Will Price)** with `apply.py --queue-missing`, then look up salary. Cooldown / Unpriceable are for blocked lookups and companies with no US senior USD source.

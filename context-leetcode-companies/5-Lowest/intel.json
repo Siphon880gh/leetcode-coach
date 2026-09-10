@@ -1,0 +1,25 @@
+{
+  "slug": "intel",
+  "name": "Intel",
+  "url": "https://leetcode.com/company/intel/?favoriteSlug=intel-all",
+  "favoriteSlug": "intel-all",
+  "updatedAt": "2026-09-08T08:54:43Z",
+  "problems": [
+    1,
+    3,
+    9,
+    11,
+    20,
+    42,
+    53,
+    138,
+    141,
+    146,
+    155,
+    200,
+    204,
+    229,
+    1614,
+    2526
+  ]
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Add a scraped company to levels.json with senior TC and rebuild the Filter catalog."""
+"""Add a scraped company to levels.json (priced band or Others) and rebuild the Filter catalog."""
 
 from __future__ import annotations
 
@@ -13,7 +13,8 @@ sys.path.insert(0, str(SKILLS / "update-leetcode-companies" / "scripts"))
 
 import save  # noqa: E402
 
-LEVEL_IDS = ["1-Highest", "2-High", "3-Mid", "4-Lower", "5-Lowest"]
+LEVEL_IDS = list(save.PRICED_LEVEL_IDS)
+OTHER_LEVEL_IDS = list(save.OTHER_LEVEL_IDS)
 
 
 def assign_level(usd: int, companies: list[dict], skip_slug: str) -> str:
@@ -62,6 +63,13 @@ def parse_usd(value: object) -> int:
     return amount
 
 
+def has_salary(payload: dict) -> bool:
+    value = payload.get("seniorTcUsd")
+    if value in (None, ""):
+        return False
+    return True
+
+
 def require_scraped(dstdir: Path, slug: str) -> dict:
     existing = save.find_existing_company_file(dstdir, slug)
     if existing is None or not existing.is_file():
@@ -86,10 +94,24 @@ def move_to_level(dstdir: Path, slug: str, level: str) -> Path:
     return dest
 
 
-def upsert_company(levels: dict, payload: dict, scraped: dict) -> dict:
+def replace_company(companies: list[dict], entry: dict) -> list[dict]:
+    slug = entry["slug"]
+    next_rows: list[dict] = []
+    replaced = False
+    for row in companies:
+        if str(row.get("slug") or "").strip().lower() == slug:
+            next_rows.append(entry)
+            replaced = True
+        else:
+            next_rows.append(row)
+    if not replaced:
+        next_rows.append(entry)
+    next_rows.sort(key=lambda row: (-int(row.get("seniorTcUsd") or 0), str(row.get("name") or "")))
+    return next_rows
+
+
+def upsert_priced(levels: dict, payload: dict, scraped: dict) -> dict:
     slug = str(payload.get("slug") or "").strip().lower()
-    if not save.SLUG_RE.match(slug):
-        raise ValueError(f"invalid slug: {slug!r}")
     usd = parse_usd(payload.get("seniorTcUsd"))
     source = str(payload.get("sourceUrl") or "").strip()
     if not source:
@@ -107,20 +129,42 @@ def upsert_company(levels: dict, payload: dict, scraped: dict) -> dict:
         "seniorTitle": title,
         "sourceUrl": source,
     }
-
-    replaced = False
-    next_rows: list[dict] = []
-    for row in companies:
-        if str(row.get("slug") or "").strip().lower() == slug:
-            next_rows.append(entry)
-            replaced = True
-        else:
-            next_rows.append(row)
-    if not replaced:
-        next_rows.append(entry)
-    next_rows.sort(key=lambda row: (-int(row.get("seniorTcUsd") or 0), str(row.get("name") or "")))
-    levels["companies"] = next_rows
+    levels["companies"] = replace_company(companies, entry)
     return entry
+
+
+def upsert_other(levels: dict, payload: dict, scraped: dict) -> dict:
+    slug = str(payload.get("slug") or "").strip().lower()
+    level = str(payload.get("level") or "").strip()
+    if level not in OTHER_LEVEL_IDS:
+        raise ValueError(
+            "level must be 6-Unpriceable, 7-Cooldown, or 8-WillPrice when seniorTcUsd is omitted"
+        )
+    name = str(payload.get("name") or scraped.get("name") or slug).strip() or slug
+    entry: dict = {
+        "slug": slug,
+        "name": name,
+        "level": level,
+    }
+    note = str(payload.get("note") or "").strip()
+    if note:
+        entry["note"] = note
+    source = str(payload.get("sourceUrl") or "").strip()
+    if source:
+        entry["sourceUrl"] = source
+
+    companies = [row for row in (levels.get("companies") or []) if isinstance(row, dict)]
+    levels["companies"] = replace_company(companies, entry)
+    return entry
+
+
+def upsert_company(levels: dict, payload: dict, scraped: dict) -> dict:
+    slug = str(payload.get("slug") or "").strip().lower()
+    if not save.SLUG_RE.match(slug):
+        raise ValueError(f"invalid slug: {slug!r}")
+    if has_salary(payload):
+        return upsert_priced(levels, payload, scraped)
+    return upsert_other(levels, payload, scraped)
 
 
 def apply_payload(root: Path, payload: dict) -> dict:
@@ -166,11 +210,56 @@ def payloads_from_stdin(raw: str) -> list[dict]:
     return out
 
 
+def queue_missing_payloads(root: Path) -> list[dict]:
+    dstdir = save.data_dir(root)
+    levels_path = dstdir / "levels.json"
+    known: set[str] = set()
+    if levels_path.is_file():
+        data = json.loads(levels_path.read_text(encoding="utf-8"))
+        for row in data.get("companies") or []:
+            if not isinstance(row, dict):
+                continue
+            slug = str(row.get("slug") or "").strip().lower()
+            if save.SLUG_RE.match(slug):
+                known.add(slug)
+    out: list[dict] = []
+    for path in save.iter_company_files(dstdir):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            continue
+        slug = str(data.get("slug") or path.stem).strip().lower()
+        if not save.SLUG_RE.match(slug) or slug in known:
+            continue
+        try:
+            count = len(save.normalize_problems(data.get("problems") or []))
+        except ValueError:
+            continue
+        if count < 1:
+            continue
+        name = str(data.get("name") or slug).strip() or slug
+        out.append({"slug": slug, "name": name, "level": "8-WillPrice"})
+        known.add(slug)
+    return out
+
+
+def print_result(result: dict) -> None:
+    entry = result["entry"]
+    print(f"wrote {result['file']}")
+    print(f"slug {entry['slug']}")
+    print(f"level {entry['level']}")
+    if "seniorTcUsd" in entry:
+        print(f"seniorTcUsd {entry['seniorTcUsd']}")
+    if entry.get("note"):
+        print(f"note {entry['note']}")
+    print(f"companies {result['indexCount']}")
+
+
 def self_test() -> None:
     sample = [
         {"slug": "a", "level": "1-Highest", "seniorTcUsd": 429000},
         {"slug": "b", "level": "2-High", "seniorTcUsd": 374000},
         {"slug": "c", "level": "5-Lowest", "seniorTcUsd": 80000},
+        {"slug": "d", "level": "8-WillPrice"},
     ]
     assert assign_level(500000, sample, "x") == "1-Highest"
     assert assign_level(400000, sample, "x") == "2-High"
@@ -184,6 +273,20 @@ def self_test() -> None:
         raise AssertionError("expected missing salary")
     except ValueError:
         pass
+    levels = {"companies": list(sample)}
+    other = upsert_other(
+        levels,
+        {"slug": "x", "name": "X", "level": "7-Cooldown", "note": "blocked"},
+        {"name": "X"},
+    )
+    assert other["level"] == "7-Cooldown"
+    assert "seniorTcUsd" not in other
+    assert other["note"] == "blocked"
+    try:
+        upsert_other(levels, {"slug": "y", "level": "1-Highest"}, {"name": "Y"})
+        raise AssertionError("expected invalid other level")
+    except ValueError:
+        pass
 
 
 def main() -> int:
@@ -192,29 +295,35 @@ def main() -> int:
         print("ok")
         return 0
 
-    raw = sys.stdin.read()
-    if not raw.strip():
-        print("expected JSON on stdin", file=sys.stderr)
-        return 1
-    try:
-        rows = payloads_from_stdin(raw)
-    except (json.JSONDecodeError, ValueError) as exc:
-        print(str(exc), file=sys.stderr)
+    root = save.repo_root()
+    queue_missing = "--queue-missing" in sys.argv
+    if queue_missing and sys.stdin.isatty():
+        raw = ""
+    else:
+        raw = sys.stdin.read()
+    rows: list[dict] = []
+    if queue_missing:
+        rows.extend(queue_missing_payloads(root))
+        if not rows and not raw.strip():
+            print("no missing companies to queue")
+            return 0
+    if raw.strip():
+        try:
+            rows.extend(payloads_from_stdin(raw))
+        except (json.JSONDecodeError, ValueError) as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
+    if not rows:
+        print("expected JSON on stdin, or --queue-missing", file=sys.stderr)
         return 1
 
-    root = save.repo_root()
     for payload in rows:
         try:
             result = apply_payload(root, payload)
         except ValueError as exc:
             print(str(exc), file=sys.stderr)
             return 1
-        entry = result["entry"]
-        print(f"wrote {result['file']}")
-        print(f"slug {entry['slug']}")
-        print(f"level {entry['level']}")
-        print(f"seniorTcUsd {entry['seniorTcUsd']}")
-        print(f"companies {result['indexCount']}")
+        print_result(result)
     return 0
 
 

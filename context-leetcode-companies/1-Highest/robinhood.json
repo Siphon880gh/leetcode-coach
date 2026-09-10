@@ -1,0 +1,24 @@
+{
+  "slug": "robinhood",
+  "name": "Robinhood",
+  "url": "https://leetcode.com/company/robinhood/?favoriteSlug=robinhood-all",
+  "favoriteSlug": "robinhood-all",
+  "updatedAt": "2026-09-08T08:51:55Z",
+  "problems": [
+    68,
+    121,
+    347,
+    529,
+    690,
+    692,
+    1108,
+    1391,
+    1393,
+    1684,
+    1711,
+    1712,
+    1743,
+    1801,
+    2021
+  ]
+}

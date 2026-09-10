@@ -1,0 +1,19 @@
+{
+  "slug": "stripe",
+  "name": "Stripe",
+  "url": "https://leetcode.com/company/stripe/?favoriteSlug=stripe-more-than-six-months",
+  "favoriteSlug": "stripe-more-than-six-months",
+  "updatedAt": "2026-09-08T08:31:44Z",
+  "problems": [
+    161,
+    787,
+    1087,
+    1169,
+    1604,
+    2043,
+    2050,
+    2303,
+    2483,
+    2768
+  ]
+}

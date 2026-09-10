@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Trees',
     'kind' => 'algo',
     'tags' => ['trees', 'bst', 'inorder', 'leetcode'],
+    'related_session' => 'kth-smallest-element-in-a-bst',
 ];

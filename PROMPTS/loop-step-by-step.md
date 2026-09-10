@@ -22,7 +22,7 @@ Use `.agents/skills/harness` (section 3) and `.agents/skills/harness/reference.m
 4. Derive a kebab-case `slug` from the problem title (`0001.Two Sum` → `two-sum`).
 5. If `content/coaching/{slug}/` already exists, do **not** overwrite. Append to `skipped` with `"reason": "slug_exists"` and advance `next`.
 6. Otherwise create:
-   - `content/coaching/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, and `leetcode` when **LeetCode number** applies
+   - `content/coaching/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, and `leetcode` plus `difficulty` (`Easy` \| `Med` \| `Hard`) when **LeetCode number** applies
    - `content/coaching/{slug}/tree.php` — deterministic graph: `start`, readable `choices[].label`, at least one `wrong` leaf with `rewind_to`, a `success` leaf. No randomness, no live AI, no breadcrumbs file.
    - If `content/guides/{slug}/` already exists with `kind => 'algo'`, set `'related_guide' => '{slug}'` on this session and `'related_session' => '{slug}'` on that guide. Do not backfill other pairs.
    - Scan `content/games/*/meta.php` for an existing mini game for this problem: folder slug equals `{slug}`, `related_session` is `{slug}`, or `leetcode` matches this problem. If found, set `'related_game' => '{gameSlug}'` on this session and `'related_session' => '{slug}'` on that game. Do not create a game in this loop.
@@ -89,6 +89,7 @@ Every session `meta.php` must set:
 | `subcategory` | One primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Binary Search`, `Stack`, …) |
 | `topic` | `{category} · {subcategory}` |
 | `leetcode` | Integer id for numbered LeetCode problems; omit otherwise. Never put it in `title`. |
+| `difficulty` | `Easy`, `Med`, or `Hard` when `leetcode` is set. Look up from `context-leetcode-urls/data-difficulty.json` (do not Read() the file whole). Never put it in `title`. |
 
 How to pick `category`:
 
@@ -101,11 +102,21 @@ How to pick `category`:
 
 `subcategory` is the main pattern the session teaches. Example: Two Sum approach tree → `LeetCode` / `Arrays`.
 
-## LeetCode number
+## LeetCode number and difficulty
 
-When the last path segment of `next.id` starts with digits and a dot (`0001.Two Sum`, `158. Title`), set `'leetcode' => N` with that integer and no leading zeros (`1`, `158`). Omit the key when the source is not a numbered LeetCode problem (hello-algo chapters, labuladong essays, 剑指 Offer, LCR, …).
+When the last path segment of `next.id` starts with digits and a dot (`0001.Two Sum`, `158. Title`), set `'leetcode' => N` with that integer and no leading zeros (`1`, `158`), and set `'difficulty' => 'Easy'|'Med'|'Hard'`.
 
-Never put the number in `title`. The app shows `LeetCode N` on its own row.
+Look up difficulty from the repo root (replace `N`; do not `Read()` the JSON whole):
+
+```bash
+python3 -c "import json,sys; n=sys.argv[1]; print(json.load(open('context-leetcode-urls/data-difficulty.json')).get(n,''))" N
+```
+
+Use that value. If it prints empty, take Easy/Med/Hard from the context writeup only if it states official LeetCode difficulty. Do not invent.
+
+Omit `leetcode` and `difficulty` when the source is not a numbered LeetCode problem (hello-algo chapters, labuladong essays, 剑指 Offer, LCR, …).
+
+Never put the number or Easy / Med / Hard in `title`. The app shows `LeetCode N` plus difficulty on its own row.
 
 ## Do not
 

@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Trees',
     'kind' => 'algo',
     'tags' => ['trees', 'dfs', 'bfs', 'leetcode'],
+    'related_session' => 'invert-binary-tree',
 ];

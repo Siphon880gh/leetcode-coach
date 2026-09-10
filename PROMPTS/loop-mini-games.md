@@ -36,7 +36,7 @@ Skip (still advance `next`) when the source is theory-only, a huge DP recap with
 4. Decide create vs skip using **When to create vs skip**.
 5. If creating: derive kebab-case `slug` from the title plus the mechanic (`two-sum` + hash map → `two-sum-pointers`). If `content/games/{slug}/` exists, skip with `"reason": "slug_exists"` (do not overwrite).
 6. Otherwise write:
-   - `content/games/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, optional `entry`, and `leetcode` when **LeetCode number** applies
+   - `content/games/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, optional `entry`, and `leetcode` plus `difficulty` (`Easy` \| `Med` \| `Hard`) when **LeetCode number** applies
    - `content/games/{slug}/index.html` — one idea, inline CSS/JS, playable without a build step
    - If an Algo Guide exists for this problem (`content/guides/` with `kind => 'algo'`, same slug or same `leetcode`), set `'related_guide'` on this game and `'related_game'` on that guide. If a Step-by-step exists (`content/coaching/`, same slug or same `leetcode`), set `'related_session'` on this game and `'related_game'` on that session. Then run `.agents/skills/link-mini-games` (or `php .agents/skills/link-mini-games/scripts/link.php`) so any leftover companion keys are filled.
 7. English UI copy even if the source is Chinese. The game should make the `context/` approach visible (pointers, set, stack), not only quiz for the answer.
@@ -102,6 +102,7 @@ Every game `meta.php` must set:
 | `subcategory` | One primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Binary Search`, `Stack`, …) |
 | `topic` | `{category} · {subcategory}` |
 | `leetcode` | Integer id for numbered LeetCode problems; omit otherwise. Never put it in `title`. |
+| `difficulty` | `Easy`, `Med`, or `Hard` when `leetcode` is set. Look up from `context-leetcode-urls/data-difficulty.json` (do not Read() the file whole). Never put it in `title`. |
 
 How to pick `category`:
 
@@ -114,11 +115,21 @@ How to pick `category`:
 
 `subcategory` is the mechanic the game teaches. Example: Two Sum complement drill → `LeetCode` / `Arrays`. A binary-search lo/hi board → `Algorithms` / `Binary Search`.
 
-## LeetCode number
+## LeetCode number and difficulty
 
-When the last path segment of `next.id` starts with digits and a dot (`0001.Two Sum`, `158. Title`), set `'leetcode' => N` with that integer and no leading zeros (`1`, `158`). Omit the key when the source is not a numbered LeetCode problem (hello-algo chapters, labuladong essays, 剑指 Offer, LCR, …).
+When the last path segment of `next.id` starts with digits and a dot (`0001.Two Sum`, `158. Title`), set `'leetcode' => N` with that integer and no leading zeros (`1`, `158`), and set `'difficulty' => 'Easy'|'Med'|'Hard'`.
 
-Never put the number in `title`. The app shows `LeetCode N` on its own row.
+Look up difficulty from the repo root (replace `N`; do not `Read()` the JSON whole):
+
+```bash
+python3 -c "import json,sys; n=sys.argv[1]; print(json.load(open('context-leetcode-urls/data-difficulty.json')).get(n,''))" N
+```
+
+Use that value. If it prints empty, take Easy/Med/Hard from the context writeup only if it states official LeetCode difficulty. Do not invent.
+
+Omit `leetcode` and `difficulty` when the source is not a numbered LeetCode problem (hello-algo chapters, labuladong essays, 剑指 Offer, LCR, …).
+
+Never put the number or Easy / Med / Hard in `title`. The app shows `LeetCode N` plus difficulty on its own row.
 
 ## Do not
 

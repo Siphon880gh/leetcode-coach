@@ -1,0 +1,15 @@
+{
+  "slug": "imc",
+  "name": "IMC",
+  "url": "https://leetcode.com/company/imc/?favoriteSlug=imc-all",
+  "favoriteSlug": "imc-all",
+  "updatedAt": "2026-09-08T08:53:23Z",
+  "problems": [
+    42,
+    63,
+    460,
+    761,
+    1292,
+    1889
+  ]
+}

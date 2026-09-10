@@ -20,6 +20,10 @@ This graph:
 - When authoring either side, scans existing mini games (same slug, related keys, or same `leetcode`) and writes `related_game` so the new page can link to the game
 - Then links one pairable intersection slug
 
+## Difficulty (author halves)
+
+When an author half creates a numbered LeetCode Algo Guide or Step-by-step, `meta.php` must set `'leetcode'` and `'difficulty'` (`Easy` | `Med` | `Hard`) as in the child prompt. Look up from `context-leetcode-urls/data-difficulty.json` (do not `Read()` the file whole). Do not invent. Never put Easy / Med / Hard in `title`. Mini games created by `loop-mini-games.md` use the same keys.
+
 ## Counts (every tick)
 
 Ignore `kind => 'cursor'` guides (for example `add-mini-game`). Missing `kind` counts as algo.

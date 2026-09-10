@@ -4,6 +4,7 @@ declare(strict_types=1);
 return [
     'title' => 'Two Sum: find the complement',
     'leetcode' => 1,
+    'difficulty' => 'Easy',
     'summary' => 'Click numbers so each value meets its complement for the target. Practice the seen-set idea interactively.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',

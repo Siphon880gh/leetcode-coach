@@ -1,0 +1,14 @@
+{
+  "slug": "shopify",
+  "name": "Shopify",
+  "url": "https://leetcode.com/company/shopify/?favoriteSlug=shopify-all",
+  "favoriteSlug": "shopify-all",
+  "updatedAt": "2026-09-08T08:56:43Z",
+  "problems": [
+    146,
+    256,
+    535,
+    588,
+    874
+  ]
+}

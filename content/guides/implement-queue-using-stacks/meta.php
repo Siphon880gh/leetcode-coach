@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Stack',
     'kind' => 'algo',
     'tags' => ['stack', 'queue', 'design', 'leetcode'],
+    'related_session' => 'implement-queue-using-stacks',
 ];

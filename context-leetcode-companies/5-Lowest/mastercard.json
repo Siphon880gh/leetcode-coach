@@ -1,0 +1,23 @@
+{
+  "slug": "mastercard",
+  "name": "Mastercard",
+  "url": "https://leetcode.com/company/mastercard/?favoriteSlug=mastercard-all",
+  "favoriteSlug": "mastercard-all",
+  "updatedAt": "2026-09-08T08:56:11Z",
+  "problems": [
+    1,
+    20,
+    48,
+    51,
+    53,
+    79,
+    121,
+    134,
+    242,
+    322,
+    412,
+    518,
+    664,
+    749
+  ]
+}

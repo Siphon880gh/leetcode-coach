@@ -1,0 +1,15 @@
+{
+  "slug": "indeed",
+  "name": "Indeed",
+  "url": "https://leetcode.com/company/indeed/?favoriteSlug=indeed-all",
+  "favoriteSlug": "indeed-all",
+  "updatedAt": "2026-09-08T08:55:23Z",
+  "problems": [
+    453,
+    563,
+    985,
+    2133,
+    2225,
+    2547
+  ]
+}

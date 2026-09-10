@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T01:10:03Z",
+  "updatedAt": "2026-09-08T10:15:41Z",
   "companies": [
     {
       "slug": "accenture",
@@ -16,11 +16,39 @@
       "level": "3-Mid"
     },
     {
+      "slug": "affirm",
+      "name": "Affirm",
+      "count": 10,
+      "file": "7-Cooldown/affirm.json",
+      "level": "7-Cooldown"
+    },
+    {
+      "slug": "agoda",
+      "name": "Agoda",
+      "count": 37,
+      "file": "6-Unpriceable/agoda.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "airbnb",
       "name": "Airbnb",
       "count": 3,
       "file": "1-Highest/airbnb.json",
       "level": "1-Highest"
+    },
+    {
+      "slug": "akuna-capital",
+      "name": "Akuna Capital",
+      "count": 17,
+      "file": "7-Cooldown/akuna-capital.json",
+      "level": "7-Cooldown"
+    },
+    {
+      "slug": "alibaba",
+      "name": "Alibaba",
+      "count": 5,
+      "file": "6-Unpriceable/alibaba.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "amazon",
@@ -30,11 +58,60 @@
       "level": "2-High"
     },
     {
+      "slug": "american-express",
+      "name": "American Express",
+      "count": 28,
+      "file": "5-Lowest/american-express.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "anduril",
+      "name": "Anduril",
+      "count": 5,
+      "file": "3-Mid/anduril.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "apple",
       "name": "Apple",
       "count": 10,
       "file": "2-High/apple.json",
       "level": "2-High"
+    },
+    {
+      "slug": "arista-networks",
+      "name": "Arista Networks",
+      "count": 37,
+      "file": "5-Lowest/arista-networks.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "atlassian",
+      "name": "Atlassian",
+      "count": 1,
+      "file": "3-Mid/atlassian.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "autodesk",
+      "name": "Autodesk",
+      "count": 33,
+      "file": "5-Lowest/autodesk.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "barclays",
+      "name": "Barclays",
+      "count": 17,
+      "file": "5-Lowest/barclays.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "blackrock",
+      "name": "BlackRock",
+      "count": 16,
+      "file": "4-Lower/blackrock.json",
+      "level": "4-Lower"
     },
     {
       "slug": "bloomberg",
@@ -44,10 +121,38 @@
       "level": "3-Mid"
     },
     {
+      "slug": "bookingcom",
+      "name": "Booking.com",
+      "count": 17,
+      "file": "5-Lowest/bookingcom.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "bytedance",
+      "name": "ByteDance",
+      "count": 1,
+      "file": "1-Highest/bytedance.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "capgemini",
+      "name": "Capgemini",
+      "count": 36,
+      "file": "5-Lowest/capgemini.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "capital-one",
       "name": "Capital One",
       "count": 6,
       "file": "5-Lowest/capital-one.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "cisco",
+      "name": "Cisco",
+      "count": 1,
+      "file": "5-Lowest/cisco.json",
       "level": "5-Lowest"
     },
     {
@@ -58,6 +163,41 @@
       "level": "1-Highest"
     },
     {
+      "slug": "cognizant",
+      "name": "Cognizant",
+      "count": 51,
+      "file": "5-Lowest/cognizant.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "cohesity",
+      "name": "Cohesity",
+      "count": 4,
+      "file": "7-Cooldown/cohesity.json",
+      "level": "7-Cooldown"
+    },
+    {
+      "slug": "coupang",
+      "name": "Coupang",
+      "count": 48,
+      "file": "5-Lowest/coupang.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "databricks",
+      "name": "Databricks",
+      "count": 1,
+      "file": "1-Highest/databricks.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "datadog",
+      "name": "Datadog",
+      "count": 13,
+      "file": "2-High/datadog.json",
+      "level": "2-High"
+    },
+    {
       "slug": "de-shaw",
       "name": "DE Shaw",
       "count": 11,
@@ -65,11 +205,74 @@
       "level": "1-Highest"
     },
     {
+      "slug": "deloitte",
+      "name": "Deloitte",
+      "count": 42,
+      "file": "5-Lowest/deloitte.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "deutsche-bank",
+      "name": "Deutsche Bank",
+      "count": 21,
+      "file": "5-Lowest/deutsche-bank.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "docusign",
+      "name": "Docusign",
+      "count": 31,
+      "file": "3-Mid/docusign.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "doordash",
+      "name": "DoorDash",
+      "count": 3,
+      "file": "3-Mid/doordash.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "drw",
+      "name": "DRW",
+      "count": 3,
+      "file": "7-Cooldown/drw.json",
+      "level": "7-Cooldown"
+    },
+    {
+      "slug": "ebay",
+      "name": "eBay",
+      "count": 3,
+      "file": "1-Highest/ebay.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "epam-systems",
+      "name": "EPAM Systems",
+      "count": 50,
+      "file": "5-Lowest/epam-systems.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "expedia",
+      "name": "Expedia",
+      "count": 2,
+      "file": "4-Lower/expedia.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "facebook",
       "name": "Meta",
       "count": 42,
       "file": "2-High/facebook.json",
       "level": "2-High"
+    },
+    {
+      "slug": "flipkart",
+      "name": "Flipkart",
+      "count": 99,
+      "file": "5-Lowest/flipkart.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "goldman-sachs",
@@ -86,10 +289,52 @@
       "level": "1-Highest"
     },
     {
+      "slug": "grab",
+      "name": "Grab",
+      "count": 18,
+      "file": "5-Lowest/grab.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "grammarly",
+      "name": "Grammarly",
+      "count": 30,
+      "file": "7-Cooldown/grammarly.json",
+      "level": "7-Cooldown"
+    },
+    {
+      "slug": "hrt",
+      "name": "Hudson River Trading",
+      "count": 16,
+      "file": "1-Highest/hrt.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "huawei",
+      "name": "Huawei",
+      "count": 16,
+      "file": "5-Lowest/huawei.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "ibm",
       "name": "IBM",
       "count": 3,
       "file": "4-Lower/ibm.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "imc",
+      "name": "IMC",
+      "count": 6,
+      "file": "7-Cooldown/imc.json",
+      "level": "7-Cooldown"
+    },
+    {
+      "slug": "indeed",
+      "name": "Indeed",
+      "count": 6,
+      "file": "4-Lower/indeed.json",
       "level": "4-Lower"
     },
     {
@@ -100,11 +345,46 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "intel",
+      "name": "Intel",
+      "count": 16,
+      "file": "5-Lowest/intel.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "intuit",
+      "name": "Intuit",
+      "count": 1,
+      "file": "4-Lower/intuit.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "jane-street",
+      "name": "Jane Street",
+      "count": 1,
+      "file": "1-Highest/jane-street.json",
+      "level": "1-Highest"
+    },
+    {
       "slug": "jpmorgan",
       "name": "JPMorgan Chase",
       "count": 3,
       "file": "5-Lowest/jpmorgan.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "jump-trading",
+      "name": "Jump Trading",
+      "count": 2,
+      "file": "1-Highest/jump-trading.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "juspay",
+      "name": "Juspay",
+      "count": 20,
+      "file": "7-Cooldown/juspay.json",
+      "level": "7-Cooldown"
     },
     {
       "slug": "linkedin",
@@ -114,6 +394,27 @@
       "level": "3-Mid"
     },
     {
+      "slug": "lyft",
+      "name": "Lyft",
+      "count": 25,
+      "file": "5-Lowest/lyft.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "mastercard",
+      "name": "Mastercard",
+      "count": 14,
+      "file": "5-Lowest/mastercard.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "mathworks",
+      "name": "MathWorks",
+      "count": 27,
+      "file": "5-Lowest/mathworks.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "microsoft",
       "name": "Microsoft",
       "count": 39,
@@ -121,11 +422,67 @@
       "level": "4-Lower"
     },
     {
+      "slug": "millennium",
+      "name": "Millennium",
+      "count": 11,
+      "file": "7-Cooldown/millennium.json",
+      "level": "7-Cooldown"
+    },
+    {
+      "slug": "mongodb",
+      "name": "MongoDB",
+      "count": 26,
+      "file": "2-High/mongodb.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "morgan-stanley",
+      "name": "Morgan Stanley",
+      "count": 61,
+      "file": "5-Lowest/morgan-stanley.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "netflix",
+      "name": "Netflix",
+      "count": 2,
+      "file": "1-Highest/netflix.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "nutanix",
+      "name": "Nutanix",
+      "count": 70,
+      "file": "3-Mid/nutanix.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "nvidia",
       "name": "Nvidia",
       "count": 1,
       "file": "3-Mid/nvidia.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "okta",
+      "name": "Okta",
+      "count": 20,
+      "file": "4-Lower/okta.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "openai",
+      "name": "OpenAI",
+      "count": 2,
+      "file": "1-Highest/openai.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "optiver",
+      "name": "Optiver",
+      "count": 7,
+      "file": "1-Highest/optiver.json",
+      "level": "1-Highest"
     },
     {
       "slug": "oracle",
@@ -142,11 +499,74 @@
       "level": "3-Mid"
     },
     {
+      "slug": "palo-alto-networks",
+      "name": "Palo Alto Networks",
+      "count": 49,
+      "file": "4-Lower/palo-alto-networks.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "paypal",
+      "name": "PayPal",
+      "count": 97,
+      "file": "4-Lower/paypal.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "paytm",
+      "name": "Paytm",
+      "count": 27,
+      "file": "5-Lowest/paytm.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "phonepe",
+      "name": "PhonePe",
+      "count": 96,
+      "file": "6-Unpriceable/phonepe.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "pinterest",
       "name": "Pinterest",
       "count": 7,
       "file": "2-High/pinterest.json",
       "level": "2-High"
+    },
+    {
+      "slug": "qualcomm",
+      "name": "Qualcomm",
+      "count": 52,
+      "file": "5-Lowest/qualcomm.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "quora",
+      "name": "Quora",
+      "count": 19,
+      "file": "7-Cooldown/quora.json",
+      "level": "7-Cooldown"
+    },
+    {
+      "slug": "reddit",
+      "name": "Reddit",
+      "count": 5,
+      "file": "1-Highest/reddit.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "rippling",
+      "name": "Rippling",
+      "count": 28,
+      "file": "2-High/rippling.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "robinhood",
+      "name": "Robinhood",
+      "count": 15,
+      "file": "1-Highest/robinhood.json",
+      "level": "1-Highest"
     },
     {
       "slug": "roblox",
@@ -156,11 +576,53 @@
       "level": "2-High"
     },
     {
+      "slug": "roku",
+      "name": "Roku",
+      "count": 19,
+      "file": "7-Cooldown/roku.json",
+      "level": "7-Cooldown"
+    },
+    {
+      "slug": "rubrik",
+      "name": "Rubrik",
+      "count": 34,
+      "file": "7-Cooldown/rubrik.json",
+      "level": "7-Cooldown"
+    },
+    {
       "slug": "salesforce",
       "name": "Salesforce",
       "count": 3,
       "file": "4-Lower/salesforce.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "samsung",
+      "name": "Samsung",
+      "count": 62,
+      "file": "5-Lowest/samsung.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "sap",
+      "name": "SAP",
+      "count": 39,
+      "file": "5-Lowest/sap.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "servicenow",
+      "name": "ServiceNow",
+      "count": 69,
+      "file": "4-Lower/servicenow.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "shopify",
+      "name": "Shopify",
+      "count": 5,
+      "file": "5-Lowest/shopify.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "snapchat",
@@ -177,11 +639,60 @@
       "level": "1-Highest"
     },
     {
+      "slug": "spotify",
+      "name": "Spotify",
+      "count": 14,
+      "file": "5-Lowest/spotify.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "square",
+      "name": "Square",
+      "count": 11,
+      "file": "5-Lowest/square.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "squarepoint-capital",
+      "name": "Squarepoint Capital",
+      "count": 26,
+      "file": "6-Unpriceable/squarepoint-capital.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "stripe",
+      "name": "Stripe",
+      "count": 10,
+      "file": "1-Highest/stripe.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "swiggy",
+      "name": "Swiggy",
+      "count": 36,
+      "file": "5-Lowest/swiggy.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "tcs",
       "name": "tcs",
       "count": 2,
       "file": "5-Lowest/tcs.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "tekion",
+      "name": "Tekion",
+      "count": 30,
+      "file": "5-Lowest/tekion.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "tesla",
+      "name": "Tesla",
+      "count": 5,
+      "file": "4-Lower/tesla.json",
+      "level": "4-Lower"
     },
     {
       "slug": "tiktok",
@@ -191,10 +702,38 @@
       "level": "1-Highest"
     },
     {
+      "slug": "twilio",
+      "name": "Twilio",
+      "count": 11,
+      "file": "5-Lowest/twilio.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "twitter",
+      "name": "X",
+      "count": 51,
+      "file": "3-Mid/twitter.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "two-sigma",
+      "name": "Two Sigma",
+      "count": 20,
+      "file": "1-Highest/two-sigma.json",
+      "level": "1-Highest"
+    },
+    {
       "slug": "uber",
       "name": "Uber",
       "count": 1,
       "file": "3-Mid/uber.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "verkada",
+      "name": "Verkada",
+      "count": 17,
+      "file": "3-Mid/verkada.json",
       "level": "3-Mid"
     },
     {
@@ -210,6 +749,62 @@
       "count": 5,
       "file": "4-Lower/walmart-labs.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "waymo",
+      "name": "Waymo",
+      "count": 29,
+      "file": "2-High/waymo.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "wells-fargo",
+      "name": "Wells Fargo",
+      "count": 19,
+      "file": "5-Lowest/wells-fargo.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "yahoo",
+      "name": "Yahoo",
+      "count": 11,
+      "file": "4-Lower/yahoo.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "yandex",
+      "name": "Yandex",
+      "count": 1,
+      "file": "4-Lower/yandex.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "yelp",
+      "name": "Yelp",
+      "count": 28,
+      "file": "5-Lowest/yelp.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "zillow",
+      "name": "Zillow",
+      "count": 1,
+      "file": "5-Lowest/zillow.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "zoho",
+      "name": "Zoho",
+      "count": 150,
+      "file": "5-Lowest/zoho.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "zomato",
+      "name": "Zomato",
+      "count": 28,
+      "file": "5-Lowest/zomato.json",
+      "level": "5-Lowest"
     }
   ]
 }

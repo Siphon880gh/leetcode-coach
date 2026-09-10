@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Sliding Window',
     'kind' => 'algo',
     'tags' => ['sliding-window', 'monotonic-queue', 'deque', 'heap', 'leetcode'],
+    'related_session' => 'sliding-window-maximum',
 ];

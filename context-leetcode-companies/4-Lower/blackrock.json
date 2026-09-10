@@ -1,0 +1,25 @@
+{
+  "slug": "blackrock",
+  "name": "BlackRock",
+  "url": "https://leetcode.com/company/blackrock/?favoriteSlug=blackrock-all",
+  "favoriteSlug": "blackrock-all",
+  "updatedAt": "2026-09-08T08:52:38Z",
+  "problems": [
+    1,
+    5,
+    12,
+    20,
+    49,
+    70,
+    121,
+    202,
+    235,
+    236,
+    268,
+    287,
+    2291,
+    3004,
+    3068,
+    3998
+  ]
+}

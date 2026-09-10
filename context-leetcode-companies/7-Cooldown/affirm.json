@@ -1,0 +1,19 @@
+{
+  "slug": "affirm",
+  "name": "Affirm",
+  "url": "https://leetcode.com/company/affirm/?favoriteSlug=affirm-all",
+  "favoriteSlug": "affirm-all",
+  "updatedAt": "2026-09-08T08:52:39Z",
+  "problems": [
+    49,
+    242,
+    322,
+    362,
+    380,
+    381,
+    443,
+    465,
+    736,
+    3076
+  ]
+}

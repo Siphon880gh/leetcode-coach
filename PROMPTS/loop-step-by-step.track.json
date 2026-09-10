@@ -13,11 +13,11 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/0200-0299/0225.Implement Stack using Queues"
+    "last_id": "solution/0300-0399/0385.Mini Parser"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0200-0299/0226.Invert Binary Tree"
+    "id": "solution/0300-0399/0386.Lexicographical Numbers"
   },
   "completed": [
     {
@@ -1363,6 +1363,966 @@
       "id": "solution/0200-0299/0225.Implement Stack using Queues",
       "slug": "implement-stack-using-queues",
       "title": "Implement Stack using Queues"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0226.Invert Binary Tree",
+      "slug": "invert-binary-tree",
+      "title": "Invert Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0227.Basic Calculator II",
+      "slug": "basic-calculator-ii",
+      "title": "Basic Calculator II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0228.Summary Ranges",
+      "slug": "summary-ranges",
+      "title": "Summary Ranges"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0229.Majority Element II",
+      "slug": "majority-element-ii",
+      "title": "Majority Element II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0230.Kth Smallest Element in a BST",
+      "slug": "kth-smallest-element-in-a-bst",
+      "title": "Kth Smallest Element in a BST"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0231.Power of Two",
+      "slug": "power-of-two",
+      "title": "Power of Two"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0232.Implement Queue using Stacks",
+      "slug": "implement-queue-using-stacks",
+      "title": "Implement Queue using Stacks"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0233.Number of Digit One",
+      "slug": "number-of-digit-one",
+      "title": "Number of Digit One"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0234.Palindrome Linked List",
+      "slug": "palindrome-linked-list",
+      "title": "Palindrome Linked List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0235.Lowest Common Ancestor of a Binary Search Tree",
+      "slug": "lowest-common-ancestor-of-a-binary-search-tree",
+      "title": "Lowest Common Ancestor of a Binary Search Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0236.Lowest Common Ancestor of a Binary Tree",
+      "slug": "lowest-common-ancestor-of-a-binary-tree",
+      "title": "Lowest Common Ancestor of a Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0237.Delete Node in a Linked List",
+      "slug": "delete-node-in-a-linked-list",
+      "title": "Delete Node in a Linked List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0238.Product of Array Except Self",
+      "slug": "product-of-array-except-self",
+      "title": "Product of Array Except Self"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0239.Sliding Window Maximum",
+      "slug": "sliding-window-maximum",
+      "title": "Sliding Window Maximum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0240.Search a 2D Matrix II",
+      "slug": "search-a-2d-matrix-ii",
+      "title": "Search a 2D Matrix II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0241.Different Ways to Add Parentheses",
+      "slug": "different-ways-to-add-parentheses",
+      "title": "Different Ways to Add Parentheses"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0242.Valid Anagram",
+      "slug": "valid-anagram",
+      "title": "Valid Anagram"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0243.Shortest Word Distance",
+      "slug": "shortest-word-distance",
+      "title": "Shortest Word Distance"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0244.Shortest Word Distance II",
+      "slug": "shortest-word-distance-ii",
+      "title": "Shortest Word Distance II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0245.Shortest Word Distance III",
+      "slug": "shortest-word-distance-iii",
+      "title": "Shortest Word Distance III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0246.Strobogrammatic Number",
+      "slug": "strobogrammatic-number",
+      "title": "Strobogrammatic Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0247.Strobogrammatic Number II",
+      "slug": "strobogrammatic-number-ii",
+      "title": "Strobogrammatic Number II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0248.Strobogrammatic Number III",
+      "slug": "strobogrammatic-number-iii",
+      "title": "Strobogrammatic Number III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0249.Group Shifted Strings",
+      "slug": "group-shifted-strings",
+      "title": "Group Shifted Strings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0250.Count Univalue Subtrees",
+      "slug": "count-univalue-subtrees",
+      "title": "Count Univalue Subtrees"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0251.Flatten 2D Vector",
+      "slug": "flatten-2d-vector",
+      "title": "Flatten 2D Vector"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0252.Meeting Rooms",
+      "slug": "meeting-rooms",
+      "title": "Meeting Rooms"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0253.Meeting Rooms II",
+      "slug": "meeting-rooms-ii",
+      "title": "Meeting Rooms II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0254.Factor Combinations",
+      "slug": "factor-combinations",
+      "title": "Factor Combinations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0255.Verify Preorder Sequence in Binary Search Tree",
+      "slug": "verify-preorder-sequence-in-binary-search-tree",
+      "title": "Verify Preorder Sequence in Binary Search Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0256.Paint House",
+      "slug": "paint-house",
+      "title": "Paint House"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0257.Binary Tree Paths",
+      "slug": "binary-tree-paths",
+      "title": "Binary Tree Paths"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0258.Add Digits",
+      "slug": "add-digits",
+      "title": "Add Digits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0259.3Sum Smaller",
+      "slug": "3sum-smaller",
+      "title": "3Sum Smaller"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0260.Single Number III",
+      "slug": "single-number-iii",
+      "title": "Single Number III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0261.Graph Valid Tree",
+      "slug": "graph-valid-tree",
+      "title": "Graph Valid Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0262.Trips and Users",
+      "slug": "trips-and-users",
+      "title": "Trips and Users"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0263.Ugly Number",
+      "slug": "ugly-number",
+      "title": "Ugly Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0264.Ugly Number II",
+      "slug": "ugly-number-ii",
+      "title": "Ugly Number II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0265.Paint House II",
+      "slug": "paint-house-ii",
+      "title": "Paint House II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0266.Palindrome Permutation",
+      "slug": "palindrome-permutation",
+      "title": "Palindrome Permutation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0267.Palindrome Permutation II",
+      "slug": "palindrome-permutation-ii",
+      "title": "Palindrome Permutation II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0268.Missing Number",
+      "slug": "missing-number",
+      "title": "Missing Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0269.Alien Dictionary",
+      "slug": "alien-dictionary",
+      "title": "Alien Dictionary"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0270.Closest Binary Search Tree Value",
+      "slug": "closest-binary-search-tree-value",
+      "title": "Closest Binary Search Tree Value"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0271.Encode and Decode Strings",
+      "slug": "encode-and-decode-strings",
+      "title": "Encode and Decode Strings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0272.Closest Binary Search Tree Value II",
+      "slug": "closest-binary-search-tree-value-ii",
+      "title": "Closest Binary Search Tree Value II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0273.Integer to English Words",
+      "slug": "integer-to-english-words",
+      "title": "Integer to English Words"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0274.H-Index",
+      "slug": "h-index",
+      "title": "H-Index"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0275.H-Index II",
+      "slug": "h-index-ii",
+      "title": "H-Index II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0276.Paint Fence",
+      "slug": "paint-fence",
+      "title": "Paint Fence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0277.Find the Celebrity",
+      "slug": "find-the-celebrity",
+      "title": "Find the Celebrity"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0278.First Bad Version",
+      "slug": "first-bad-version",
+      "title": "First Bad Version"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0279.Perfect Squares",
+      "slug": "perfect-squares",
+      "title": "Perfect Squares"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0280.Wiggle Sort",
+      "slug": "wiggle-sort",
+      "title": "Wiggle Sort"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0281.Zigzag Iterator",
+      "slug": "zigzag-iterator",
+      "title": "Zigzag Iterator"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0282.Expression Add Operators",
+      "slug": "expression-add-operators",
+      "title": "Expression Add Operators"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0283.Move Zeroes",
+      "slug": "move-zeroes",
+      "title": "Move Zeroes"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0284.Peeking Iterator",
+      "slug": "peeking-iterator",
+      "title": "Peeking Iterator"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0285.Inorder Successor in BST",
+      "slug": "inorder-successor-in-bst",
+      "title": "Inorder Successor in BST"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0286.Walls and Gates",
+      "slug": "walls-and-gates",
+      "title": "Walls and Gates"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0287.Find the Duplicate Number",
+      "slug": "find-the-duplicate-number",
+      "title": "Find the Duplicate Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0288.Unique Word Abbreviation",
+      "slug": "unique-word-abbreviation",
+      "title": "Unique Word Abbreviation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0289.Game of Life",
+      "slug": "game-of-life",
+      "title": "Game of Life"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0290.Word Pattern",
+      "slug": "word-pattern",
+      "title": "Word Pattern"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0291.Word Pattern II",
+      "slug": "word-pattern-ii",
+      "title": "Word Pattern II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0292.Nim Game",
+      "slug": "nim-game",
+      "title": "Nim Game"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0293.Flip Game",
+      "slug": "flip-game",
+      "title": "Flip Game"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0294.Flip Game II",
+      "slug": "flip-game-ii",
+      "title": "Flip Game II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0295.Find Median from Data Stream",
+      "slug": "find-median-from-data-stream",
+      "title": "Find Median from Data Stream"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0296.Best Meeting Point",
+      "slug": "best-meeting-point",
+      "title": "Best Meeting Point"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0297.Serialize and Deserialize Binary Tree",
+      "slug": "serialize-and-deserialize-binary-tree",
+      "title": "Serialize and Deserialize Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0298.Binary Tree Longest Consecutive Sequence",
+      "slug": "binary-tree-longest-consecutive-sequence",
+      "title": "Binary Tree Longest Consecutive Sequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0200-0299/0299.Bulls and Cows",
+      "slug": "bulls-and-cows",
+      "title": "Bulls and Cows"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0300.Longest Increasing Subsequence",
+      "slug": "longest-increasing-subsequence",
+      "title": "Longest Increasing Subsequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0301.Remove Invalid Parentheses",
+      "slug": "remove-invalid-parentheses",
+      "title": "Remove Invalid Parentheses"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0302.Smallest Rectangle Enclosing Black Pixels",
+      "slug": "smallest-rectangle-enclosing-black-pixels",
+      "title": "Smallest Rectangle Enclosing Black Pixels"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0303.Range Sum Query - Immutable",
+      "slug": "range-sum-query-immutable",
+      "title": "Range Sum Query - Immutable"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0304.Range Sum Query 2D - Immutable",
+      "slug": "range-sum-query-2d-immutable",
+      "title": "Range Sum Query 2D - Immutable"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0305.Number of Islands II",
+      "slug": "number-of-islands-ii",
+      "title": "Number of Islands II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0306.Additive Number",
+      "slug": "additive-number",
+      "title": "Additive Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0307.Range Sum Query - Mutable",
+      "slug": "range-sum-query-mutable",
+      "title": "Range Sum Query - Mutable"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0308.Range Sum Query 2D - Mutable",
+      "slug": "range-sum-query-2d-mutable",
+      "title": "Range Sum Query 2D - Mutable"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0309.Best Time to Buy and Sell Stock with Cooldown",
+      "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+      "title": "Best Time to Buy and Sell Stock with Cooldown"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0310.Minimum Height Trees",
+      "slug": "minimum-height-trees",
+      "title": "Minimum Height Trees"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0311.Sparse Matrix Multiplication",
+      "slug": "sparse-matrix-multiplication",
+      "title": "Sparse Matrix Multiplication"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0312.Burst Balloons",
+      "slug": "burst-balloons",
+      "title": "Burst Balloons"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0313.Super Ugly Number",
+      "slug": "super-ugly-number",
+      "title": "Super Ugly Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0314.Binary Tree Vertical Order Traversal",
+      "slug": "binary-tree-vertical-order-traversal",
+      "title": "Binary Tree Vertical Order Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0315.Count of Smaller Numbers After Self",
+      "slug": "count-of-smaller-numbers-after-self",
+      "title": "Count of Smaller Numbers After Self"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0316.Remove Duplicate Letters",
+      "slug": "remove-duplicate-letters",
+      "title": "Remove Duplicate Letters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0317.Shortest Distance from All Buildings",
+      "slug": "shortest-distance-from-all-buildings",
+      "title": "Shortest Distance from All Buildings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0318.Maximum Product of Word Lengths",
+      "slug": "maximum-product-of-word-lengths",
+      "title": "Maximum Product of Word Lengths"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0319.Bulb Switcher",
+      "slug": "bulb-switcher",
+      "title": "Bulb Switcher"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0320.Generalized Abbreviation",
+      "slug": "generalized-abbreviation",
+      "title": "Generalized Abbreviation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0321.Create Maximum Number",
+      "slug": "create-maximum-number",
+      "title": "Create Maximum Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0322.Coin Change",
+      "slug": "coin-change",
+      "title": "Coin Change"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0323.Number of Connected Components in an Undirected Graph",
+      "slug": "number-of-connected-components-in-an-undirected-graph",
+      "title": "Number of Connected Components in an Undirected Graph"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0324.Wiggle Sort II",
+      "slug": "wiggle-sort-ii",
+      "title": "Wiggle Sort II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0325.Maximum Size Subarray Sum Equals k",
+      "slug": "maximum-size-subarray-sum-equals-k",
+      "title": "Maximum Size Subarray Sum Equals k"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0326.Power of Three",
+      "slug": "power-of-three",
+      "title": "Power of Three"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0327.Count of Range Sum",
+      "slug": "count-of-range-sum",
+      "title": "Count of Range Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0328.Odd Even Linked List",
+      "slug": "odd-even-linked-list",
+      "title": "Odd Even Linked List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0329.Longest Increasing Path in a Matrix",
+      "slug": "longest-increasing-path-in-a-matrix",
+      "title": "Longest Increasing Path in a Matrix"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0330.Patching Array",
+      "slug": "patching-array",
+      "title": "Patching Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0331.Verify Preorder Serialization of a Binary Tree",
+      "slug": "verify-preorder-serialization-of-a-binary-tree",
+      "title": "Verify Preorder Serialization of a Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0332.Reconstruct Itinerary",
+      "slug": "reconstruct-itinerary",
+      "title": "Reconstruct Itinerary"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0333.Largest BST Subtree",
+      "slug": "largest-bst-subtree",
+      "title": "Largest BST Subtree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0334.Increasing Triplet Subsequence",
+      "slug": "increasing-triplet-subsequence",
+      "title": "Increasing Triplet Subsequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0335.Self Crossing",
+      "slug": "self-crossing",
+      "title": "Self Crossing"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0336.Palindrome Pairs",
+      "slug": "palindrome-pairs",
+      "title": "Palindrome Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0337.House Robber III",
+      "slug": "house-robber-iii",
+      "title": "House Robber III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0338.Counting Bits",
+      "slug": "counting-bits",
+      "title": "Counting Bits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0339.Nested List Weight Sum",
+      "slug": "nested-list-weight-sum",
+      "title": "Nested List Weight Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0340.Longest Substring with At Most K Distinct Characters",
+      "slug": "longest-substring-with-at-most-k-distinct-characters",
+      "title": "Longest Substring with At Most K Distinct Characters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0341.Flatten Nested List Iterator",
+      "slug": "flatten-nested-list-iterator",
+      "title": "Flatten Nested List Iterator"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0342.Power of Four",
+      "slug": "power-of-four",
+      "title": "Power of Four"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0343.Integer Break",
+      "slug": "integer-break",
+      "title": "Integer Break"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0344.Reverse String",
+      "slug": "reverse-string",
+      "title": "Reverse String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0345.Reverse Vowels of a String",
+      "slug": "reverse-vowels-of-a-string",
+      "title": "Reverse Vowels of a String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0346.Moving Average from Data Stream",
+      "slug": "moving-average-from-data-stream",
+      "title": "Moving Average from Data Stream"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0347.Top K Frequent Elements",
+      "slug": "top-k-frequent-elements",
+      "title": "Top K Frequent Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0348.Design Tic-Tac-Toe",
+      "slug": "design-tic-tac-toe",
+      "title": "Design Tic-Tac-Toe"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0349.Intersection of Two Arrays",
+      "slug": "intersection-of-two-arrays",
+      "title": "Intersection of Two Arrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0350.Intersection of Two Arrays II",
+      "slug": "intersection-of-two-arrays-ii",
+      "title": "Intersection of Two Arrays II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0351.Android Unlock Patterns",
+      "slug": "android-unlock-patterns",
+      "title": "Android Unlock Patterns"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0352.Data Stream as Disjoint Intervals",
+      "slug": "data-stream-as-disjoint-intervals",
+      "title": "Data Stream as Disjoint Intervals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0353.Design Snake Game",
+      "slug": "design-snake-game",
+      "title": "Design Snake Game"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0354.Russian Doll Envelopes",
+      "slug": "russian-doll-envelopes",
+      "title": "Russian Doll Envelopes"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0355.Design Twitter",
+      "slug": "design-twitter",
+      "title": "Design Twitter"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0356.Line Reflection",
+      "slug": "line-reflection",
+      "title": "Line Reflection"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0357.Count Numbers with Unique Digits",
+      "slug": "count-numbers-with-unique-digits",
+      "title": "Count Numbers with Unique Digits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0358.Rearrange String k Distance Apart",
+      "slug": "rearrange-string-k-distance-apart",
+      "title": "Rearrange String k Distance Apart"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0359.Logger Rate Limiter",
+      "slug": "logger-rate-limiter",
+      "title": "Logger Rate Limiter"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0360.Sort Transformed Array",
+      "slug": "sort-transformed-array",
+      "title": "Sort Transformed Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0361.Bomb Enemy",
+      "slug": "bomb-enemy",
+      "title": "Bomb Enemy"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0362.Design Hit Counter",
+      "slug": "design-hit-counter",
+      "title": "Design Hit Counter"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0363.Max Sum of Rectangle No Larger Than K",
+      "slug": "max-sum-of-rectangle-no-larger-than-k",
+      "title": "Max Sum of Rectangle No Larger Than K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0364.Nested List Weight Sum II",
+      "slug": "nested-list-weight-sum-ii",
+      "title": "Nested List Weight Sum II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0365.Water and Jug Problem",
+      "slug": "water-and-jug-problem",
+      "title": "Water and Jug Problem"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0366.Find Leaves of Binary Tree",
+      "slug": "find-leaves-of-binary-tree",
+      "title": "Find Leaves of Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0367.Valid Perfect Square",
+      "slug": "valid-perfect-square",
+      "title": "Valid Perfect Square"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0368.Largest Divisible Subset",
+      "slug": "largest-divisible-subset",
+      "title": "Largest Divisible Subset"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0369.Plus One Linked List",
+      "slug": "plus-one-linked-list",
+      "title": "Plus One Linked List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0370.Range Addition",
+      "slug": "range-addition",
+      "title": "Range Addition"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0371.Sum of Two Integers",
+      "slug": "sum-of-two-integers",
+      "title": "Sum of Two Integers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0372.Super Pow",
+      "slug": "super-pow",
+      "title": "Super Pow"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0373.Find K Pairs with Smallest Sums",
+      "slug": "find-k-pairs-with-smallest-sums",
+      "title": "Find K Pairs with Smallest Sums"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0374.Guess Number Higher or Lower",
+      "slug": "guess-number-higher-or-lower",
+      "title": "Guess Number Higher or Lower"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0375.Guess Number Higher or Lower II",
+      "slug": "guess-number-higher-or-lower-ii",
+      "title": "Guess Number Higher or Lower II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0376.Wiggle Subsequence",
+      "slug": "wiggle-subsequence",
+      "title": "Wiggle Subsequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0377.Combination Sum IV",
+      "slug": "combination-sum-iv",
+      "title": "Combination Sum IV"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0378.Kth Smallest Element in a Sorted Matrix",
+      "slug": "kth-smallest-element-in-a-sorted-matrix",
+      "title": "Kth Smallest Element in a Sorted Matrix"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0379.Design Phone Directory",
+      "slug": "design-phone-directory",
+      "title": "Design Phone Directory"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0380.Insert Delete GetRandom O(1)",
+      "slug": "insert-delete-getrandom-o1",
+      "title": "Insert Delete GetRandom O(1)"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0381.Insert Delete GetRandom O(1) - Duplicates allowed",
+      "slug": "insert-delete-getrandom-o1-duplicates-allowed",
+      "title": "Insert Delete GetRandom O(1) - Duplicates allowed"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0382.Linked List Random Node",
+      "slug": "linked-list-random-node",
+      "title": "Linked List Random Node"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0383.Ransom Note",
+      "slug": "ransom-note",
+      "title": "Ransom Note"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0384.Shuffle an Array",
+      "slug": "shuffle-an-array",
+      "title": "Shuffle an Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0385.Mini Parser",
+      "slug": "mini-parser",
+      "title": "Mini Parser"
     }
   ],
   "skipped": [

@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Linked List',
     'kind' => 'algo',
     'tags' => ['linked-list', 'two-pointers', 'palindrome', 'leetcode'],
+    'related_session' => 'palindrome-linked-list',
 ];

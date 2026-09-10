@@ -1,0 +1,14 @@
+{
+  "slug": "alibaba",
+  "name": "Alibaba",
+  "url": "https://leetcode.com/company/alibaba/?favoriteSlug=alibaba-all",
+  "favoriteSlug": "alibaba-all",
+  "updatedAt": "2026-09-08T08:56:43Z",
+  "problems": [
+    215,
+    548,
+    555,
+    666,
+    678
+  ]
+}

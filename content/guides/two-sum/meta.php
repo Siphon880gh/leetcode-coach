@@ -4,6 +4,7 @@ declare(strict_types=1);
 return [
     'title' => 'Two Sum: hash map in O(n)',
     'leetcode' => 1,
+    'difficulty' => 'Easy',
     'summary' => 'Find two indices that add up to a target using a single pass and a hash map — classic LeetCode arrays pattern.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',

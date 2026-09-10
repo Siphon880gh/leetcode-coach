@@ -6,7 +6,7 @@ Invoke from the repo root. Copy the **Invoke** block inside each prompt.
 
 ## Author from `context/`
 
-These three walk the cloned libraries under `context/` (alphabetical repo order). They **create** artifacts. If the same slug already exists on the other side, they set that one pair’s companion keys. They do not backfill every pair. Authoring an Algo Guide or Step-by-step also scans `content/games/` for a matching mini game (same slug, related keys, or same `leetcode`) and sets `related_game`.
+These three walk the cloned libraries under `context/` (alphabetical repo order). They **create** artifacts. Numbered LeetCode problems must set `'leetcode'` and `'difficulty'` (`Easy` | `Med` | `Hard`) from `context-leetcode-urls/data-difficulty.json`. If the same slug already exists on the other side, they set that one pair’s companion keys. They do not backfill every pair. Authoring an Algo Guide or Step-by-step also scans `content/games/` for a matching mini game (same slug, related keys, or same `leetcode`) and sets `related_game`.
 
 | Prompt | Writes | Notes |
 |--------|--------|--------|

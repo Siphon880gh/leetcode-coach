@@ -26,6 +26,7 @@ return [
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays', // {category} · {subcategory}
     'leetcode' => 1, // omit when not a numbered LeetCode problem
+    'difficulty' => 'Easy', // Easy | Med | Hard when leetcode is set; look up from data-difficulty.json
     // guides only:
     'kind' => 'algo', // 'algo' → Algo Guides nav | 'cursor' → Cursor AI Guides nav
     'tags' => ['arrays', 'O(n)'],

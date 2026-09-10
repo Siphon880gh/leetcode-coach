@@ -1,0 +1,14 @@
+{
+  "slug": "reddit",
+  "name": "Reddit",
+  "url": "https://leetcode.com/company/reddit/?favoriteSlug=reddit-all",
+  "favoriteSlug": "reddit-all",
+  "updatedAt": "2026-09-08T08:52:39Z",
+  "problems": [
+    127,
+    146,
+    359,
+    362,
+    2240
+  ]
+}

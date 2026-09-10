@@ -60,7 +60,8 @@ Every `meta.php` must include:
 | `category` | yes | `LeetCode`, `Algorithms`, `Data Structures`, `System Design`, or `Harness` |
 | `subcategory` | yes | Primary pattern or structure (`Arrays`, `Trees`, `Dynamic Programming`, `Cursor`, …) |
 | `topic` | yes | `{category} · {subcategory}` — display fallback |
-| `leetcode` | no | Integer LeetCode id when this is a numbered problem (`1`, `158`). Shown on its own row. Never put it in `title`. |
+| `leetcode` | no | Integer LeetCode id when this is a numbered problem (`1`, `158`). Shown on its own row. Never put the number in `title`. |
+| `difficulty` | when `leetcode` is set | `Easy`, `Med`, or `Hard`. Look up from `context-leetcode-urls/data-difficulty.json` (do not Read() the file whole). Never put it in `title`. |
 
 **How to file**
 
@@ -73,6 +74,18 @@ Every `meta.php` must include:
 | Cursor / this app’s harness | `Harness` | Cursor |
 
 Pick one subcategory — the main pattern the artifact teaches.
+
+### Difficulty (numbered LeetCode)
+
+When `'leetcode' => N` is set, also set `'difficulty' => 'Easy'|'Med'|'Hard'`.
+
+From the repo root (replace `N`; do not `Read()` `data-difficulty.json` whole):
+
+```bash
+python3 -c "import json,sys; n=sys.argv[1]; print(json.load(open('context-leetcode-urls/data-difficulty.json')).get(n,''))" N
+```
+
+Use that value. If it prints empty, take Easy/Med/Hard from the context writeup only if it states official LeetCode difficulty. Do not invent. Omit `difficulty` when this is not a numbered LeetCode problem (hello-algo, labuladong essays, Cursor AI Guides, …).
 
 ---
 
@@ -107,6 +120,7 @@ Prefer `body.md` for all new guides. Legacy `body.php` still renders if `body.md
 | `subcategory` | yes | Primary pattern (`Arrays`, `Trees`, `Cursor`, …) |
 | `topic` | yes | `{category} · {subcategory}` |
 | `leetcode` | no | Integer LeetCode id for numbered problems. Own row in the UI — not part of `title`. |
+| `difficulty` | when `leetcode` is set | `Easy`, `Med`, or `Hard` (see **Difficulty** above). |
 | `kind` | yes | `cursor` or `algo` |
 | `tags` | yes | string[] |
 | `related_session` | no | Same slug as a Step-by-step under `content/coaching/{slug}/`. Chrome on the guide: **Step-by-step** → `coaching/session.php?id={slug}` |
@@ -172,6 +186,7 @@ content/games/{slug}/
 | `topic` | yes | `{category} · {subcategory}` |
 | `tags` | yes | string[] |
 | `leetcode` | no | Integer LeetCode id for numbered problems. Own row in the UI — not part of `title`. |
+| `difficulty` | when `leetcode` is set | `Easy`, `Med`, or `Hard` (see **Difficulty** above). |
 | `entry` | no | Default `index.html` |
 | `related_guide` | when a matching Algo Guide exists | Algo Guide slug. Chrome: **Algo Guide** → `guides/view.php?id={slug}` |
 | `related_session` | when a matching Step-by-step exists | Step-by-step slug. Chrome: **Step-by-step** → `coaching/session.php?id={slug}` |
@@ -209,7 +224,7 @@ content/coaching/{slug}/
   tree.php
 ```
 
-**meta.php keys** — same shape as guides (`title`, `summary`, `category`, `subcategory`, `topic`, `tags`; optional `leetcode` integer for numbered LeetCode problems, never folded into `title`; optional `related_guide` — Algo Guide chrome; optional `related_game` — Mini game chrome **Mini game** → `games/play.php?id={slug}`)
+**meta.php keys** — same shape as guides (`title`, `summary`, `category`, `subcategory`, `topic`, `tags`; optional `leetcode` integer for numbered LeetCode problems, never folded into `title`; `'difficulty' => 'Easy'|'Med'|'Hard'` whenever `leetcode` is set; optional `related_guide` — Algo Guide chrome; optional `related_game` — Mini game chrome **Mini game** → `games/play.php?id={slug}`)
 
 **tree.php**
 
@@ -247,7 +262,7 @@ return [
 ## Workflow checklist
 
 1. Confirm which artifact (guide / game / step-by-step)
-2. Pick slug, category, subcategory, and tags
+2. Pick slug, category, subcategory, and tags. For numbered LeetCode, look up Easy/Med/Hard and set `'leetcode'` + `'difficulty'`
 3. Write files under the correct `content/.../{slug}/` tree
 4. For guides: write `body.md`; add `[!ui-builder]` when the student should fill variables before copying a Cursor prompt
 5. Match contracts exactly so list/view/play/session pick them up

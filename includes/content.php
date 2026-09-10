@@ -216,6 +216,100 @@ function content_leetcode_url(int $n): ?string
     return $url;
 }
 
+/**
+ * Normalize a difficulty string to Easy, Med, or Hard.
+ *
+ * @param mixed $raw
+ */
+function content_leetcode_normalize_difficulty($raw): ?string
+{
+    if (!is_string($raw)) {
+        return null;
+    }
+
+    $key = strtolower(rtrim(trim($raw), '.'));
+    if ($key === 'easy') {
+        return 'Easy';
+    }
+    if ($key === 'med' || $key === 'medium') {
+        return 'Med';
+    }
+    if ($key === 'hard') {
+        return 'Hard';
+    }
+
+    return null;
+}
+
+/**
+ * Official LeetCode difficulty for a numbered problem: Easy, Med, or Hard.
+ */
+function content_leetcode_difficulty(int $n): ?string
+{
+    static $map = null;
+    if ($map === null) {
+        $path = dirname(__DIR__) . '/context-leetcode-urls/data-difficulty.json';
+        $raw = is_file($path) ? file_get_contents($path) : false;
+        $decoded = is_string($raw) ? json_decode($raw, true) : null;
+        $map = is_array($decoded) ? $decoded : [];
+    }
+
+    $raw = $map[$n] ?? $map[(string) $n] ?? null;
+    if (!is_string($raw)) {
+        return null;
+    }
+
+    return content_leetcode_normalize_difficulty($raw);
+}
+
+/**
+ * Difficulty for a content item: map for the LeetCode id, else meta.difficulty.
+ *
+ * @param mixed $meta
+ */
+function content_leetcode_difficulty_for_meta($meta): ?string
+{
+    $n = content_leetcode_number($meta);
+    if ($n !== null) {
+        $mapped = content_leetcode_difficulty($n);
+        if ($mapped !== null) {
+            return $mapped;
+        }
+    }
+    if (!is_array($meta)) {
+        return null;
+    }
+
+    return content_leetcode_normalize_difficulty($meta['difficulty'] ?? null);
+}
+
+function content_leetcode_difficulty_class(string $label): string
+{
+    if ($label === 'Easy') {
+        return 'easy';
+    }
+    if ($label === 'Hard') {
+        return 'hard';
+    }
+
+    return 'med';
+}
+
+/**
+ * @param mixed $meta
+ */
+function content_leetcode_difficulty_html($meta): string
+{
+    $label = content_leetcode_difficulty_for_meta($meta);
+    if ($label === null) {
+        return '';
+    }
+
+    $class = content_leetcode_difficulty_class($label);
+
+    return '<span class="leetcode-diff leetcode-diff--' . e($class) . '">' . e($label) . '</span>';
+}
+
 function content_leetcode_label_html(int $n): string
 {
     $label = 'LeetCode ' . e((string) $n);
@@ -229,7 +323,7 @@ function content_leetcode_label_html(int $n): string
 
 function content_leetcode_company_level_rank(string $level): int
 {
-    if (preg_match('/^([1-5])-/', $level, $m) === 1) {
+    if (preg_match('/^([1-8])-/', $level, $m) === 1) {
         return (int) $m[1];
     }
 
@@ -534,9 +628,10 @@ function content_leetcode_companies_grouped(): array
         ];
     }
 
+    $otherIds = ['6-Unpriceable', '7-Cooldown', '8-WillPrice'];
     $out = [];
     foreach ($grouped as $group) {
-        if ($group['companies'] !== []) {
+        if ($group['companies'] !== [] || in_array($group['id'], $otherIds, true)) {
             $out[] = $group;
         }
     }
@@ -604,11 +699,11 @@ function content_youtube_link_html(int $n, string $title, bool $labeled = false)
 }
 
 /**
- * LeetCode number link plus YouTube search icon for numbered problems.
+ * LeetCode number, Easy/Med/Hard, and YouTube search for numbered problems.
  *
  * @param mixed $meta
  */
-function content_leetcode_chrome_html($meta): string
+function content_leetcode_chrome_html($meta, bool $labeledYoutube = false): string
 {
     $n = content_leetcode_number($meta);
     if ($n === null) {
@@ -616,11 +711,17 @@ function content_leetcode_chrome_html($meta): string
     }
     $title = is_array($meta) ? (string) ($meta['title'] ?? '') : '';
 
-    return '<span class="leetcode-no__line">'
+    $line = '<span class="leetcode-no__line">'
         . '<span class="leetcode-no__id">'
         . content_leetcode_label_html($n)
         . '</span>'
-        . content_youtube_link_html($n, $title)
+        . content_leetcode_difficulty_html($meta);
+    if ($labeledYoutube) {
+        $line .= '<span class="leetcode-no__sep" aria-hidden="true"></span>';
+    }
+
+    return $line
+        . content_youtube_link_html($n, $title, $labeledYoutube)
         . '</span>'
         . content_leetcode_companies_html($n);
 }
@@ -902,7 +1003,7 @@ function filter_content_taxonomy(array $items, string $cat, string $sub): array
 }
 
 /**
- * Lowercased haystack for Browse search (title, slug, taxonomy, summary, tags, LeetCode id, company names).
+ * Lowercased haystack for Browse search (title, slug, taxonomy, summary, tags, LeetCode id, difficulty, company names).
  *
  * @param array{slug?: string, meta?: mixed} $item
  */
@@ -921,6 +1022,13 @@ function content_browse_query_haystack(array $item): string
     if ($lc !== null) {
         $parts[] = (string) $lc;
         $parts[] = 'leetcode ' . $lc;
+        $difficulty = content_leetcode_difficulty_for_meta($meta);
+        if ($difficulty !== null) {
+            $parts[] = $difficulty;
+            if ($difficulty === 'Med') {
+                $parts[] = 'medium';
+            }
+        }
         foreach (content_leetcode_company_names($lc) as $companyName) {
             $parts[] = $companyName;
         }
@@ -954,6 +1062,58 @@ function user_tag_section(string $script): string
 function user_tag_resource_key(string $script, string $slug): string
 {
     return user_tag_section($script) . ':' . $slug;
+}
+
+/**
+ * @return list<array{id: string, label: string}>
+ */
+function content_leetcode_difficulty_options(): array
+{
+    return [
+        ['id' => 'easy', 'label' => 'Easy'],
+        ['id' => 'med', 'label' => 'Med'],
+        ['id' => 'hard', 'label' => 'Hard'],
+    ];
+}
+
+function render_content_filter_difficulty(): void
+{
+    ?>
+    <div class="filter-tags filter-difficulty" data-filter-difficulty>
+        <button
+            type="button"
+            class="filter-tags__btn"
+            data-filter-difficulty-btn
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="resource-filter-difficulty"
+        >
+            <span class="filter-tags__caret" aria-hidden="true">◂</span>
+            Difficulty
+        </button>
+        <div
+            id="resource-filter-difficulty"
+            class="filter-tags__panel"
+            data-filter-difficulty-panel
+            hidden
+            role="dialog"
+            aria-label="Difficulty"
+        >
+            <ul class="pop__list">
+                <?php foreach (content_leetcode_difficulty_options() as $opt): ?>
+                    <li>
+                        <button
+                            type="button"
+                            class="pop__opt"
+                            data-filter-difficulty-opt="<?= e($opt['id']) ?>"
+                            aria-pressed="false"
+                        ><span class="leetcode-diff leetcode-diff--<?= e($opt['id']) ?>"><?= e($opt['label']) ?></span></button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <?php
 }
 
 /**
@@ -1092,16 +1252,7 @@ function render_resource_head_chrome(string $from, array $meta, string $ownSlug,
 
     $n = content_leetcode_number($meta);
     if ($n !== null) {
-        echo '<p class="leetcode-no">'
-            . '<span class="leetcode-no__line">'
-            . '<span class="leetcode-no__id">'
-            . content_leetcode_label_html($n)
-            . '</span>'
-            . '<span class="leetcode-no__sep" aria-hidden="true"></span>'
-            . content_youtube_link_html($n, (string) ($meta['title'] ?? ''), true)
-            . '</span>'
-            . content_leetcode_companies_html($n)
-            . '</p>';
+        echo '<p class="leetcode-no">' . content_leetcode_chrome_html($meta, true) . '</p>';
     }
 
     render_companion_link($from, $meta, $ownSlug);
@@ -1172,7 +1323,8 @@ function render_content_browse(array $items, array $opts): void
     $userTags = !empty($opts['user_tags']);
     $tagSection = user_tag_section($script);
     $companyGroups = content_browse_has_leetcode($items) ? content_leetcode_companies_grouped() : [];
-    $hasFlyouts = $userTags || $companyGroups !== [];
+    $hasDifficulty = content_browse_has_leetcode($items);
+    $hasFlyouts = $userTags || $companyGroups !== [] || $hasDifficulty;
     /** @var callable $itemHref */
     $itemHref = $opts['item_href'];
 
@@ -1354,6 +1506,9 @@ function render_content_browse(array $items, array $opts): void
                                 </div>
                             </div>
                         <?php endif; ?>
+                        <?php if ($hasDifficulty): ?>
+                            <?php render_content_filter_difficulty(); ?>
+                        <?php endif; ?>
                         <?php if ($companyGroups !== []): ?>
                             <?php render_content_filter_companies($companyGroups); ?>
                         <?php endif; ?>
@@ -1427,8 +1582,10 @@ function render_content_browse(array $items, array $opts): void
                         $tags = $meta['tags'] ?? [];
                         $lc = content_leetcode_number($meta);
                         $companySlugs = $lc !== null ? content_leetcode_company_slugs($lc) : [];
+                        $difficulty = content_leetcode_difficulty_for_meta($meta);
+                        $difficultyClass = $difficulty !== null ? content_leetcode_difficulty_class($difficulty) : '';
                         ?>
-                        <li class="content-tile" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($companySlugs !== []): ?> data-companies="<?= e(implode(' ', $companySlugs)) ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
+                        <li class="content-tile" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($difficultyClass !== ''): ?> data-difficulty="<?= e($difficultyClass) ?>"<?php endif; ?><?php if ($companySlugs !== []): ?> data-companies="<?= e(implode(' ', $companySlugs)) ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
                             <?php render_content_crumb($meta, $script, $baseQuery); ?>
                             <div class="content-tile__body">
                                 <a class="content-tile__goto" href="<?= e($href) ?>">

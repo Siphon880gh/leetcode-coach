@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Dynamic Programming',
     'kind' => 'algo',
     'tags' => ['dynamic-programming', 'digit-dp', 'math', 'leetcode'],
+    'related_session' => 'number-of-digit-one',
 ];

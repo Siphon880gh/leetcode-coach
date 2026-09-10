@@ -1,0 +1,26 @@
+{
+  "slug": "bookingcom",
+  "name": "Booking.com",
+  "url": "https://leetcode.com/company/bookingcom/?favoriteSlug=bookingcom-all",
+  "favoriteSlug": "bookingcom-all",
+  "updatedAt": "2026-09-08T08:51:55Z",
+  "problems": [
+    12,
+    13,
+    20,
+    32,
+    46,
+    49,
+    146,
+    207,
+    221,
+    239,
+    332,
+    1034,
+    1948,
+    2032,
+    2146,
+    2159,
+    2512
+  ]
+}

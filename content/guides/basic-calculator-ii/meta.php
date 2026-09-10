@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Stack',
     'kind' => 'algo',
     'tags' => ['stack', 'math', 'string', 'leetcode'],
+    'related_session' => 'basic-calculator-ii',
 ];

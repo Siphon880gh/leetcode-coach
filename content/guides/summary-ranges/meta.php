@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Arrays',
     'kind' => 'algo',
     'tags' => ['arrays', 'two-pointers', 'intervals', 'leetcode'],
+    'related_session' => 'summary-ranges',
 ];

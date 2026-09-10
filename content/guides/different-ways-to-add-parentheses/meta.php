@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Divide and Conquer',
     'kind' => 'algo',
     'tags' => ['divide-and-conquer', 'memoization', 'recursion', 'leetcode'],
+    'related_session' => 'different-ways-to-add-parentheses',
 ];

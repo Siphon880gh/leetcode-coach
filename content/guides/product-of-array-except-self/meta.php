@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Arrays',
     'kind' => 'algo',
     'tags' => ['arrays', 'prefix-product', 'leetcode'],
+    'related_session' => 'product-of-array-except-self',
 ];

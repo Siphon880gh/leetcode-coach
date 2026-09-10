@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Trees',
     'kind' => 'algo',
     'tags' => ['trees', 'dfs', 'lca', 'leetcode'],
+    'related_session' => 'lowest-common-ancestor-of-a-binary-tree',
 ];

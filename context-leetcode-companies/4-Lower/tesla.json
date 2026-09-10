@@ -1,0 +1,14 @@
+{
+  "slug": "tesla",
+  "name": "Tesla",
+  "url": "https://leetcode.com/company/tesla/?favoriteSlug=tesla-six-months",
+  "favoriteSlug": "tesla-six-months",
+  "updatedAt": "2026-09-08T08:28:03Z",
+  "problems": [
+    223,
+    767,
+    909,
+    2115,
+    2502
+  ]
+}

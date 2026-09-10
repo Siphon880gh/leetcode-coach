@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Parse context-leetcode-urls/data-input.html into data-cleaned.json."""
+"""Parse context-leetcode-urls/data-input.html into URL and difficulty maps."""
 
 from __future__ import annotations
 
@@ -12,6 +12,17 @@ ROW_RE = re.compile(
     r'<a href="(/problems/[^"?#]+)[^"]*"[\s\S]*?line-clamp-1">(\d+)\.\s*',
     re.IGNORECASE,
 )
+
+DIFF_RE = re.compile(
+    r'line-clamp-1">(\d+)\.\s[\s\S]{0,1500}?text-sd-(easy|medium|hard)',
+    re.IGNORECASE,
+)
+
+DIFF_LABEL = {
+    "easy": "Easy",
+    "medium": "Med",
+    "hard": "Hard",
+}
 
 
 def repo_root() -> Path:
@@ -26,6 +37,7 @@ def main() -> int:
     root = repo_root()
     src = root / "context-leetcode-urls" / "data-input.html"
     dest = root / "context-leetcode-urls" / "data-cleaned.json"
+    dest_diff = root / "context-leetcode-urls" / "data-difficulty.json"
 
     if not src.is_file():
         print(f"missing {src}", file=sys.stderr)
@@ -53,14 +65,42 @@ def main() -> int:
             print(f"  {line}", file=sys.stderr)
         return 1
 
+    diffs: dict[int, str] = {}
+    diff_conflicts: list[str] = []
+    for num_s, raw in DIFF_RE.findall(html):
+        n = int(num_s)
+        label = DIFF_LABEL.get(raw.lower())
+        if label is None:
+            continue
+        if n in diffs and diffs[n] != label:
+            diff_conflicts.append(f"{n}: {diffs[n]} vs {label}")
+            continue
+        diffs[n] = label
+
+    if not diffs:
+        print("no difficulty labels found in data-input.html", file=sys.stderr)
+        return 1
+
+    if diff_conflicts:
+        print("conflicting difficulty for the same problem number:", file=sys.stderr)
+        for line in diff_conflicts[:20]:
+            print(f"  {line}", file=sys.stderr)
+        return 1
+
     ordered = {str(k): mapping[k] for k in sorted(mapping)}
     dest.write_text(json.dumps(ordered, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    ordered_diff = {str(k): diffs[k] for k in sorted(diffs)}
+    dest_diff.write_text(json.dumps(ordered_diff, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     print(f"wrote {dest}")
     print(f"count {len(ordered)}")
     print(f"min {min(mapping)}")
     print(f"max {max(mapping)}")
     print(f"1 {ordered.get('1', '(missing)')}")
+    print(f"wrote {dest_diff}")
+    print(f"difficulty {len(ordered_diff)}")
+    print(f"1 {ordered_diff.get('1', '(missing)')}")
     return 0
 
 

@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Arrays',
     'kind' => 'algo',
     'tags' => ['arrays', 'boyer-moore', 'voting', 'leetcode'],
+    'related_session' => 'majority-element-ii',
 ];

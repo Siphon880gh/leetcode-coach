@@ -1180,6 +1180,7 @@
       if (tagsRoot && tagsBtn && tagsPanel) {
         tagsRoot.addEventListener('mouseenter', function () {
           closeFilterCompaniesFlyout(root, true);
+          closeFilterDifficultyFlyout(root, true);
           setTagsOpen(true);
         });
         tagsRoot.addEventListener('mouseleave', function () {
@@ -1188,6 +1189,8 @@
         tagsBtn.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
+          closeFilterCompaniesFlyout(root, true);
+          closeFilterDifficultyFlyout(root, true);
           if (tagsPanel.hidden) {
             tagsRoot.classList.add('is-pinned');
             setTagsOpen(true);
@@ -1307,6 +1310,51 @@
     return false;
   }
 
+  var DIFFICULTY_FILTER_IDS = ['easy', 'med', 'hard'];
+
+  function difficultyFilterStorageKey() {
+    return 'algos-difficulty-filter-v1:' + browsePersistKey().slice(BROWSE_PERSIST_PREFIX.length);
+  }
+
+  function readDifficultyFilter() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(difficultyFilterStorageKey()) || 'null');
+      if (!Array.isArray(raw)) return [];
+      return raw.filter(function (id) {
+        return DIFFICULTY_FILTER_IDS.indexOf(id) >= 0;
+      });
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function writeDifficultyFilter(ids) {
+    try {
+      var key = difficultyFilterStorageKey();
+      if (!ids.length) localStorage.removeItem(key);
+      else localStorage.setItem(key, JSON.stringify(ids));
+    } catch (err) {}
+  }
+
+  function tileMatchesDifficulty(tile, selected) {
+    if (!selected.length) return true;
+    var have = tile.getAttribute('data-difficulty') || '';
+    return selected.indexOf(have) >= 0;
+  }
+
+  function paintDifficultyFilterOptions(root, selected) {
+    var selectedSet = {};
+    selected.forEach(function (id) {
+      selectedSet[id] = true;
+    });
+    root.querySelectorAll('[data-filter-difficulty-opt]').forEach(function (btn) {
+      var id = btn.getAttribute('data-filter-difficulty-opt');
+      var on = !!selectedSet[id];
+      btn.classList.toggle('is-current', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
   function companySlugsInLevel(level) {
     return Array.prototype.map.call(level.querySelectorAll('[data-filter-company]'), function (btn) {
       return btn.getAttribute('data-filter-company') || '';
@@ -1343,12 +1391,14 @@
     if (!root) return;
     var selectedTags = root._filterTagIds || [];
     var selectedCompanies = root._companyFilterSlugs || [];
+    var selectedDifficulty = root._difficultyFilterIds || [];
     var q = browseSearchQuery(root);
     var tiles = root.querySelectorAll('.content-tile');
     var headingCount = root.querySelector('.browse__heading .resource-n');
     var filterBtn = root.querySelector('[aria-controls="resource-filter"]');
     var tagsBtn = root.querySelector('[data-filter-tags-btn]');
     var companiesBtn = root.querySelector('[data-filter-companies-btn]');
+    var difficultyBtn = root.querySelector('[data-filter-difficulty-btn]');
     var clearBtn = root.querySelector('[data-filter-clear]');
     var emptyEl = root.querySelector('[data-user-tag-empty]');
     var browseEmpty = root.querySelector('[data-browse-empty]');
@@ -1370,8 +1420,9 @@
         }
       }
       var companyOk = tileMatchesCompanies(tile, selectedCompanies);
+      var difficultyOk = tileMatchesDifficulty(tile, selectedDifficulty);
       var searchOk = browseTileMatches(tile, q);
-      var visible = tagOk && companyOk && searchOk;
+      var visible = tagOk && companyOk && difficultyOk && searchOk;
       tile.hidden = !visible;
       tile.classList.toggle('is-browse-miss', !visible);
       if (visible) {
@@ -1385,13 +1436,16 @@
     if (currentTopicN) currentTopicN.textContent = '(' + shown + ')';
     if (browseEmpty) browseEmpty.hidden = !(q !== '' && !anyShown);
     if (emptyEl) {
-      var filterMiss = q === '' && (selectedTags.length > 0 || selectedCompanies.length > 0) && !anyShown;
+      var filterMiss = q === '' && (selectedTags.length > 0 || selectedCompanies.length > 0 || selectedDifficulty.length > 0) && !anyShown;
       emptyEl.hidden = !filterMiss;
       if (filterMiss) {
-        if (selectedTags.length && selectedCompanies.length) {
+        var kinds = (selectedTags.length ? 1 : 0) + (selectedCompanies.length ? 1 : 0) + (selectedDifficulty.length ? 1 : 0);
+        if (kinds > 1) {
           emptyEl.textContent = 'No resources match those filters.';
         } else if (selectedCompanies.length) {
           emptyEl.textContent = 'No resources for those companies.';
+        } else if (selectedDifficulty.length) {
+          emptyEl.textContent = 'No resources at that difficulty.';
         } else {
           emptyEl.textContent = 'No resources with that tag.';
         }
@@ -1401,15 +1455,19 @@
     var topicOn = !!(filterBtn && filterBtn.classList.contains('is-active'));
     var tagOn = selectedTags.length > 0;
     var companyOn = selectedCompanies.length > 0;
+    var difficultyOn = selectedDifficulty.length > 0;
     if (filterBtn) {
-      filterBtn.classList.toggle('has-filter', topicOn || tagOn || companyOn);
+      filterBtn.classList.toggle('has-filter', topicOn || tagOn || companyOn || difficultyOn);
       filterBtn.classList.toggle('has-tag-filter', tagOn);
       filterBtn.classList.toggle('has-company-filter', companyOn);
+      filterBtn.classList.toggle('has-difficulty-filter', difficultyOn);
     }
     if (tagsBtn) tagsBtn.classList.toggle('has-tag-filter', tagOn);
     if (companiesBtn) companiesBtn.classList.toggle('has-company-filter', companyOn);
-    if (clearBtn) clearBtn.hidden = !(topicOn || tagOn || companyOn);
+    if (difficultyBtn) difficultyBtn.classList.toggle('has-difficulty-filter', difficultyOn);
+    if (clearBtn) clearBtn.hidden = !(topicOn || tagOn || companyOn || difficultyOn);
     paintCompanyFilterOptions(root, selectedCompanies);
+    paintDifficultyFilterOptions(root, selectedDifficulty);
   }
 
   function bindFilterClear(root) {
@@ -1425,6 +1483,7 @@
       var href = clearBtn.getAttribute('href');
       var tasks = [];
       if (typeof root._clearCompanyFilter === 'function') tasks.push(root._clearCompanyFilter());
+      if (typeof root._clearDifficultyFilter === 'function') tasks.push(root._clearDifficultyFilter());
       if (typeof root._clearTagFilters === 'function') tasks.push(root._clearTagFilters());
       Promise.all(tasks).then(function () {
         if (topicOn && href) {
@@ -1467,11 +1526,21 @@
     });
   }
 
+  function closeFilterDifficultyFlyout(root, unpin) {
+    var wrap = root.querySelector('[data-filter-difficulty]');
+    var btn = root.querySelector('[data-filter-difficulty-btn]');
+    var panel = root.querySelector('[data-filter-difficulty-panel]');
+    if (unpin && wrap) wrap.classList.remove('is-pinned');
+    if (panel) panel.hidden = true;
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
+
   function closeFilterNested(panel) {
     if (!panel) return;
     var root = panel.closest('.browse') || panel;
     closeFilterTagsFlyout(root, true);
     closeFilterCompaniesFlyout(root, true);
+    closeFilterDifficultyFlyout(root, true);
   }
 
   function initCompanyFilter() {
@@ -1522,6 +1591,7 @@
 
     wrap.addEventListener('mouseenter', function () {
       closeFilterTagsFlyout(root, true);
+      closeFilterDifficultyFlyout(root, true);
       setCompaniesOpen(true);
     });
     wrap.addEventListener('mouseleave', function () {
@@ -1531,6 +1601,7 @@
       e.preventDefault();
       e.stopPropagation();
       closeFilterTagsFlyout(root, true);
+      closeFilterDifficultyFlyout(root, true);
       if (companiesPanel.hidden) {
         wrap.classList.add('is-pinned');
         setCompaniesOpen(true);
@@ -1625,6 +1696,101 @@
   }
 
   initCompanyFilter();
+
+  function initDifficultyFilter() {
+    var wrap = document.querySelector('[data-filter-difficulty]');
+    var root = wrap && wrap.closest('.browse');
+    if (!wrap || !root) return;
+
+    var difficultyBtn = wrap.querySelector('[data-filter-difficulty-btn]');
+    var difficultyPanel = wrap.querySelector('[data-filter-difficulty-panel]');
+    if (!difficultyBtn || !difficultyPanel) return;
+
+    root._difficultyFilterIds = readDifficultyFilter();
+
+    function setSelected(ids) {
+      var seen = {};
+      var next = [];
+      ids.forEach(function (id) {
+        if (DIFFICULTY_FILTER_IDS.indexOf(id) < 0 || seen[id]) return;
+        seen[id] = true;
+        next.push(id);
+      });
+      root._difficultyFilterIds = next;
+      writeDifficultyFilter(next);
+      if (next.length) wrap.classList.add('is-pinned');
+      if (typeof root._applyResourceFilter === 'function') root._applyResourceFilter();
+      applyBrowseTileFilters(root);
+    }
+
+    function setDifficultyOpen(open) {
+      if (!open && !wrap.classList.contains('is-pinned')) {
+        closeFilterDifficultyFlyout(root, false);
+        return;
+      }
+      if (!open) {
+        closeFilterDifficultyFlyout(root, true);
+        return;
+      }
+      difficultyPanel.hidden = false;
+      difficultyBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    wrap.addEventListener('mouseenter', function () {
+      closeFilterTagsFlyout(root, true);
+      closeFilterCompaniesFlyout(root, true);
+      setDifficultyOpen(true);
+    });
+    wrap.addEventListener('mouseleave', function () {
+      if (!wrap.classList.contains('is-pinned')) setDifficultyOpen(false);
+    });
+    difficultyBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeFilterTagsFlyout(root, true);
+      closeFilterCompaniesFlyout(root, true);
+      if (difficultyPanel.hidden) {
+        wrap.classList.add('is-pinned');
+        setDifficultyOpen(true);
+      } else if (wrap.classList.contains('is-pinned')) {
+        setDifficultyOpen(false);
+      } else {
+        wrap.classList.add('is-pinned');
+        setDifficultyOpen(true);
+      }
+    });
+    difficultyPanel.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+
+    wrap.querySelectorAll('[data-filter-difficulty-opt]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var id = btn.getAttribute('data-filter-difficulty-opt');
+        if (!id) return;
+        var current = (root._difficultyFilterIds || []).slice();
+        var idx = current.indexOf(id);
+        if (idx >= 0) current.splice(idx, 1);
+        else current.push(id);
+        setSelected(current);
+      });
+    });
+
+    root._clearDifficultyFilter = function () {
+      setSelected([]);
+      return Promise.resolve();
+    };
+    if (typeof root._applyResourceFilter !== 'function') {
+      root._applyResourceFilter = function () {
+        applyBrowseTileFilters(root);
+      };
+    }
+    bindFilterClear(root);
+    applyBrowseTileFilters(root);
+  }
+
+  initDifficultyFilter();
 
   function syncBrowseIndicator(root) {
     var btn = root.querySelector('[aria-controls="resource-browse"]');

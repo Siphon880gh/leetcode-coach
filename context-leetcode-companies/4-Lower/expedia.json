@@ -1,0 +1,11 @@
+{
+  "slug": "expedia",
+  "name": "Expedia",
+  "url": "https://leetcode.com/company/expedia/?favoriteSlug=expedia-three-months",
+  "favoriteSlug": "expedia-three-months",
+  "updatedAt": "2026-09-08T08:30:20Z",
+  "problems": [
+    452,
+    2434
+  ]
+}

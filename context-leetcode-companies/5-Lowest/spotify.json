@@ -1,0 +1,23 @@
+{
+  "slug": "spotify",
+  "name": "Spotify",
+  "url": "https://leetcode.com/company/spotify/?favoriteSlug=spotify-all",
+  "favoriteSlug": "spotify-all",
+  "updatedAt": "2026-09-08T08:56:12Z",
+  "problems": [
+    1,
+    3,
+    20,
+    104,
+    125,
+    215,
+    295,
+    346,
+    383,
+    480,
+    509,
+    1152,
+    1917,
+    1919
+  ]
+}

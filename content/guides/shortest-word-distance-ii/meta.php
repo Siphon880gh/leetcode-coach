@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Hash Table',
     'kind' => 'algo',
     'tags' => ['hash-table', 'two-pointers', 'design', 'leetcode'],
+    'related_session' => 'shortest-word-distance-ii',
 ];

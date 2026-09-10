@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Bit Manipulation',
     'kind' => 'algo',
     'tags' => ['bit-manipulation', 'math', 'leetcode'],
+    'related_session' => 'power-of-two',
 ];

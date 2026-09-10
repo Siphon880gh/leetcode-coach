@@ -2,14 +2,14 @@
 name: update-leetcode-urls
 description: >-
   Use when updating the LeetCode url to LeetCode number map, refreshing
-  context-leetcode-urls/data-cleaned.json or data-input.html, copying HTML from
-  https://leetcode.com/problemset/, or when LeetCode numbers in the app should
-  open the LeetCode coding page in a tab.
+  context-leetcode-urls/data-cleaned.json, data-difficulty.json, or
+  data-input.html, copying HTML from https://leetcode.com/problemset/, or when
+  LeetCode numbers in the app should open the LeetCode coding page in a tab.
 ---
 
 # Update LeetCode urls to LeetCode numbers
 
-This skill is **strictly** for refreshing the problem-number → `https://leetcode.com/problems/...` map used by this app.
+This skill is **strictly** for refreshing the problem-number → URL and Easy/Med/Hard maps used by this app.
 
 Do not scrape LeetCode. Do not invent URLs. Do not `Read()` `data-input.html` or `data-cleaned.json` whole (the HTML dump is huge).
 
@@ -51,7 +51,7 @@ When they say ready:
 python3 .agents/skills/update-leetcode-urls/scripts/clean.py
 ```
 
-3. The script writes `context-leetcode-urls/data-cleaned.json`: problem number → `https://leetcode.com/problems/{slug}` (no query string). Report its count and new largest number.
+3. The script writes `context-leetcode-urls/data-cleaned.json` (problem number → URL) and `context-leetcode-urls/data-difficulty.json` (problem number → `Easy` / `Med` / `Hard` from the table column). Report count and new largest number.
 4. If the script fails or finds fewer than a few hundred problems, do not keep a partial overwrite as done. Inspect a small HTML sample with a script (not `Read()` of the whole file), fix the parser if the markup changed, or ask them to copy the full table again.
 
 Do not invent missing numbers. Duplicate numbers with the same URL are fine; different URLs for the same number is a stop-and-ask.
@@ -60,12 +60,12 @@ Do not invent missing numbers. Duplicate numbers with the same URL are fine; dif
 
 Then I (the AI) will make sure leetcode problems link to the leetcode coding page in a tab.
 
-1. App lookup is `content_leetcode_url()` in `includes/content.php`, which reads `context-leetcode-urls/data-cleaned.json`.
-2. UI labels go through `content_leetcode_label_html()` / `render_leetcode_row()` and the Browse panel. They must be `<a class="leetcode-link" href="{url}" target="_blank" rel="noopener noreferrer">` (never nested inside another `<a>`).
+1. App lookup is `content_leetcode_url()` / `content_leetcode_difficulty()` in `includes/content.php`, which read `data-cleaned.json` and `data-difficulty.json`.
+2. UI labels go through `content_leetcode_label_html()` / `content_leetcode_difficulty_html()` / `render_leetcode_row()` and the Browse panel. Number links must be `<a class="leetcode-link" href="{url}" target="_blank" rel="noopener noreferrer">` (never nested inside another `<a>`). Easy / Med / Hard sits on that same row, after the number.
 3. If that wiring is missing, restore it. If only the JSON changed, a PHP lookup check is enough:
 
 ```bash
-php -r 'require "includes/content.php"; echo content_leetcode_url(1), "\n";'
+php -r 'require "includes/content.php"; echo content_leetcode_url(1), " ", content_leetcode_difficulty(1), "\n";'
 ```
 
 4. Spot-check that a known number (for example 1 → two-sum) still matches the new map.

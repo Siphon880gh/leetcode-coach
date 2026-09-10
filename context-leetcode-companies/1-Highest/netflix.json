@@ -1,0 +1,11 @@
+{
+  "slug": "netflix",
+  "name": "Netflix",
+  "url": "https://leetcode.com/company/netflix/?favoriteSlug=netflix-three-months",
+  "favoriteSlug": "netflix-three-months",
+  "updatedAt": "2026-09-08T08:28:53Z",
+  "problems": [
+    981,
+    2622
+  ]
+}

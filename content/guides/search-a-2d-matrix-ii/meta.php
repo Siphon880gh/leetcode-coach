@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Matrix',
     'kind' => 'algo',
     'tags' => ['matrix', 'binary-search', 'two-pointers', 'leetcode'],
+    'related_session' => 'search-a-2d-matrix-ii',
 ];

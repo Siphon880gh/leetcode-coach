@@ -1,0 +1,12 @@
+{
+  "slug": "doordash",
+  "name": "DoorDash",
+  "url": "https://leetcode.com/company/doordash/?favoriteSlug=doordash-six-months",
+  "favoriteSlug": "doordash-six-months",
+  "updatedAt": "2026-09-08T08:29:25Z",
+  "problems": [
+    210,
+    329,
+    456
+  ]
+}

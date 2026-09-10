@@ -11,7 +11,9 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
-LEVEL_DIR_RE = re.compile(r"^[1-5]-[A-Za-z]+$")
+LEVEL_DIR_RE = re.compile(r"^[1-8]-[A-Za-z]+$")
+PRICED_LEVEL_IDS = ("1-Highest", "2-High", "3-Mid", "4-Lower", "5-Lowest")
+OTHER_LEVEL_IDS = ("6-Unpriceable", "7-Cooldown", "8-WillPrice")
 META_JSON = {"index.json", "levels.json"}
 
 
@@ -215,6 +217,11 @@ def self_test() -> None:
         raise AssertionError("expected empty list rejection")
     except ValueError:
         pass
+    assert LEVEL_DIR_RE.match("5-Lowest")
+    assert LEVEL_DIR_RE.match("8-WillPrice")
+    assert LEVEL_DIR_RE.match("6-Unpriceable")
+    assert LEVEL_DIR_RE.match("7-Cooldown")
+    assert not LEVEL_DIR_RE.match("9-Nope")
 
 
 def main() -> int:

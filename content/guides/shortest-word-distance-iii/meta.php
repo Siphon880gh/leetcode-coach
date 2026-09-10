@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Arrays',
     'kind' => 'algo',
     'tags' => ['arrays', 'two-pointers', 'strings', 'leetcode'],
+    'related_session' => 'shortest-word-distance-iii',
 ];

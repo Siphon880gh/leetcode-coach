@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""List scraped LeetCode companies missing from the Filter popover (or missing senior TC)."""
+"""List scraped LeetCode companies by Filter salary status."""
 
 from __future__ import annotations
 
@@ -11,6 +11,12 @@ SKILLS = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(SKILLS / "update-leetcode-companies" / "scripts"))
 
 import save  # noqa: E402
+
+OTHER_BUCKETS = {
+    "6-Unpriceable": "unpriceable",
+    "7-Cooldown": "cooldown",
+    "8-WillPrice": "willPrice",
+}
 
 
 def load_levels_companies(dstdir: Path) -> dict[str, dict]:
@@ -35,6 +41,18 @@ def problem_count(data: dict) -> int:
         return 0
 
 
+def company_item(slug: str, name: str, rel: str, count: int, extra: dict | None = None) -> dict:
+    item = {
+        "slug": slug,
+        "name": name,
+        "file": rel,
+        "problemCount": count,
+    }
+    if extra:
+        item.update(extra)
+    return item
+
+
 def salary_ok(row: dict | None) -> bool:
     if not row:
         return False
@@ -42,13 +60,16 @@ def salary_ok(row: dict | None) -> bool:
     if not isinstance(usd, int) or usd < 1:
         return False
     level = str(row.get("level") or "").strip()
-    return bool(save.LEVEL_DIR_RE.match(level))
+    return level in save.PRICED_LEVEL_IDS
 
 
 def find_gaps(root: Path | None = None) -> dict:
     dstdir = save.data_dir(root or save.repo_root())
     levels = load_levels_companies(dstdir)
     missing: list[dict] = []
+    will_price: list[dict] = []
+    cooldown: list[dict] = []
+    unpriceable: list[dict] = []
     ok = 0
 
     for path in save.iter_company_files(dstdir):
@@ -65,30 +86,34 @@ def find_gaps(root: Path | None = None) -> dict:
         rel = path.relative_to(dstdir).as_posix()
         row = levels.get(slug)
         if row is None:
-            missing.append(
-                {
-                    "slug": slug,
-                    "name": name,
-                    "file": rel,
-                    "problemCount": count,
-                    "reason": "not-in-levels",
-                }
-            )
+            missing.append(company_item(slug, name, rel, count, {"reason": "not-in-levels"}))
             continue
-        if not salary_ok(row):
-            missing.append(
-                {
-                    "slug": slug,
-                    "name": name,
-                    "file": rel,
-                    "problemCount": count,
-                    "reason": "missing-salary",
-                }
-            )
+        if salary_ok(row):
+            ok += 1
             continue
-        ok += 1
+        level = str(row.get("level") or "").strip()
+        extra = {"reason": "missing-salary", "level": level}
+        note = str(row.get("note") or "").strip()
+        if note:
+            extra["note"] = note
+        item = company_item(slug, name, rel, count, extra)
+        bucket = OTHER_BUCKETS.get(level)
+        if bucket == "willPrice":
+            will_price.append(item)
+        elif bucket == "cooldown":
+            cooldown.append(item)
+        elif bucket == "unpriceable":
+            unpriceable.append(item)
+        else:
+            missing.append(item)
 
-    return {"missing": missing, "ok": ok}
+    return {
+        "ok": ok,
+        "willPrice": will_price,
+        "cooldown": cooldown,
+        "unpriceable": unpriceable,
+        "missing": missing,
+    }
 
 
 def main() -> int:

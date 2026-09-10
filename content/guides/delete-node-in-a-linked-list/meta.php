@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Linked List',
     'kind' => 'algo',
     'tags' => ['linked-list', 'in-place', 'leetcode'],
+    'related_session' => 'delete-node-in-a-linked-list',
 ];

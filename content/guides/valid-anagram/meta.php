@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Hash Table',
     'kind' => 'algo',
     'tags' => ['hash-table', 'strings', 'sorting', 'leetcode'],
+    'related_session' => 'valid-anagram',
 ];

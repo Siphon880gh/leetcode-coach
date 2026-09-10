@@ -1,0 +1,20 @@
+{
+  "slug": "yahoo",
+  "name": "Yahoo",
+  "url": "https://leetcode.com/company/yahoo/?favoriteSlug=yahoo-more-than-six-months",
+  "favoriteSlug": "yahoo-more-than-six-months",
+  "updatedAt": "2026-09-08T08:30:42Z",
+  "problems": [
+    14,
+    20,
+    39,
+    54,
+    93,
+    98,
+    162,
+    341,
+    347,
+    399,
+    560
+  ]
+}

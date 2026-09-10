@@ -1,0 +1,11 @@
+{
+  "slug": "openai",
+  "name": "OpenAI",
+  "url": "https://leetcode.com/company/openai/?favoriteSlug=openai-three-months",
+  "favoriteSlug": "openai-three-months",
+  "updatedAt": "2026-09-08T08:29:44Z",
+  "problems": [
+    994,
+    2502
+  ]
+}

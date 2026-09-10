@@ -71,3 +71,5 @@ bash context/clone.sh
 ```
 
 See [`context/README.md`](context/README.md) for the catalog.
+
+LeetCode company interview lists and **Filter → Companies** (pay bands plus Others) live in [`context-leetcode-companies/`](context-leetcode-companies/README.md).
