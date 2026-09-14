@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Bit Manipulation',
     'kind' => 'algo',
     'tags' => ['bit-manipulation', 'greedy', 'math', 'leetcode'],
+    'related_session' => 'integer-replacement',
 ];

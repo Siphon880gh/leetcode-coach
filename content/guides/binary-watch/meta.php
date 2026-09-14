@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Bit Manipulation',
     'kind' => 'algo',
     'tags' => ['bit-manipulation', 'backtracking', 'leetcode'],
+    'related_session' => 'binary-watch',
 ];

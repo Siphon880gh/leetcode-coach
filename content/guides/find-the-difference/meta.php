@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Counting',
     'kind' => 'algo',
     'tags' => ['counting', 'bit-manipulation', 'strings', 'leetcode'],
+    'related_session' => 'find-the-difference',
 ];

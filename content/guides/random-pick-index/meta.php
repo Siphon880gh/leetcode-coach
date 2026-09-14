@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Reservoir Sampling',
     'kind' => 'algo',
     'tags' => ['reservoir-sampling', 'randomized', 'hash-table', 'leetcode'],
+    'related_session' => 'random-pick-index',
 ];

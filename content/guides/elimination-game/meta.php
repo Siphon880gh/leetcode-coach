@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Math',
     'kind' => 'algo',
     'tags' => ['math', 'recursion', 'simulation', 'leetcode'],
+    'related_session' => 'elimination-game',
 ];

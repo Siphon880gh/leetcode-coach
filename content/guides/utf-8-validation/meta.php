@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Bit Manipulation',
     'kind' => 'algo',
     'tags' => ['bit-manipulation', 'arrays', 'leetcode'],
+    'related_session' => 'utf-8-validation',
 ];

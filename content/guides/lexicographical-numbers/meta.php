@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Depth-First Search',
     'kind' => 'algo',
     'tags' => ['dfs', 'trie', 'math', 'leetcode'],
+    'related_session' => 'lexicographical-numbers',
 ];

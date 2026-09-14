@@ -13,11 +13,11 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/0300-0399/0385.Mini Parser"
+    "last_id": "solution/0400-0499/0415.Add Strings"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0300-0399/0386.Lexicographical Numbers"
+    "id": "solution/0400-0499/0416.Partition Equal Subset Sum"
   },
   "completed": [
     {
@@ -2323,6 +2323,186 @@
       "id": "solution/0300-0399/0385.Mini Parser",
       "slug": "mini-parser",
       "title": "Mini Parser"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0386.Lexicographical Numbers",
+      "slug": "lexicographical-numbers",
+      "title": "Lexicographical Numbers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0387.First Unique Character in a String",
+      "slug": "first-unique-character-in-a-string",
+      "title": "First Unique Character in a String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0388.Longest Absolute File Path",
+      "slug": "longest-absolute-file-path",
+      "title": "Longest Absolute File Path"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0389.Find the Difference",
+      "slug": "find-the-difference",
+      "title": "Find the Difference"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0390.Elimination Game",
+      "slug": "elimination-game",
+      "title": "Elimination Game"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0391.Perfect Rectangle",
+      "slug": "perfect-rectangle",
+      "title": "Perfect Rectangle"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0392.Is Subsequence",
+      "slug": "is-subsequence",
+      "title": "Is Subsequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0393.UTF-8 Validation",
+      "slug": "utf-8-validation",
+      "title": "UTF-8 Validation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0394.Decode String",
+      "slug": "decode-string",
+      "title": "Decode String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0395.Longest Substring with At Least K Repeating Characters",
+      "slug": "longest-substring-with-at-least-k-repeating-characters",
+      "title": "Longest Substring with At Least K Repeating Characters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0396.Rotate Function",
+      "slug": "rotate-function",
+      "title": "Rotate Function"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0397.Integer Replacement",
+      "slug": "integer-replacement",
+      "title": "Integer Replacement"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0398.Random Pick Index",
+      "slug": "random-pick-index",
+      "title": "Random Pick Index"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0300-0399/0399.Evaluate Division",
+      "slug": "evaluate-division",
+      "title": "Evaluate Division"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0400.Nth Digit",
+      "slug": "nth-digit",
+      "title": "Nth Digit"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0401.Binary Watch",
+      "slug": "binary-watch",
+      "title": "Binary Watch"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0402.Remove K Digits",
+      "slug": "remove-k-digits",
+      "title": "Remove K Digits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0403.Frog Jump",
+      "slug": "frog-jump",
+      "title": "Frog Jump"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0404.Sum of Left Leaves",
+      "slug": "sum-of-left-leaves",
+      "title": "Sum of Left Leaves"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0405.Convert a Number to Hexadecimal",
+      "slug": "convert-a-number-to-hexadecimal",
+      "title": "Convert a Number to Hexadecimal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0406.Queue Reconstruction by Height",
+      "slug": "queue-reconstruction-by-height",
+      "title": "Queue Reconstruction by Height"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0407.Trapping Rain Water II",
+      "slug": "trapping-rain-water-ii",
+      "title": "Trapping Rain Water II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0408.Valid Word Abbreviation",
+      "slug": "valid-word-abbreviation",
+      "title": "Valid Word Abbreviation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0409.Longest Palindrome",
+      "slug": "longest-palindrome",
+      "title": "Longest Palindrome"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0410.Split Array Largest Sum",
+      "slug": "split-array-largest-sum",
+      "title": "Split Array Largest Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0411.Minimum Unique Word Abbreviation",
+      "slug": "minimum-unique-word-abbreviation",
+      "title": "Minimum Unique Word Abbreviation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0412.Fizz Buzz",
+      "slug": "fizz-buzz",
+      "title": "Fizz Buzz"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0413.Arithmetic Slices",
+      "slug": "arithmetic-slices",
+      "title": "Arithmetic Slices"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0414.Third Maximum Number",
+      "slug": "third-maximum-number",
+      "title": "Third Maximum Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0415.Add Strings",
+      "slug": "add-strings",
+      "title": "Add Strings"
     }
   ],
   "skipped": [

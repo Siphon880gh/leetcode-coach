@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Stack',
     'kind' => 'algo',
     'tags' => ['stack', 'greedy', 'monotonic-stack', 'leetcode'],
+    'related_session' => 'remove-k-digits',
 ];

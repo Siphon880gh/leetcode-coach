@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Divide and Conquer',
     'kind' => 'algo',
     'tags' => ['divide-and-conquer', 'sliding-window', 'strings', 'leetcode'],
+    'related_session' => 'longest-substring-with-at-least-k-repeating-characters',
 ];

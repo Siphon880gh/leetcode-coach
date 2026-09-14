@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Math',
     'kind' => 'algo',
     'tags' => ['math', 'arrays', 'dynamic-programming', 'leetcode'],
+    'related_session' => 'rotate-function',
 ];

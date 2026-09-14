@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Stack',
     'kind' => 'algo',
     'tags' => ['stack', 'strings', 'recursion', 'leetcode'],
+    'related_session' => 'decode-string',
 ];

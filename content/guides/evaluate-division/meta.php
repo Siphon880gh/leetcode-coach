@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Union Find',
     'kind' => 'algo',
     'tags' => ['union-find', 'graph', 'dfs', 'leetcode'],
+    'related_session' => 'evaluate-division',
 ];

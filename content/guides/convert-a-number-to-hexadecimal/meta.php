@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Bit Manipulation',
     'kind' => 'algo',
     'tags' => ['bit-manipulation', 'math', 'strings', 'leetcode'],
+    'related_session' => 'convert-a-number-to-hexadecimal',
 ];

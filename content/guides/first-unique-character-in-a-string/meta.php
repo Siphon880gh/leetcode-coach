@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Counting',
     'kind' => 'algo',
     'tags' => ['counting', 'hash-table', 'strings', 'leetcode'],
+    'related_session' => 'first-unique-character-in-a-string',
 ];

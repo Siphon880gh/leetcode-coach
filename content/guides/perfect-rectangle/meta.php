@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Geometry',
     'kind' => 'algo',
     'tags' => ['geometry', 'hash-table', 'math', 'leetcode'],
+    'related_session' => 'perfect-rectangle',
 ];

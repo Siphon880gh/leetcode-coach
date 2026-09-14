@@ -3,7 +3,7 @@
   "kind": "guide-step-links",
   "prompt": "PROMPTS/loop-guide-step-links.md",
   "cursor": {
-    "last_slug": "mini-parser"
+    "last_slug": "add-strings"
   },
   "next": null,
   "completed": [
@@ -2314,6 +2314,186 @@
     },
     {
       "slug": "mini-parser",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographical-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "first-unique-character-in-a-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-absolute-file-path",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-difference",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "elimination-game",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "perfect-rectangle",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "is-subsequence",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "utf-8-validation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "decode-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-substring-with-at-least-k-repeating-characters",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "rotate-function",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "integer-replacement",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "random-pick-index",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "evaluate-division",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "nth-digit",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-watch",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "remove-k-digits",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "frog-jump",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-left-leaves",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "convert-a-number-to-hexadecimal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "queue-reconstruction-by-height",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "trapping-rain-water-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-word-abbreviation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-palindrome",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "split-array-largest-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-unique-word-abbreviation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "fizz-buzz",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "arithmetic-slices",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "third-maximum-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "add-strings",
       "guide": true,
       "session": true,
       "reason": "already_linked"

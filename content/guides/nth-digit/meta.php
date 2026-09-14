@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Math',
     'kind' => 'algo',
     'tags' => ['math', 'binary-search', 'leetcode'],
+    'related_session' => 'nth-digit',
 ];

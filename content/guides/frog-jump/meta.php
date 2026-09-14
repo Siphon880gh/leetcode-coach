@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Dynamic Programming',
     'kind' => 'algo',
     'tags' => ['dynamic-programming', 'memoization', 'hash-table', 'leetcode'],
+    'related_session' => 'frog-jump',
 ];

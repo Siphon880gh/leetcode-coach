@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Trees',
     'kind' => 'algo',
     'tags' => ['trees', 'dfs', 'binary-tree', 'leetcode'],
+    'related_session' => 'sum-of-left-leaves',
 ];

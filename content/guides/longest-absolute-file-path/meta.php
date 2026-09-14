@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Stack',
     'kind' => 'algo',
     'tags' => ['stack', 'strings', 'dfs', 'leetcode'],
+    'related_session' => 'longest-absolute-file-path',
 ];

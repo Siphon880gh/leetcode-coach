@@ -10,4 +10,5 @@ return [
     'topic' => 'LeetCode · Two Pointers',
     'kind' => 'algo',
     'tags' => ['two-pointers', 'strings', 'leetcode'],
+    'related_session' => 'is-subsequence',
 ];
