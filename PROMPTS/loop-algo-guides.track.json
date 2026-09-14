@@ -13,11 +13,11 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/0400-0499/0405.Convert a Number to Hexadecimal"
+    "last_id": "solution/0400-0499/0436.Find Right Interval"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0400-0499/0406.Queue Reconstruction by Height"
+    "id": "solution/0400-0499/0437.Path Sum III"
   },
   "completed": [
     {
@@ -2443,6 +2443,192 @@
       "id": "solution/0400-0499/0405.Convert a Number to Hexadecimal",
       "slug": "convert-a-number-to-hexadecimal",
       "title": "Convert a Number to Hexadecimal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0406.Queue Reconstruction by Height",
+      "slug": "queue-reconstruction-by-height",
+      "title": "Queue Reconstruction by Height"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0407.Trapping Rain Water II",
+      "slug": "trapping-rain-water-ii",
+      "title": "Trapping Rain Water II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0408.Valid Word Abbreviation",
+      "slug": "valid-word-abbreviation",
+      "title": "Valid Word Abbreviation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0409.Longest Palindrome",
+      "slug": "longest-palindrome",
+      "title": "Longest Palindrome"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0410.Split Array Largest Sum",
+      "slug": "split-array-largest-sum",
+      "title": "Split Array Largest Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0411.Minimum Unique Word Abbreviation",
+      "slug": "minimum-unique-word-abbreviation",
+      "title": "Minimum Unique Word Abbreviation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0412.Fizz Buzz",
+      "slug": "fizz-buzz",
+      "title": "Fizz Buzz"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0413.Arithmetic Slices",
+      "slug": "arithmetic-slices",
+      "title": "Arithmetic Slices"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0414.Third Maximum Number",
+      "slug": "third-maximum-number",
+      "title": "Third Maximum Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0415.Add Strings",
+      "slug": "add-strings",
+      "title": "Add Strings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0416.Partition Equal Subset Sum",
+      "slug": "partition-equal-subset-sum",
+      "title": "Partition Equal Subset Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0417.Pacific Atlantic Water Flow",
+      "slug": "pacific-atlantic-water-flow",
+      "title": "Pacific Atlantic Water Flow"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0418.Sentence Screen Fitting",
+      "slug": "sentence-screen-fitting",
+      "title": "Sentence Screen Fitting"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0419.Battleships in a Board",
+      "slug": "battleships-in-a-board",
+      "title": "Battleships in a Board"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0420.Strong Password Checker",
+      "slug": "strong-password-checker",
+      "title": "Strong Password Checker"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0421.Maximum XOR of Two Numbers in an Array",
+      "slug": "maximum-xor-of-two-numbers-in-an-array",
+      "title": "Maximum XOR of Two Numbers in an Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0422.Valid Word Square",
+      "slug": "valid-word-square",
+      "title": "Valid Word Square"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0423.Reconstruct Original Digits from English",
+      "slug": "reconstruct-original-digits-from-english",
+      "title": "Reconstruct Original Digits from English"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0424.Longest Repeating Character Replacement",
+      "slug": "longest-repeating-character-replacement",
+      "title": "Longest Repeating Character Replacement"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0425.Word Squares",
+      "slug": "word-squares",
+      "title": "Word Squares"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0426.Convert Binary Search Tree to Sorted Doubly Linked List",
+      "slug": "convert-binary-search-tree-to-sorted-doubly-linked-list",
+      "title": "Convert Binary Search Tree to Sorted Doubly Linked List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0427.Construct Quad Tree",
+      "slug": "construct-quad-tree",
+      "title": "Construct Quad Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0428.Serialize and Deserialize N-ary Tree",
+      "slug": "serialize-and-deserialize-n-ary-tree",
+      "title": "Serialize and Deserialize N-ary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0429.N-ary Tree Level Order Traversal",
+      "slug": "n-ary-tree-level-order-traversal",
+      "title": "N-ary Tree Level Order Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0430.Flatten a Multilevel Doubly Linked List",
+      "slug": "flatten-a-multilevel-doubly-linked-list",
+      "title": "Flatten a Multilevel Doubly Linked List"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0431.Encode N-ary Tree to Binary Tree",
+      "slug": "encode-n-ary-tree-to-binary-tree",
+      "title": "Encode N-ary Tree to Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0432.All O`one Data Structure",
+      "slug": "all-oone-data-structure",
+      "title": "All O`one Data Structure"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0433.Minimum Genetic Mutation",
+      "slug": "minimum-genetic-mutation",
+      "title": "Minimum Genetic Mutation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0434.Number of Segments in a String",
+      "slug": "number-of-segments-in-a-string",
+      "title": "Number of Segments in a String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0435.Non-overlapping Intervals",
+      "slug": "non-overlapping-intervals",
+      "title": "Non-overlapping Intervals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/0400-0499/0436.Find Right Interval",
+      "slug": "find-right-interval",
+      "title": "Find Right Interval"
     }
   ],
   "skipped": [
